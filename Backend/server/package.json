@@ -1,0 +1,69 @@
+{
+  
+    "name": "almacen-db-server",
+  
+    "version": "0.0.1",
+  
+    "description": "Almacen ALtum",
+  
+    "main": "./src/server.js",
+  
+    "scripts": {
+  
+      
+    "dev": "nodemon ."
+  
+    },
+  
+    "author": "Pepe Olivert <jolisert@gmail.com>",
+  
+    "keywords": [
+  
+      
+    "almacen",
+  
+      
+    "api",
+  
+      
+    "mongo"
+  
+    ],
+  
+    "license": "UPV",
+  
+    "dependencies": {
+  
+      
+    "bcrypt": "^5.0.1",
+  
+      
+    "cors": "^2.8.5",
+  
+      
+    "dotenv": "^16.0.3",
+  
+      
+    "express": "^4.18.1",
+  
+      
+    "jsonwebtoken": "^8.5.1",
+  
+      
+    "mongodb": "^3.5.9",
+  
+      
+    "mongoose": "^6.4.6",
+  
+      
+    "morgan": "^1.10.0"
+  
+    },
+  
+    "devDependencies": {
+  
+      
+    "nodemon": "^2.0.20"
+  
+    }
+}
