@@ -1,0 +1,78 @@
+.container-initial {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #41527e;
+    color: #41527e;
+  }
+  
+  .box-signin {
+    padding: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    height: auto;
+    width: 25em;
+    background-color: #ffffff;
+    border-radius: 17px;
+  }
+  
+  .box-signin h1{
+   margin-bottom: 1em;
+  }
+  
+  .box-signin div {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 100%;
+    margin: 1em;
+  
+  }
+  
+  .box-signin div p{
+  width: 96%;
+  align-items: flex-start;
+  }
+  
+  .box-signin input {
+    margin-bottom: 2em;
+    margin-top: .3em;
+    border: none;
+    height: 50px;
+    width: 98%;
+    background: #f0f0f3;
+  }
+  
+  .box-signin button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: large;
+    font-weight: 700;
+    color: #ffffff;
+    border: none;
+    width: 303px;
+    height: 65px;
+    background: #fe4b2b;
+    border-radius: 44px;
+  }
+  
+  .box-signin button:hover {
+    text-shadow: 0 4px rgba(234, 28, 28, 0.956);
+  }
+  
+  .registerNow {
+    color: #ffffff;
+    margin: 1em;
+  }
+  .registerNow button {
+    color: #fe4b2b;
+    border: none;
+    background-color: transparent;
+  }
