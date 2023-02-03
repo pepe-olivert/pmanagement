@@ -1,7 +1,12 @@
 import React from "react";
 import "../styles/header.css";
 
-function Header() {
+function Header({onLogout}) {
+  const logout= () => {
+    
+    
+    onLogout(false);
+  };
   return (
     <div>
       <div className="header">
@@ -12,10 +17,12 @@ function Header() {
           <p>
             La división de Software de{" "}
             <strong> Altum Proyectos de Ingeniería S.L.</strong>{" "}
+
+            <button onClick={logout}>
+              Logout
+            </button>
           </p>
-          <p>
-            <button>Logout</button>
-          </p>
+          
         </span>
       </div>
     </div>
