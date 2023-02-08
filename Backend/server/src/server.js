@@ -14,7 +14,7 @@ app.use(express.json());
 //app.use('/',express.static(config.FRONTEND_DIR))
 
 app.use("/pmi", require("./pmi"));
-//require('./resources/users/users.controller').addRoutesTo(app);
+
 
 
 
