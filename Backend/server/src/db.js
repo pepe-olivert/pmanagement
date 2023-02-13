@@ -1,6 +1,9 @@
 const { Pool } = require("pg");
 const bcrypt = require ('bcrypt');
 const saltRounds=10;
+const jwt = require ('jsonwebtoken');
+const JWT_SECRET = "topsecret"; 
+const JWT_EXPIRATION = "1d";
 
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } = require("./config");
 
@@ -11,6 +14,45 @@ const pool = new Pool({
   password: DB_PASSWORD,
   database: DB_DATABASE,
 });
+
+const createToken = (email) => {
+  const token = jwt.sign({email}, JWT_SECRET, {expiresIn: JWT_EXPIRATION});
+  
+  
+  return {
+      accessToken: token,
+      
+      username: email,
+      tokenType: "Bearer",
+      expiresIn: JWT_EXPIRATION,
+  };
+
+  
+}
+
+const decodeToken = (token) => {
+  try{
+      const result = jwt.verify (token,JWT_SECRET);
+      return result;
+
+  }
+  catch(e) {
+      switch(e.name){
+          case "JsonWebTokenError":{
+              errUnauthorized(`Ẁrong token`);
+              break;
+          }
+          case "TokenExpiredError":{
+              errUnauthorized(`Token expired` );
+              break;
+          }
+          default:
+              throw e;
+      }
+  }
+
+  
+}
 
 const getProjectListSQL = `
 SELECT * FROM projects
@@ -45,11 +87,16 @@ const login=  async (email,password) => {
   
   const validate= await bcrypt.compare(password,rows[0].password);
   
-  if(validate===true){return rows;}
+  if(validate===true){
+    const token= createToken(email);
+    
+    return {token:token};}
   else{return {message: "La contraseña no coincide"}}
   };
   
 }
+
+
 
 
 module.exports = {
