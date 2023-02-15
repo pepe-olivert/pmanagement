@@ -47,46 +47,41 @@ const Login = ({ onLogin, onchangemode }) => {
   };
 
   return (
-    <div className="container-initial">
-      <form className="box-signin" onSubmit={submit}>
-        <h1>Login</h1>
-        <div>
-          <p>Email</p>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <p>Password</p>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-
+    <div class="container">
+      <div class="screen">
+        <div class="screen__content">
+          <form class="login" onSubmit={submit}>
+            <div class="login__field">
+              <i class="login__icon fas fa-user"></i>
+              <input type="text" class="login__input" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="User name / Email"/>
+            </div>
+            <div class="login__field">
+              <i class="login__icon fas fa-lock"></i>
+              <input type="password" class="login__input" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password"/>
+            </div>
+            <button class="button login__submit" onClick={submit}>
+              <span class="button__text">Log In Now</span>
+              <i class="button__icon fas fa-chevron-right"></i>
+            </button>				
+          </form>
+          <div class="social-login">
+            <h3>log in via</h3>
+            <div class="social-icons">
+              <a href="#" class="social-login__icon fab fa-instagram"></a>
+              <a href="#" class="social-login__icon fab fa-facebook"></a>
+              <a href="#" class="social-login__icon fab fa-twitter"></a>
+            </div>
+          </div>
         </div>
-
-        
-
-
-
-        <button onClick={submit}>Sign Up</button>
-        {message ? <ContentMessage /> : null}{" "}
-        {/*As seen in https://stackoverflow.com/questions/24502898/show-or-hide-element-in-react*/}
-      </form>
-      
-
-        
-        
-        
-        
-        
-
-        
-
-      
+        <div class="screen__background">
+          <span class="screen__background__shape screen__background__shape4"></span>
+          <span class="screen__background__shape screen__background__shape3"></span>		
+          <span class="screen__background__shape screen__background__shape2"></span>
+          <span class="screen__background__shape screen__background__shape1"></span>
+        </div>		
+      </div>
     </div>
   );
-};
+}
+
 export default Login;
