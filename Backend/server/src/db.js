@@ -54,11 +54,18 @@ const decodeToken = (token) => {
   
 }
 
+const getuseridSQL=`SELECT users_id FROM users WHERE email=$1`
+
+const getuserid= async(email)=>{
+  const {rows}=await pool.query(getuseridSQL,[email])
+  return rows
+}
+
 const getProjectListSQL = `
-SELECT * FROM projects
+    SELECT p.name FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
 `;
-const getProjectList = async () => {
-const { rows } = await pool.query(getProjectListSQL);
+const getProjectList = async (id) => {
+const { rows } = await pool.query(getProjectListSQL,[id]);
 return rows;
 };
 
@@ -102,5 +109,8 @@ const login=  async (email,password) => {
 module.exports = {
   getProjectList,
   register,
-  login
+  login,
+  decodeToken,
+  createToken,
+  getuserid
 };

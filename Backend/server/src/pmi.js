@@ -34,7 +34,25 @@ pmi.post("/login",async (req,res) => {
     
     
     const logged = await db.login(email,p)
-    return res.status(200).json(logged)
+    if (logged.token){return res.status(200).json(logged)}
+    else{res.status(500).json(logged.message)}
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.get("/getProjects/:token",async (req,res) => {
+  try{
+    const token= req.params.token
+    const decoded= await db.decodeToken(token)
+    const name= decoded.email
+    const x= await db.getuserid(name)
+    const id= x[0].users_id
+    
+
+    const projects = await db.getProjectList(id)
+    return res.status(200).json(projects)
   }catch (e){
     console.log(e)
     return res.status(500).json({ error: e.toString() });
