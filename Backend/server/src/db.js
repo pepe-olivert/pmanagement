@@ -103,6 +103,18 @@ const login=  async (email,password) => {
   
 }
 
+const insertProject=`INSERT INTO "projects" (project_id,beginning_date,ending_date) VALUES ($1,$2,$3);
+                     INSERT INTO "users_projects" (users_id,projects_id) VALUES ($4,$1);`;
+
+const setProject =  async (project_id,beginning_date,ending_date, users_id) => {
+  
+  const res = await pool.query(insertProject,[project_id, beginning_date, ending_date, users_id]);
+
+  const message= {message: "Project created correctly! "}
+  return message;
+  
+}
+
 
 
 
@@ -112,5 +124,6 @@ module.exports = {
   login,
   decodeToken,
   createToken,
-  getuserid
+  getuserid,
+  setProject
 };

@@ -54,6 +54,17 @@ function App() {
       else{return {message: 'We are sorry but something went wrong...'}}
   }
 
+  const createNewProject=async ()=> {
+      
+    const projects=await api.setProject()
+    
+    if (projects.success){
+      const allProjects=projects.projects
+      setp(allProjects)
+    }
+    else{return {message: 'We are sorry but something went wrong...'}}
+}
+
 
   if (token === null) {
 
@@ -70,15 +81,17 @@ function App() {
 
           <body>
             Pulse aquí para buscar sus proyectos: 
-              <button onClick={searchProjectsUser}>Aquí...  <br /></button> 
-                
+              <button onClick={searchProjectsUser}>Aquí...  <br /></button>
               <div>
                 {p.map(p=>(
                   <tr>
                     <td>{p.name}</td>
                   </tr>
                 ))}
-              </div>
+              </div> 
+            Create New Project: 
+            <button onClick={createNewProject}>New Project  <br /></button> 
+              
           </body>
 
           

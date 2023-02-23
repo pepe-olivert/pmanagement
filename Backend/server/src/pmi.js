@@ -59,6 +59,22 @@ pmi.get("/getProjects/:token",async (req,res) => {
   }
 })
 
+pmi.post("/setProject",async (req,res) => { // no se si es necesario utilizar el token
+  // si no entiendo mal el token es un valor que está encriptado y que se puede utilizar en multiples ocasiones, ya sea como contraseña o como url, etc
+  try{    
+    const project_id= req.body.project_id
+    const beginning_date=req.body.beginning_date
+    const ending_date = req.body.ending_date
+    const users_id = req.body.users_id
+    
+    const newproject = await db.setProject(project_id,beginning_date,ending_date,users_id)//no coge el metodo setProject de la clase db
+    return res.status(200).json(newproject)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 
 
 
