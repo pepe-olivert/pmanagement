@@ -13,7 +13,7 @@ function App() {
   
   const [mode, setMode] = useState("login");
   
-
+  
   const login = (token) => {
 
     setToken(token);
@@ -69,9 +69,8 @@ function App() {
           </header>
 
           <body>
-            Pulse aquí para buscar sus proyectos: 
-              <button onClick={searchProjectsUser}>Aquí...  <br /></button> 
-                
+            
+              {searchProjectsUser}
               <div>
                 {p.map(p=>(
                   <tr>
