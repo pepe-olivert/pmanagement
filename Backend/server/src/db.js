@@ -62,7 +62,7 @@ const getuserid= async(email)=>{
 }
 
 const getProjectListSQL = `
-    SELECT p.name FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
+    SELECT p.projects_id,p.name,p.class FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
 `;
 const getProjectList = async (id) => {
 const { rows } = await pool.query(getProjectListSQL,[id]);
@@ -79,6 +79,20 @@ const register=  (email,password,rol) => {
   })
 
   const message= {message: "User registered correctly! "}
+  return message;
+  
+}
+
+const updateprojectSQL=`UPDATE projects SET project_scope=$2, project_requirements=$3,project_budget=$4,completion_time=$5,milestones=$6,state=$7 WHERE projects_id=$1`;
+
+const updateproject=  async (id,ps,pr,pb,ct,m) => {
+  
+  const state = "ON INITIATE"
+  const res = await pool.query(updateprojectSQL,[id,ps, pr, pb,ct,m,state]);
+  ;
+  
+
+  const message= {message: "Your project has been initiated! "}
   return message;
   
 }
@@ -112,5 +126,6 @@ module.exports = {
   login,
   decodeToken,
   createToken,
-  getuserid
+  getuserid,
+  updateproject
 };

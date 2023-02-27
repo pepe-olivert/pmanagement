@@ -26,6 +26,23 @@ pmi.post("/register",async (req,res) => {
   }
 })
 
+pmi.post("/updateproject",async (req,res) => {
+  try{
+    const id= req.body.id
+    const ps= req.body.project_scope
+    const pr=req.body.project_requirements
+    const pb= req.body.project_budget
+    const ct=req.body.completion_time
+    const m=req.body.milestones
+    
+    const updated = await db.updateproject(id,ps,pr,pb,ct,m)
+    return res.status(200).json(updated)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 pmi.post("/login",async (req,res) => {
   try{
     
@@ -52,6 +69,7 @@ pmi.get("/getProjects/:token",async (req,res) => {
     
 
     const projects = await db.getProjectList(id)
+    
     return res.status(200).json(projects)
   }catch (e){
     console.log(e)
