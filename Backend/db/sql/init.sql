@@ -56,8 +56,14 @@ CREATE TABLE users_tasks (
 CREATE TABLE tasks (
     tasks_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     project_id INTEGER REFERENCES projects(projects_id),
+    name VARCHAR(50),
     unit TEXT NOT NULL,
-    quantity INTEGER NOT NULL
+    quantity INTEGER NOT NULL,
+    profile VARCHAR(20),
+    starting_date DATE,
+    ending_date DATE,
+    performance INTEGER,
+    tools VARCHAR(20)
 );
 
 CREATE TABLE profiles_tasks (

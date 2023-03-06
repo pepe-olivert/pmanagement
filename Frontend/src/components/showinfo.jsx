@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import Initiate from "./initiate.jsx"
+import Task from "./createtasks.jsx"
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {
     const [name,setname]=useState("");
@@ -7,6 +8,7 @@ function showinfo ({onInfo,onRecieved})  {
     const [aux,setaux]=useState([]);
     const [ini,setini]=useState(false)
     const [id,setid]=useState("");
+    const [task,settask]=useState(false);
 
     const info= () => {
         onInfo(false);
@@ -14,6 +16,10 @@ function showinfo ({onInfo,onRecieved})  {
 
     const initiate=()=>{
       setini(!ini)
+    }
+
+    const ctask=()=>{
+      settask(!task)
     }
 
       useEffect(()=>{
@@ -27,6 +33,12 @@ function showinfo ({onInfo,onRecieved})  {
     if (ini==true){return (
       <Initiate oninitiate={initiate} onInfo={info} onRecieved={onRecieved}/>
     )}
+
+    else if (task===true){return (
+      <Task ontask={ctask} onInfo={info} onRecieved={onRecieved}/>
+    )
+
+    }
     else{
     return ( 
 
@@ -56,6 +68,10 @@ function showinfo ({onInfo,onRecieved})  {
 
             <button onClick={initiate}>
               Click to INITIATE YOUR PROJECT
+            </button>
+
+            <button onClick={ctask}>
+              Click to ADD TASKS to your project
             </button>
             
             

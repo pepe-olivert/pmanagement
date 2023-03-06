@@ -75,6 +75,7 @@ const register=  (email,password,rol) => {
   
   bcrypt.hash(password,saltRounds, async (err,hash) => {
     const res = await pool.query(registerSQL,[email, hash, rol]);
+    
     ;
   })
 
@@ -111,11 +112,28 @@ const login=  async (email,password) => {
   if(validate===true){
     const token= createToken(email);
     
-    return {token:token};}
+    return {token:token,userid:rows[0].users_id};}
   else{return {message: "La contraseña no coincide"}}
   };
   
 }
+
+const createTaskSQL=`INSERT INTO "tasks" (project_id,name,unit,quantity) VALUES ($1,$2,$3,$4)`;
+
+const createTask=  async (projects_id,name,unit,quantity) => {
+  
+  
+  const res = await pool.query(createTaskSQL,[projects_id,name,unit,quantity]);
+  
+  ;
+  
+
+  const message= {message: "Task created correctly! "}
+  console.log(message)
+  return message;
+  
+}
+
 
 
 
@@ -127,5 +145,6 @@ module.exports = {
   decodeToken,
   createToken,
   getuserid,
-  updateproject
+  updateproject,
+  createTask
 };

@@ -43,6 +43,28 @@ pmi.post("/updateproject",async (req,res) => {
   }
 })
 
+pmi.post("/createTask",async (req,res) => {
+  try{
+    const a=req.body
+    
+    const returned=[]
+    for (i in a){
+      const p_id=a[i].projects_id
+      const name= a[i].name
+      const unit= a[i].unit
+      const q=a[i].quantity
+      
+      
+      const updated = await db.createTask(p_id,name,unit,q);
+      returned.push(updated)
+    }
+    return res.status(200).json(returned)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 pmi.post("/login",async (req,res) => {
   try{
     
