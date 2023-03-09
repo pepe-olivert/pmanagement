@@ -27,7 +27,8 @@ CREATE TABLE projects (
     class VARCHAR(20) NOT NULL,
     name VARCHAR(50) NOT NULL,
     starting_date DATE,
-    ending_date DATE
+    ending_date DATE,
+    state VARCHAR(20)
 );
 
 CREATE TABLE profiles (

@@ -62,7 +62,7 @@ const getuserid= async(email)=>{
 }
 
 const getProjectListSQL = `
-    SELECT p.name FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
+    SELECT p.name, p.projects_id FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
 `;
 const getProjectList = async (id) => {
 const { rows } = await pool.query(getProjectListSQL,[id]);
@@ -75,7 +75,7 @@ const register=  (email,password,rol) => {
   
   bcrypt.hash(password,saltRounds, async (err,hash) => {
     const res = await pool.query(registerSQL,[email, hash, rol]);
-    ;
+    
   })
 
   const message= {message: "User registered correctly! "}
@@ -97,23 +97,63 @@ const login=  async (email,password) => {
   if(validate===true){
     const token= createToken(email);
     
-    return {token:token};}
+    return {token:token,userid:rows[0].users_id};}
   else{return {message: "La contraseña no coincide"}}
   };
   
 }
 
-const insertProject=`INSERT INTO "projects" (project_id,beginning_date,ending_date) VALUES ($1,$2,$3);
-                     INSERT INTO "users_projects" (users_id,projects_id) VALUES ($4,$1);`;
+const insertProject=`
+  INSERT INTO "projects" (class,name,starting_date,ending_date,state) VALUES ($1,$2,$3,$4,$5) 
+  RETURNING *;`;
 
-const setProject =  async (project_id,beginning_date,ending_date, users_id) => {
+const setProject =  async (p_class,p_name,starting_date,ending_date) => {
+  const state = "CREATED"
+  const res = await pool.query(insertProject,[p_class,p_name, starting_date, ending_date,state]);
+  return res.rows[0].projects_id;
   
-  const res = await pool.query(insertProject,[project_id, beginning_date, ending_date, users_id]);
+}
 
+const insertUserProject=`
+  INSERT INTO "users_projects" (users_id,projects_id) VALUES ($1,$2)`;
+
+const setUserProject=  async (users_id,projects_id) => {
+  
+  const res = await pool.query(insertUserProject,[users_id,projects_id]);
   const message= {message: "Project created correctly! "}
   return message;
   
 }
+
+const selectUsers = `SELECT users_id, rol, email FROM users;`;
+
+const getUsers =  async () => {
+  
+  const { rows }  = await pool.query(selectUsers);
+  //const message= {message: "The username is: " + email}
+  return rows;
+  
+}
+
+const insertTeamMember = `INSERT INTO "users_projects" (users_id,projects_id) VALUES ($1,$2)`;
+
+const setTeamMember = async (users_id,projects_id) => {
+
+  const res = await pool.query(insertTeamMember,[users_id,projects_id]);
+  const message= {message: "Team Member inserted correctly! "}
+  return message;
+
+}
+
+const updateRolTeamMember = `UPDATE "users" SET rol=$2 WHERE users_id=$1;`;
+
+const setRolTeamMember = async (users_id,rol) => {
+
+  const res = await pool.query(updateRolTeamMember,[users_id,rol]);
+  return res;
+
+}
+
 
 
 
@@ -125,5 +165,9 @@ module.exports = {
   decodeToken,
   createToken,
   getuserid,
-  setProject
+  setProject,
+  setUserProject,
+  getUsers,
+  setTeamMember,
+  setRolTeamMember
 };

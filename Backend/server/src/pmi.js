@@ -59,16 +59,44 @@ pmi.get("/getProjects/:token",async (req,res) => {
   }
 })
 
-pmi.post("/setProject",async (req,res) => { // no se si es necesario utilizar el token
-  // si no entiendo mal el token es un valor que está encriptado y que se puede utilizar en multiples ocasiones, ya sea como contraseña o como url, etc
+pmi.post("/setProject",async (req,res) => {
   try{    
-    const project_id= req.body.project_id
-    const beginning_date=req.body.beginning_date
-    const ending_date = req.body.ending_date
-    const users_id = req.body.users_id
-    
-    const newproject = await db.setProject(project_id,beginning_date,ending_date,users_id)//no coge el metodo setProject de la clase db
-    return res.status(200).json(newproject)
+      const p_class = req.body.p_class
+      const p_name = req.body.p_name
+      const starting_date=req.body.starting_date
+      const ending_date = req.body.ending_date
+      const newproject = await db.setProject(p_class,p_name,starting_date,ending_date)
+
+      const users_id= req.body.users_id
+      const newusersprojects = await db.setUserProject(users_id,newproject)
+
+      return res.status(200).json(newproject, newusersprojects)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.get("/getUsers", async (req, res) => {
+  try {
+    const users = await db.getUsers();
+    res.status(200).json(users);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
+pmi.post("/setTeamMember",async (req,res) => {
+  try{    
+      const users_id=req.body.users_id
+      const rol = req.body.rol
+      const rolTeamMember = await db.setRolTeamMember(users_id, rol)
+      console.log(users_id)
+
+      const projects_id = req.body.projects_id
+      const newTeamMember = await db.setTeamMember(users_id,projects_id)
+
+      return res.status(200).json(rolTeamMember, newTeamMember)
   }catch (e){
     console.log(e)
     return res.status(500).json({ error: e.toString() });

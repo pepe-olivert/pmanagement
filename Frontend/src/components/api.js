@@ -75,6 +75,53 @@ export const getProjects = async (userData) => {
   }
 };
 
+export const setTeamMember = async (projectData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/setTeamMember`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(projectData),
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, token: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/getUsers`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, users: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+
+  
+};
+
 
 
 
