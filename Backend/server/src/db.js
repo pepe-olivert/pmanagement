@@ -98,6 +98,36 @@ const updateproject=  async (id,ps,pr,pb,ct,m) => {
   
 }
 
+const updateprojectstateSQL=`UPDATE projects SET state=$2 WHERE projects_id=$1`;
+
+const updateprojectstate=  async (id) => {
+  
+  const state = "PLANNED ON"
+  const res = await pool.query(updateprojectstateSQL,[id,state]);
+  ;
+  
+
+  const message= {message: "Your project it's planned on! "}
+  return message;
+  
+}
+
+const showtasksSQL=`SELECT * FROM tasks WHERE project_id=$1`;
+
+const showtasks=  async (id) => {
+  
+  
+  const res= await pool.query(showtasksSQL,[id]);
+  
+  return res.rows
+
+  ;
+  
+
+  ;
+  
+}
+
 const loginSQL=`SELECT * FROM users WHERE email=$1`;
 
 const login=  async (email,password) => {
@@ -146,5 +176,7 @@ module.exports = {
   createToken,
   getuserid,
   updateproject,
-  createTask
+  createTask,
+  updateprojectstate,
+  showtasks
 };

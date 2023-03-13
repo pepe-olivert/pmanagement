@@ -72,7 +72,8 @@ function App() {
           <body>
             
               
-              <div>
+              
+                
                 {p.map(p=>(
                   <tr>
                     <td><button onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
@@ -81,7 +82,7 @@ function App() {
                     
                   </tr>
                 ))}
-              </div>
+                
           </body>
 
           

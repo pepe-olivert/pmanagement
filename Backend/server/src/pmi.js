@@ -11,6 +11,18 @@ pmi.get("/projects", async (req, res) => {
   }
 });
 
+pmi.get("/showtasks/:id", async (req, res) => {
+  try {
+    console.log(req.params)
+    const id = req.params.id
+    
+    const tasks = await db.showtasks(id);
+    res.status(200).json(tasks);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
 pmi.post("/register",async (req,res) => {
   try{
     
@@ -36,6 +48,19 @@ pmi.post("/updateproject",async (req,res) => {
     const m=req.body.milestones
     
     const updated = await db.updateproject(id,ps,pr,pb,ct,m)
+    return res.status(200).json(updated)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.post("/updateprojectstate",async (req,res) => {
+  try{
+    const id= req.body.id
+    
+    
+    const updated = await db.updateprojectstate(id)
     return res.status(200).json(updated)
   }catch (e){
     console.log(e)
