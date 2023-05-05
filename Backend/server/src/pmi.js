@@ -11,6 +11,18 @@ pmi.get("/projects", async (req, res) => {
   }
 });
 
+pmi.get("/showtasks/:id", async (req, res) => {
+  try {
+    console.log(req.params)
+    const id = req.params.id
+    
+    const tasks = await db.showtasks(id);
+    res.status(200).json(tasks);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
 pmi.post("/register",async (req,res) => {
   try{
     
@@ -20,6 +32,58 @@ pmi.post("/register",async (req,res) => {
     
     const registered = await db.register(email,p,r)
     return res.status(200).json(registered)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.post("/updateproject",async (req,res) => {
+  try{
+    const id= req.body.id
+    const ps= req.body.project_scope
+    const pr=req.body.project_requirements
+    const pb= req.body.project_budget
+    const ct=req.body.completion_time
+    const m=req.body.milestones
+    
+    const updated = await db.updateproject(id,ps,pr,pb,ct,m)
+    return res.status(200).json(updated)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.post("/updateprojectstate",async (req,res) => {
+  try{
+    const id= req.body.id
+    
+    
+    const updated = await db.updateprojectstate(id)
+    return res.status(200).json(updated)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.post("/createTask",async (req,res) => {
+  try{
+    const a=req.body
+    
+    const returned=[]
+    for (i in a){
+      const p_id=a[i].projects_id
+      const name= a[i].name
+      const unit= a[i].unit
+      const q=a[i].quantity
+      
+      
+      const updated = await db.createTask(p_id,name,unit,q);
+      returned.push(updated)
+    }
+    return res.status(200).json(returned)
   }catch (e){
     console.log(e)
     return res.status(500).json({ error: e.toString() });
@@ -52,6 +116,7 @@ pmi.get("/getProjects/:token",async (req,res) => {
     
 
     const projects = await db.getProjectList(id)
+    
     return res.status(200).json(projects)
   }catch (e){
     console.log(e)

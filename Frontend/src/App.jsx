@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/header.jsx";
 
 import Login from "./components/login.jsx"
+
 import SetProject from "./components/setProject.jsx"
 import AddTeamMembers from "./components/addTeamMembers.jsx"
 import Showinfo from "./components/showinfo.jsx"
@@ -18,26 +19,42 @@ function App({onInfo}) {
   const [aux, setaux] = useState([]);
   const [rol,setrol]=useState([]);
 
-  const login = (token) => {
 
+  const login = (token) => {
     setToken(token);
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("userid",token.userid);
-    
   };
 
   const setmodefn = (toggle) => {
     setMode(toggle);
   };
 
+
+  
+
   const comingbackinfo= ()=>{
     setinfo(false)
   }
 
   const logout = () => {
-    
     setToken(null);
   };
+
+
+  
+
+  const searchProjectsUser=async ()=> {
+      
+      const localToken= JSON.parse(localStorage.getItem("token"))
+      const decodeToken=localToken.token.accessToken
+      const projects=await api.getProjects(decodeToken)
+      
+      if (projects.success){
+        const allProjects=projects.projects
+        setp(allProjects)
+        
+
 
   const searchProjectsUser=async ()=> {
       
@@ -53,6 +70,7 @@ function App({onInfo}) {
 
     const userid = localStorage.getItem("userid");
     const users=await api.getRol()
+
         
         if (users.success){
           const id = userid
@@ -87,6 +105,7 @@ function App({onInfo}) {
           </header>
 
           <body>
+
 
           
             <button className="btn-newproject" onClick={createNewProject}>New Project </button> 
@@ -125,6 +144,7 @@ function App({onInfo}) {
           </div>
             
               
+
           </body>
 
           
@@ -136,7 +156,7 @@ function App({onInfo}) {
 
     )
 
-
+                }
     
     } 
   }
