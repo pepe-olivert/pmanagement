@@ -32,6 +32,26 @@ export const updateproject = async (userData) => {
   try {
     
     const response = await fetch(`${BASE_URL}/updateproject`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, token: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
 
 export const setProject = async (projectData) => {
   try {
@@ -140,10 +160,23 @@ export const showTasks = async (userData) => {
     
     
     const response = await fetch(`${BASE_URL}/showtasks/${userData}`, {
-    {
       method: "GET",
      
     });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, tasks: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
 
 export const setTeamMember = async (projectData) => {
   try {
@@ -195,29 +228,7 @@ export const getUsers = async () => {
 
   
 };
-export const updatetask = async (userData) => {
-  try {
-    
-    const response = await fetch(`${BASE_URL}/createTask`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      
-      body: JSON.stringify(userData),
-    });
-    
-    const json = await response.json();
-    
-    if (response.status === 200) {
-      return { success: true, token: json };
-    } else {
-      return { success: false, error: json.error };
-    }
-  } catch (e) {
-    return { success: false, error: e.message };
-  }
-};
+
 
 export const getRol = async () => {
   try {

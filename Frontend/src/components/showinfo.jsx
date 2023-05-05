@@ -4,8 +4,8 @@ import Initiate from "./initiate.jsx"
 import Task from "./createtasks.jsx"
 import * as api from "./api.js";
 
-import AddTeamMembers from "./addTeamMembers";
-import Task from "./createtasks";
+import AddTeamMembers from "./addTeamMembers.jsx";
+
 
 
 //Onrecieved posee el nombre del proyecto

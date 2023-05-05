@@ -85,7 +85,7 @@ function creatasks({ontask,onInfo, onRecieved}){
                         <thead>
 
 
-        <table BORRADOR DE TAREAS>
+        
                         
 
                         <tr>
@@ -137,6 +137,7 @@ function creatasks({ontask,onInfo, onRecieved}){
         </div>
     )
     
+}
 }
 
 export default creatasks;

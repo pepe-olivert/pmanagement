@@ -52,33 +52,13 @@ function App({onInfo}) {
       
       if (projects.success){
         const allProjects=projects.projects
-        setp(allProjects)
+        setp(allProjects)}
+
+      }
         
 
 
-  const searchProjectsUser=async ()=> {
-      
-    const localToken= JSON.parse(localStorage.getItem("token"))
-    const decodeToken=localToken.token.accessToken
-    const projects=await api.getProjects(decodeToken)
-    
-    if (projects.success){
-      const allProjects=projects.projects
-      setp(allProjects)
-    }
-    else{return {message: 'We are sorry but something went wrong...'}}
-
-    const userid = localStorage.getItem("userid");
-    const users=await api.getRol()
-
-        
-        if (users.success){
-          const id = userid
-          setrol(id);
-          console.log(id);
-        }
-        else{return {message: 'We are sorry but something went wrong...'}}
-}
+  
 
   const createNewProject = ()=> {
     setProject(true);
@@ -160,7 +140,6 @@ function App({onInfo}) {
     
     } 
   }
-}
+
 
 export default App;
-
