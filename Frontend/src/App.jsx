@@ -1,122 +1,146 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useEffect, useState } from "react";
+import * as api from "./components/api";
 import "./App.css";
 import Header from "./components/header.jsx";
-import Gantt from "./components/gantt.jsx";
-import dayjs from "dayjs";
+
 import Login from "./components/login.jsx"
+import SetProject from "./components/setProject.jsx"
+import AddTeamMembers from "./components/addTeamMembers.jsx"
+import Showinfo from "./components/showinfo.jsx"
 
-function App() {
-  const [task, settask] = useState("");
-  const [taskDesc, settaskDesc] = useState("");
-  const [datein, setdatein] = useState("");
-  const [dateout, setdateout] = useState("");
-  const [elem, setelem] = useState([]);
-  const [gantt, setgantt] = useState(false);
-
+function App({onInfo}) {
+  
+  const [p,setp]=useState([]);
   const [token, setToken] = useState(null)
-
+  const [project, setProject] = useState(false);
+  const [info,setinfo]= useState(false)
   const [mode, setMode] = useState("login");
-  //const navigate = useNavigate();
+  const [aux, setaux] = useState([]);
+  const [rol,setrol]=useState([]);
 
   const login = (token) => {
 
     setToken(token);
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("userid",token.userid);
-    //navigate("/projects",{ replace: true });
+    
   };
 
   const setmodefn = (toggle) => {
     setMode(toggle);
   };
 
-  const gettasklen = (enddate, stratdate) => {
-    var x = dayjs(enddate);
-    var y = dayjs(stratdate);
-    return x.diff(y, "days");
-  };
-
-  const addtask = (e) => {
-    e.preventDefault();
-    const newelem = {
-      task: task,
-      taskdesc: taskDesc,
-      datein: datein,
-      dateout: dateout,
-      len: gettasklen(dateout, datein),
-      bar:[] 
-    };
-    setelem((elem) => [...elem, newelem]);
-    document.getElementById("form").reset();
-    setdatein("");
-    settask("");
-  };
-
-  const generategantt = () => {
-    setgantt(!gantt);
-  };
-
-  const quit=(x)=> {
-    setgantt(x);
+  const comingbackinfo= ()=>{
+    setinfo(false)
   }
 
+  const logout = () => {
+    
+    setToken(null);
+  };
+
+  const searchProjectsUser=async ()=> {
+      
+    const localToken= JSON.parse(localStorage.getItem("token"))
+    const decodeToken=localToken.token.accessToken
+    const projects=await api.getProjects(decodeToken)
+    
+    if (projects.success){
+      const allProjects=projects.projects
+      setp(allProjects)
+    }
+    else{return {message: 'We are sorry but something went wrong...'}}
+
+    const userid = localStorage.getItem("userid");
+    const users=await api.getRol()
+        
+        if (users.success){
+          const id = userid
+          setrol(id);
+          console.log(id);
+        }
+        else{return {message: 'We are sorry but something went wrong...'}}
+}
+
+  const createNewProject = ()=> {
+    setProject(true);
+  }
+
+  if (project === true){
+    return <SetProject onInfo={info}/>
+  }
 
   if (token === null) {
 
     return <Login onLogin={login} onchangemode={setmodefn} />;}
 
   else{
+    if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
+    else{
 
+    return (
+      
 
-    if (gantt) {
-      return <Gantt props={elem} onquit={quit} />;
-    } else {
-      return (
-        <div>
+      <div onLoad={searchProjectsUser}>
           <header>
-            <Header />
+            <Header onLogout={logout}/>
           </header>
-          <div className="tasks">
-            <form id="form" onSubmit={addtask}>
-              <h2>Task</h2>
-              <input onChange={(e) => settask(e.target.value)} type="text" />
-              <h2>Task Description</h2>
-              <input onChange={(e) => settaskDesc(e.target.value)} type="text" />
-              <h2>Date start</h2>
-              <input onChange={(e) => setdatein(e.target.value)} type="Date" />
-              <h2>Date end</h2>
-              <input onChange={(e) => setdateout(e.target.value)} type="Date" />
-              <button onClick={addtask}>Add Task</button>
-            </form>
-          </div>
 
+          <body>
+
+          
+            <button className="btn-newproject" onClick={createNewProject}>New Project </button> 
+            
           <div>
-            <table>
-              <tr>
-                <th>Task</th>
-                <th>Task Description</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-              </tr>
-              {elem.map((item) => (
-                <tr>
-                  <td>{item.task}</td>
-                  <td>{item.taskdesc}</td>
-                  <td>{item.datein}</td>
-                  <td>{item.dateout}</td>
-                </tr>
-              ))}
-            </table>
-          </div>
+                
+                <table>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Project Class</th>
+                    <th>Starting Date</th>
+                    <th>Ending Date</th>
+                    <th>Project Scope</th>
+                    <th>Project Requirements</th>
+                    <th>Project Budget</th>
+                    <th>Completion Time</th>
+                    <th>Milestones</th>
+                    <th>Project ID</th>
 
-          <button on onClick={generategantt}>
-            Generate Gantt
-          </button>
-        </div>
-      );
-    }
+                  </tr>
+                  {p.map(p=>(
+                    <tr>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.projects_id}</td>
+                    </tr>
+                  ))}
+                </table>
+          </div>
+            
+              
+          </body>
+
+          
+
+          
+
+      </div>
+
+
+    )
+
+
+    
     } 
+  }
 }
 
 export default App;
+

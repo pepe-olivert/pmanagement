@@ -1,14 +1,16 @@
 {
     "name": "mongo-test",
     "version": "0.0.1",
-    "description": "A MongoDB test project",
+    "description": "A postgre test project",
     "main": "index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Pepe Olivert <jolisert@gmail.com>",
     "license": "",
     "dependencies": {
-      "mongodb": "^3.5.9"
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "mongodb": "^3.5.9"
     }
-  }
+}

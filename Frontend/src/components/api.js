@@ -1,18 +1,22 @@
 const HOST = "localhost";
-const PORT = 8888;
-const BASE_URL = `http://${HOST}:${PORT}`;
+const PORT = 9090;
+const BASE_URL = `http://${HOST}:${PORT}/pmi`;
 
 
 export const login = async (userData) => {
   try {
+    
     const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      
       body: JSON.stringify(userData),
     });
+    
     const json = await response.json();
+    
     if (response.status === 200) {
       return { success: true, token: json };
     } else {
@@ -23,34 +27,147 @@ export const login = async (userData) => {
   }
 };
 
-export const cpass = async (userData) => {
-  
+export const setProject = async (projectData) => {
   try {
-    const response = await fetch(`${BASE_URL}/changepass`, {
+    
+    const response = await fetch(`${BASE_URL}/setProject`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
       
+      body: JSON.stringify(projectData),
     });
-
     
     const json = await response.json();
     
-    
     if (response.status === 200) {
-      return { success: true, data: json };
-    } 
-    else {
-      
+      return { success: true, token: json };
+    } else {
       return { success: false, error: json.error };
     }
   } catch (e) {
-    
     return { success: false, error: e.message };
   }
 };
+
+export const getProjects = async (userData) => {
+  try {
+
+   
+    
+    const response = await fetch(`${BASE_URL}/getProjects/${userData}`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, projects: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const setTeamMember = async (projectData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/setTeamMember`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(projectData),
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, token: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/getUsers`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, users: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+
+  
+};
+export const updatetask = async (userData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/createTask`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, token: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const getRol = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/getRol`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, users: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+
+  
+};
+
 
 
 

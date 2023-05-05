@@ -1,34 +1,17 @@
-require('dotenv').config();
-
-const envVarNames = [
-  "NODE_ENV",
-  "FRONTEND_DIR",
-  "SERVER_PORT",
-  "JWT_SECRET",
-  "JWT_EXPIRATION",
-  "DB_USER",
-  "DB_PASSWORD",
-  "DB_HOST",
-  "DB_PORT",
-  "DB_DATABASE",
-];
-
-let envVars = {};
-
-envVarNames.forEach(varName => {
-  if (process.env[varName] === undefined) {
-    throw new Error(`Missing environment variable '${varName}'`);
-  }
-  envVars[varName] = process.env[varName];
-})
-
-const getMongoURL = () => {
-  const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATABASE } = envVars;
-  return `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}?authSource=admin`;
-}
+const SERVER_PORT = 9090;
+const NODE_ENV="development"
+const DB_HOST = "localhost";
+const DB_PORT = 5432;
+const DB_USER = "pepeolivert";
+const DB_PASSWORD = "qw7as4zx1";
+const DB_DATABASE = "pmi";
 
 module.exports = {
-  ...envVars,
-  isDevelopment: process.env.NODE_ENV === "development",
-  MONGO_URL: getMongoURL(),
-}
+  SERVER_PORT,
+  DB_HOST,
+  DB_PORT,
+  DB_USER,
+  DB_PASSWORD,
+  NODE_ENV,
+  DB_DATABASE,
+};
