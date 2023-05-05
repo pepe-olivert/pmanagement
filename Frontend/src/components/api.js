@@ -121,7 +121,52 @@ export const getUsers = async () => {
 
   
 };
+export const updatetask = async (userData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/createTask`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, token: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
 
+export const getRol = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/getRol`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, users: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+
+  
+};
 
 
 

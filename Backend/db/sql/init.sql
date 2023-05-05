@@ -7,9 +7,6 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS profiles;
 
-
-
-
 CREATE TABLE users (
     users_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email VARCHAR(20) NOT NULL,
@@ -28,6 +25,11 @@ CREATE TABLE projects (
     name VARCHAR(50) NOT NULL,
     starting_date DATE,
     ending_date DATE,
+    project_scope VARCHAR(1000),
+    project_requirements VARCHAR(1000),
+    project_budget INTEGER,
+    completion_time INTEGER,
+    milestones VARCHAR(1000),
     state VARCHAR(20)
 );
 
@@ -51,8 +53,14 @@ CREATE TABLE users_tasks (
 CREATE TABLE tasks (
     tasks_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     project_id INTEGER REFERENCES projects(projects_id),
+    name VARCHAR(50),
     unit TEXT NOT NULL,
-    quantity INTEGER NOT NULL
+    quantity INTEGER NOT NULL,
+    profile VARCHAR(20),
+    starting_date DATE,
+    ending_date DATE,
+    performance INTEGER,
+    tools VARCHAR(20)
 );
 
 CREATE TABLE profiles_tasks (

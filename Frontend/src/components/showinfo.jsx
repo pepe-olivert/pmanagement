@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import AddTeamMembers from "./addTeamMembers";
+import Task from "./createtasks";
 
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {

@@ -13,8 +13,10 @@ function App({onInfo}) {
   const [p,setp]=useState([]);
   const [token, setToken] = useState(null)
   const [project, setProject] = useState(false);
+  const [info,setinfo]= useState(false)
   const [mode, setMode] = useState("login");
   const [aux, setaux] = useState([]);
+  const [rol,setrol]=useState([]);
 
   const login = (token) => {
 
@@ -31,10 +33,6 @@ function App({onInfo}) {
   const comingbackinfo= ()=>{
     setinfo(false)
   }
-  
-  const info= () => {
-    onInfo(false);
-  };
 
   const logout = () => {
     
@@ -52,6 +50,16 @@ function App({onInfo}) {
       setp(allProjects)
     }
     else{return {message: 'We are sorry but something went wrong...'}}
+
+    const userid = localStorage.getItem("userid");
+    const users=await api.getRol()
+        
+        if (users.success){
+          const id = userid
+          setrol(id);
+          console.log(id);
+        }
+        else{return {message: 'We are sorry but something went wrong...'}}
 }
 
   const createNewProject = ()=> {
@@ -81,18 +89,40 @@ function App({onInfo}) {
           <body>
 
           
-            <button onClick={createNewProject}>New Project </button> 
+            <button className="btn-newproject" onClick={createNewProject}>New Project </button> 
             
           <div>
-                {p.map(p=>(
+                
+                <table>
                   <tr>
-                    <td><button onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
-                    <td> {p.class}</td>
-                    <td> {p.projects_id}</td>
-                    
+                    <th>Project Name</th>
+                    <th>Project Class</th>
+                    <th>Starting Date</th>
+                    <th>Ending Date</th>
+                    <th>Project Scope</th>
+                    <th>Project Requirements</th>
+                    <th>Project Budget</th>
+                    <th>Completion Time</th>
+                    <th>Milestones</th>
+                    <th>Project ID</th>
+
                   </tr>
-                ))}
-              </div>
+                  {p.map(p=>(
+                    <tr>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.projects_id}</td>
+                    </tr>
+                  ))}
+                </table>
+          </div>
             
               
           </body>

@@ -154,6 +154,28 @@ const setRolTeamMember = async (users_id,rol) => {
 
 }
 
+const createTaskSQL=`INSERT INTO "tasks" (project_id,name,unit,quantity) VALUES ($1,$2,$3,$4)`;
+
+const createTask=  async (projects_id,name,unit,quantity) => {
+  
+  const res = await pool.query(createTaskSQL,[projects_id,name,unit,quantity]);
+
+  const message= {message: "Task created correctly! "}
+  console.log(message)
+  return message;
+  
+}
+
+const selectRolUser = `SELECT rol FROM users WHERE users_id=$1;`;
+
+const getRolTeamMember =  async (id) => {
+  
+  const { rows }  = await pool.query(selectRolUser, [id]);
+  //const message= {message: "The username is: " + email}
+  return rows;
+  
+}
+
 
 
 
@@ -169,5 +191,7 @@ module.exports = {
   setUserProject,
   getUsers,
   setTeamMember,
-  setRolTeamMember
+  setRolTeamMember,
+  createTask,
+  getRolTeamMember
 };
