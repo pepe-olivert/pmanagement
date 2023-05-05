@@ -243,7 +243,7 @@ module.exports = {
   updateproject,
   createTask,
   updateprojectstate,
-  showtasks
+  showtasks,
 
   setProject,
   setUserProject,
