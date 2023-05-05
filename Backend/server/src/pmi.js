@@ -124,6 +124,85 @@ pmi.get("/getProjects/:token",async (req,res) => {
   }
 })
 
+pmi.post("/setProject",async (req,res) => {
+  try{    
+      const p_class = req.body.p_class
+      const p_name = req.body.p_name
+      const starting_date=req.body.starting_date
+      const ending_date = req.body.ending_date
+      const newproject = await db.setProject(p_class,p_name,starting_date,ending_date)
+
+      const users_id= req.body.users_id
+      const newusersprojects = await db.setUserProject(users_id,newproject)
+
+      return res.status(200).json(newproject, newusersprojects)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.get("/getUsers", async (req, res) => {
+  try {
+    const users = await db.getUsers();
+    res.status(200).json(users);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
+pmi.post("/setTeamMember",async (req,res) => {
+  try{    
+      const users_id=req.body.users_id
+      const rol = req.body.rol
+      const rolTeamMember = await db.setRolTeamMember(users_id, rol)
+      console.log(users_id)
+
+      const projects_id = req.body.projects_id
+      const newTeamMember = await db.setTeamMember(users_id,projects_id)
+
+      return res.status(200).json(rolTeamMember, newTeamMember)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.post("/createTask",async (req,res) => {
+  try{
+    const a=req.body
+    
+    const returned=[]
+    for (i in a){
+      const p_id=a[i].projects_id
+      const name= a[i].name
+      const unit= a[i].unit
+      const q=a[i].quantity
+      
+      
+      const updated = await db.createTask(p_id,name,unit,q);
+      returned.push(updated)
+    }
+    return res.status(200).json(returned)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.get("/getRol", async (req, res) => {
+  try {
+
+    const users_id=req.body.userid
+
+    const users = await db.getRolTeamMember(users_id);
+    res.status(200).json(users);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
+
 
 
 

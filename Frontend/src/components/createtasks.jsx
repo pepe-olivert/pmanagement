@@ -32,12 +32,17 @@ function creatasks({ontask,onInfo, onRecieved}){
     }
     const updatetasks = async (e)=>{
         e.preventDefault();
+
         const preupdated={
             "id":id
         }
         const created = await api.updatetask(item)
         const updated = await api.updateprojectstate(preupdated)
         if (created.success && updated.success){
+
+        const created = await api.updatetask(item)
+        if (created.success){
+
             
             info()
             
@@ -74,9 +79,15 @@ function creatasks({ontask,onInfo, onRecieved}){
             
             
         </form> 
+
         <h2>BORRADOR DE TAREAS</h2>
         <table >
                         <thead>
+
+
+        <table BORRADOR DE TAREAS>
+                        
+
                         <tr>
                             <th scope="col">Project ID</th>
                             <th scope="col">Name</th>
@@ -84,8 +95,10 @@ function creatasks({ontask,onInfo, onRecieved}){
                             <th scope="col">Quantity</th>
                             
                         </tr>
+
                         </thead>
                         
+
                         
                         <tbody>
         

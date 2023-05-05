@@ -1,34 +1,36 @@
-.header {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 30px;
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    margin-left: 1px;
-    color: blue;
-    justify-content: space-between;
-    background-color: rgb(235, 235, 245);
-  }
-  
-  #mirai {
-  
-  margin-left: 30px;
-  }
-  
-  .head{
-      display: flex;
-    flex-direction: column;
-    font-size: 15px;
-    color: rgb(0, 81, 255);
-    align-items: flex-start;
-    justify-content:space-around;
-  }
-  
-  img.logo { 
-  
-    width: 100px;
-    height: 80px;
-    margin-top: 20px;
-  
-  
-  }
+header {
+  justify-content: space-between;
+  background-color: grey;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img{
+  height: 100px;
+}
+
+.logo-nombre{
+  color: #044868;
+}
+
+.btn-logout{
+  background-color: #044868;
+  border: none; /* Sin borde */
+  color: white; /* Texto en blanco */
+  padding: 12px 25px; /* Espacio interno */
+  text-align: center; /* Centrado de texto */
+  text-decoration: none; /* Sin decoración de texto */
+  font-size: 16px; /* Tamaño de letra */
+  margin-left: auto; /* Mueve el botón a la derecha */
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.btn-logout:hover{
+  color: black;
+}

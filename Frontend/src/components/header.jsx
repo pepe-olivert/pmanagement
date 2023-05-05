@@ -9,22 +9,11 @@ function Header({onLogout}) {
   };
   return (
     <div>
-      <div className="header">
-        <div><img className="logo" src="/src/assets/logoaltum.png" alt="Logo" /></div>
-
-        <h1 id="mirai">MIR.AI</h1>
-        <span className="head">
-          <p>
-            La división de Software de{" "}
-            <strong> Altum Proyectos de Ingeniería S.L.</strong>{" "}
-
-            <button onClick={logout}>
-              Logout
-            </button>
-          </p>
-          
-        </span>
-      </div>
+        <div className="logo">
+          <img src="/src/assets/logoaltum.png" alt="Logo" />
+          <h2 className="logo-nombre">MIR.AI</h2>
+          <button onClick={logout} className="btn-logout">Logout</button>
+        </div>        
     </div>
   );
 }
