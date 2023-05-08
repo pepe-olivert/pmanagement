@@ -14,6 +14,7 @@ function App({onInfo}) {
   const [p,setp]=useState([]);
   const [token, setToken] = useState(null)
   const [project, setProject] = useState(false);
+  const [showing, setshowing] = useState(false);
   const [info,setinfo]= useState(false)
   const [mode, setMode] = useState("login");
   const [aux, setaux] = useState([]);
@@ -30,10 +31,11 @@ function App({onInfo}) {
     setMode(toggle);
   };
 
-
+  
   
 
   const comingbackinfo= ()=>{
+    
     setinfo(false)
   }
 
@@ -50,9 +52,23 @@ function App({onInfo}) {
       const decodeToken=localToken.token.accessToken
       const projects=await api.getProjects(decodeToken)
       
+      
       if (projects.success){
         const allProjects=projects.projects
         setp(allProjects)}
+
+      else{return {message: 'We are sorry but something went wrong...'}}
+
+      const userid = localStorage.getItem("userid");
+      const users=await api.getRol()
+        
+        if (users.success){
+          const id = userid
+          setrol(id);
+          console.log(id);
+        }
+        else{return {message: 'We are sorry but something went wrong...'}}
+
 
       }
         
@@ -61,19 +77,23 @@ function App({onInfo}) {
   
 
   const createNewProject = ()=> {
+    
     setProject(true);
   }
 
-  if (project === true){
-    return <SetProject onInfo={info}/>
-  }
+  
 
   if (token === null) {
 
     return <Login onLogin={login} onchangemode={setmodefn} />;}
 
   else{
-    if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
+    if (info===true){
+      if (project === true){
+        return <SetProject onInfo={comingbackinfo}/>
+      }
+      else{
+      return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}}
     else{
 
     return (
@@ -88,7 +108,7 @@ function App({onInfo}) {
 
 
           
-            <button className="btn-newproject" onClick={createNewProject}>New Project </button> 
+            <button className="btn-newproject" onClick={()=>{setProject(true);setinfo(true);}}>New Project </button> 
             
           <div>
                 

@@ -63,10 +63,12 @@ export const setProject = async (projectData) => {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify(userData),
+      body: JSON.stringify(projectData),
     });
     
+    
     const json = await response.json();
+    console.log(json)
     
     if (response.status === 200) {
       return { success: true, token: json };
@@ -174,7 +176,7 @@ export const showTasks = async (userData) => {
       return { success: false, error: json.error };
     }
   } catch (e) {
-    return { success: false, error: e.message };
+    return { success: false, error: e.message }; 
   }
 };
 

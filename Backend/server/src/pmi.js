@@ -17,6 +17,7 @@ pmi.get("/showtasks/:id", async (req, res) => {
     const id = req.params.id
     
     const tasks = await db.showtasks(id);
+    console.log(tasks)
     res.status(200).json(tasks);
   } catch (e) {
     res.status(500).json({ error: e.toString() });
@@ -125,13 +126,14 @@ pmi.get("/getProjects/:token",async (req,res) => {
 })
 
 pmi.post("/setProject",async (req,res) => {
-  try{    
+  try{   
+     
       const p_class = req.body.p_class
       const p_name = req.body.p_name
       const starting_date=req.body.starting_date
       const ending_date = req.body.ending_date
       const newproject = await db.setProject(p_class,p_name,starting_date,ending_date)
-
+      console.log(newproject)
       const users_id= req.body.users_id
       const newusersprojects = await db.setUserProject(users_id,newproject)
 

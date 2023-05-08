@@ -159,7 +159,9 @@ const insertProject=`
 
 const setProject =  async (p_class,p_name,starting_date,ending_date) => {
   const state = "CREATED"
+  
   const res = await pool.query(insertProject,[p_class,p_name, starting_date, ending_date,state]);
+  
   return res.rows[0].projects_id;
   
 }

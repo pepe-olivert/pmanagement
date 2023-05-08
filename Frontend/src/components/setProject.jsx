@@ -11,6 +11,7 @@ function setProject ({onInfo, onRecieved}){
     const [ending_date, setEndingDate] = useState("");
 
     const info = ()=>{
+        
         onInfo(false);
     }
 
@@ -24,9 +25,11 @@ function setProject ({onInfo, onRecieved}){
             "users_id": localStorage.getItem('userid'),
             "projects_id": projects_id
         }
+        
         const newProject = await api.setProject(values);
         document.getElementById("form").reset();
         info();
+        
     }
 
     

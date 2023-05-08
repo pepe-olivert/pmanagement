@@ -44,6 +44,7 @@ function showinfo ({onInfo,onRecieved})  {
       
       const listed =  await api.showTasks(id)
       
+      
       if (listed.success){
         
         const tasks= listed.tasks
