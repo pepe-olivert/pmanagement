@@ -27,6 +27,7 @@ function setProject ({onInfo, onRecieved}){
         }
         
         const newProject = await api.setProject(values);
+        console.log(newProject)
         document.getElementById("form").reset();
         info();
         

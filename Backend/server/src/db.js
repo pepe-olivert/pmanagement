@@ -63,7 +63,7 @@ const getuserid= async(email)=>{
 
 const getProjectListSQL = `
 
-    SELECT p.projects_id,p.name,p.class FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
+    SELECT * FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
 
 `;
 const getProjectList = async (id) => {

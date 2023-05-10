@@ -117,6 +117,7 @@ pmi.get("/getProjects/:token",async (req,res) => {
     
 
     const projects = await db.getProjectList(id)
+  
     
     return res.status(200).json(projects)
   }catch (e){

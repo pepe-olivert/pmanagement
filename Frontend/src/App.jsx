@@ -55,7 +55,8 @@ function App({onInfo}) {
       
       if (projects.success){
         const allProjects=projects.projects
-        setp(allProjects)}
+        setp(allProjects)
+      console.log(allProjects)}
 
       else{return {message: 'We are sorry but something went wrong...'}}
 
@@ -65,7 +66,7 @@ function App({onInfo}) {
         if (users.success){
           const id = userid
           setrol(id);
-          console.log(id);
+          
         }
         else{return {message: 'We are sorry but something went wrong...'}}
 
@@ -130,13 +131,13 @@ function App({onInfo}) {
                     <tr>
                       <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
+                      <td> {p.starting_date}</td>
+                      <td> {p.ending_date}</td>
+                      <td> {p.project_scope}</td>
+                      <td> {p.project_requirements}</td>
+                      <td> {p.project_budget}</td>
+                      <td> {p.completion_time}</td>
+                      <td> {p.milestones}</td>
                       <td> {p.projects_id}</td>
                     </tr>
                   ))}
