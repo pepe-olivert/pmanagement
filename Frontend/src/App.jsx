@@ -5,7 +5,6 @@ import Header from "./components/header.jsx";
 
 import Login from "./components/login.jsx"
 import SetProject from "./components/setProject.jsx"
-import AddTeamMembers from "./components/addTeamMembers.jsx"
 import Showinfo from "./components/showinfo.jsx"
 
 function App({onInfo}) {
@@ -52,7 +51,7 @@ function App({onInfo}) {
     else{return {message: 'We are sorry but something went wrong...'}}
 
     const userid = localStorage.getItem("userid");
-    const users=await api.getRol()
+    const users=await api.getRol(userid)
         
         if (users.success){
           const id = userid
@@ -88,7 +87,6 @@ function App({onInfo}) {
 
           <body>
 
-          
             <button className="btn-newproject" onClick={createNewProject}>New Project </button> 
             
           <div>

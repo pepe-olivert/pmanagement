@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./header.jsx";
 import * as api from "./api";
+import swal from 'sweetalert';
 
 function addTeamMembers ({onInfo, onRecieved}) {
 
@@ -10,6 +11,8 @@ function addTeamMembers ({onInfo, onRecieved}) {
     const [users_id, setUserId] = useState(0);
     const [projects_id,setProjectId]=useState(0);
     const [projects_name, setProjectsName] = useState("");
+
+    const [error,setError] = useState('');
 
     // método que carga las llamadas a la base de datos automáticamente
     const methodOnLoad=async ()=> {
@@ -31,7 +34,9 @@ function addTeamMembers ({onInfo, onRecieved}) {
           const allUsers=users.users
           setUsers(allUsers)
         }
-        else{return {message: 'We are sorry but something went wrong...'}}
+        else{
+            return setError('No existe el usuario');
+        }
     }
 
     useEffect(()=>{
@@ -44,15 +49,24 @@ function addTeamMembers ({onInfo, onRecieved}) {
     }
 
     const addTeamMembers = async (e) =>  {
-        e.preventDefault();
-        const values = {
-            "users_id": users_id,
-            "projects_id": projects_id,
-            "rol": rol
+        try {
+            e.preventDefault();
+            const values = {
+                "users_id": users_id,
+                "projects_id": projects_id,
+                "rol": rol
+            }
+            const newTeamMember = await api.setTeamMember(values);
+            swal({
+                text:"Se ha cambiado el Rol al Usuario",
+                icon:"success",
+                button: "Aceptar"
+              });
+            info();
+        } catch (error) {
+            console.log(error);
         }
-        //setElem((elements) = [...elements, values])
-        const newTeamMember = await api.setTeamMember(values);
-        info();
+        
     }
 
     return(
@@ -69,6 +83,7 @@ function addTeamMembers ({onInfo, onRecieved}) {
                             {users.map((option) => (
                                 <option value={option.users_id}>{option.email}</option>
                             ))}
+                            
                         </select>
                     </div> 
                     <br />
@@ -84,6 +99,9 @@ function addTeamMembers ({onInfo, onRecieved}) {
                     </div>
                     <br />
                     <button onClick={addTeamMembers}>Add Team Member</button>
+                    <div>
+                        <p>{error}</p>
+                    </div>
                 </form>
             </body>
         </div>

@@ -26,6 +26,11 @@ function setProject ({onInfo, onRecieved}){
         }
         const newProject = await api.setProject(values);
         document.getElementById("form").reset();
+        swal({
+            text:"Se ha creado el proyecto",
+            icon:"success",
+            button: "Aceptar"
+          });
         info();
     }
 

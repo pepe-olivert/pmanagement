@@ -17,6 +17,7 @@ th, td {
 th {
   background-color: #044868;
   color: white;
+  font-style: oblique;
 }
 
 .btn-newproject {

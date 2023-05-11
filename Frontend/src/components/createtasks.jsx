@@ -34,7 +34,11 @@ function creatasks({ontask,onInfo, onRecieved}){
         e.preventDefault();
         const created = await api.updatetask(item)
         if (created.success){
-            
+            swal({
+                text:"Se ha actualizado la tarea",
+                icon:"success",
+                button: "Aceptar"
+              });
             info()
             
     
