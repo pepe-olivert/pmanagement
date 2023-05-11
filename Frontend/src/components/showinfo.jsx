@@ -29,6 +29,8 @@ function showinfo ({onInfo,onRecieved})  {
       setini(!ini)
     }
 
+    
+
 
     const ctask=()=>{
       
@@ -81,24 +83,19 @@ function showinfo ({onInfo,onRecieved})  {
 
     if (ini==true){return (
       <Initiate oninitiate={initiate} onInfo={info} onRecieved={onRecieved}/>)}
+
+    else if (task===true){return (
+      <Task ontask={ctask} onInfo={info} onRecieved={onRecieved}/>
+    )}
+
+    else if (teamMembers === true){
+      return (
+        <AddTeamMembers onTeamMember={addTeamMembers} onInfo={info} onRecieved={onRecieved} />
+      )
+      }
     
     else{
-      if (task===true){return (
-        <Task ontask={ctask} onInfo={info} onRecieved={onRecieved}/>
-      )}
-      else{
-        if (task===true){return (
-          <Task ontask={ctask} onInfo={info} onRecieved={onRecieved}/>
-        )}
-        else{
-          if(teamMembers === true){
-            return (
-              <AddTeamMembers onTeamMember={addTeamMembers} onInfo={info} onRecieved={onRecieved} />
-            )
-        
       
-          }
-          else{
 
             return ( 
 
@@ -206,10 +203,9 @@ function showinfo ({onInfo,onRecieved})  {
           )
           }
 
-          }
+          
         }
-      }
-    }
+      
     
       
 

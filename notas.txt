@@ -1,0 +1,11 @@
+Pantalla show info dejar en la tabla de los proyectos name fecha inicio y 
+fin.
+
+Cuando tiques en el proyecto de sale abajo de las tareas y todo el resumen 
++ detallado del proyecto (scope=tasks,requirements,milestones,budget)
+
+Quitar el completion time.
+
+Arreglar lo de las tareas.
+
+Control de fechas. Ending-starting>0

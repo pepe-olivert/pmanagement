@@ -9,12 +9,11 @@ import SetProject from "./components/setProject.jsx"
 import AddTeamMembers from "./components/addTeamMembers.jsx"
 import Showinfo from "./components/showinfo.jsx"
 
-function App({onInfo}) {
+function App({onInfo,onProject}) {
   
   const [p,setp]=useState([]);
   const [token, setToken] = useState(null)
   const [project, setProject] = useState(false);
-  const [showing, setshowing] = useState(false);
   const [info,setinfo]= useState(false)
   const [mode, setMode] = useState("login");
   const [aux, setaux] = useState([]);
@@ -41,6 +40,10 @@ function App({onInfo}) {
 
   const logout = () => {
     setToken(null);
+  };
+
+  const falseproject=()=>{
+    setProject(false);
   };
 
 
@@ -91,7 +94,7 @@ function App({onInfo}) {
   else{
     if (info===true){
       if (project === true){
-        return <SetProject onInfo={comingbackinfo}/>
+        return <SetProject onInfo={comingbackinfo} onProject={falseproject}/>
       }
       else{
       return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}}

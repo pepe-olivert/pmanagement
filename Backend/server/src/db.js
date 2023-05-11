@@ -106,6 +106,7 @@ const updateprojectstateSQL=`UPDATE projects SET state=$2 WHERE projects_id=$1`;
 
 const updateprojectstate=  async (id) => {
   
+  
   const state = "PLANNED ON"
   const res = await pool.query(updateprojectstateSQL,[id,state]);
   ;

@@ -36,19 +36,27 @@ function creatasks({ontask,onInfo, onRecieved}){
         const preupdated={
             "id":id
         }
-        const created = await api.updatetask(item)
-        const updated = await api.updateprojectstate(preupdated)
-        if (created.success && updated.success){
 
-        const created = await api.updatetask(item)
+        
+        /*const created = await api.updatetask(item)
+        const updated = await api.updateprojectstate(preupdated)
+*/
+        const created = await Promise.all([api.updatetask(item), api.updateprojectstate(preupdated)])
+        console.log(created.success)
+        
+        
+
+        
+
+        
         if (created.success){
 
             
-            info()
+            comeback();
             
     
             
-          }
+        }
           else{return {message: 'We are sorry but something went wrong...'}}
     
     }
@@ -138,6 +146,6 @@ function creatasks({ontask,onInfo, onRecieved}){
     )
     
 }
-}
+
 
 export default creatasks;
