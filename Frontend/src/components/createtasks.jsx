@@ -8,6 +8,8 @@ function creatasks({ontask,onInfo, onRecieved}){
     const [q,setq]=useState(null);
     const [name,setname]=useState("");
     const [item,setitem]= useState([]);
+
+    const [error,setError] = useState('');
     
     const info = ()=>{
         onInfo(false);
@@ -31,26 +33,23 @@ function creatasks({ontask,onInfo, onRecieved}){
         document.getElementById("form").reset()
     }
     const updatetasks = async (e)=>{
-        e.preventDefault();
-        const created = await api.updatetask(item)
-        if (created.success){
-            swal({
-                text:"Se ha actualizado la tarea",
-                icon:"success",
-                button: "Aceptar"
-              });
-            info()
+        try{
+            e.preventDefault();
+            const created = await api.updatetask(item)
+            if (created.success){
+                swal({
+                    title: "Tarea Creada",
+                    icon:"success",
+                    button: "Aceptar"
+                });
+                info();
+            }
+            else{return setError('No se ha podido subir la tarea'); }
+        }catch(err){
+            throw setError('No se ha podido subir la tarea');
+        }
             
-    
-            
-          }
-          else{return {message: 'We are sorry but something went wrong...'}}
-    
     }
-
-
-    
-
     useEffect(()=>{
         setid(onRecieved[0]);
       }, [])
@@ -114,6 +113,10 @@ function creatasks({ontask,onInfo, onRecieved}){
         <button onClick={updatetasks}>
                 Pulsa para subir tus tareas
         </button>
+
+        <div className="error">
+            {error}
+        </div>
 
         <button onClick={info}>
               Click to come back to see all your projects

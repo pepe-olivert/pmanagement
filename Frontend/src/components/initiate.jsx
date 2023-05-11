@@ -9,6 +9,8 @@ function initiate({oninitiate,onInfo, onRecieved}){
     const [pb,setpb]=useState(null);
     const [ct,setct]=useState(null);
     const [m,setm]=useState("");
+
+    const [error, setError] = ("");
     
     const info = ()=>{
         onInfo(false);
@@ -19,22 +21,24 @@ function initiate({oninitiate,onInfo, onRecieved}){
     }
 
     const upd = async(e)=>{
-        e.preventDefault();
-        const toupdate={"id":id,"project_scope":ps,"project_requirements":pr,"project_budget":pb,"completion_time":ct,"milestones":m};
-        const updated= await api.updateproject(toupdate)
+        try {
+            e.preventDefault();
+            const toupdate={"id":id,"project_scope":ps,"project_requirements":pr,"project_budget":pb,"completion_time":ct,"milestones":m};
+            const updated= await api.updateproject(toupdate)
 
-        if (updated.success){
-            swal({
-                text:"Se ha iniciado el proyecto",
-                icon:"success",
-                button: "Aceptar"
-              });
-            info()
-            
-    
-            
-          }
-          else{return {message: 'We are sorry but something went wrong...'}}
+            if (updated.success){
+                swal({
+                    text:"Se ha iniciado el proyecto",
+                    icon:"success",
+                    button: "Aceptar"
+                });
+                info();       
+            }
+            else{return setError('No se ha podido iniciar el proyecto');}
+        } catch (error) {
+            throw setError('No se ha podido iniciar el proyecto');
+        }
+        
     }
 
     useEffect(()=>{
@@ -67,6 +71,8 @@ function initiate({oninitiate,onInfo, onRecieved}){
         <button onClick={info}>
               Click to come back to see all your projects
         </button>
+
+        <div>{error}</div>
 
         </div>
     )
