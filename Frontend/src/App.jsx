@@ -59,7 +59,7 @@ function App({onInfo,onProject}) {
       if (projects.success){
         const allProjects=projects.projects
         setp(allProjects)
-      console.log(allProjects)}
+      }
 
       else{return {message: 'We are sorry but something went wrong...'}}
 
@@ -122,25 +122,19 @@ function App({onInfo,onProject}) {
                     <th>Project Class</th>
                     <th>Starting Date</th>
                     <th>Ending Date</th>
-                    <th>Project Scope</th>
-                    <th>Project Requirements</th>
-                    <th>Project Budget</th>
-                    <th>Completion Time</th>
-                    <th>Milestones</th>
+                    
+                    
+            
                     <th>Project ID</th>
 
                   </tr>
                   {p.map(p=>(
                     <tr>
-                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.project_scope,p.project_requirements,p.project_budget,p.milestones]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
                       <td> {p.starting_date}</td>
                       <td> {p.ending_date}</td>
-                      <td> {p.project_scope}</td>
-                      <td> {p.project_requirements}</td>
-                      <td> {p.project_budget}</td>
-                      <td> {p.completion_time}</td>
-                      <td> {p.milestones}</td>
+                      
                       <td> {p.projects_id}</td>
                     </tr>
                   ))}

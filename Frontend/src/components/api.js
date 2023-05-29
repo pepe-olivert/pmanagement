@@ -115,7 +115,7 @@ export const updateprojectstate = async (userData) => {
       
       body: JSON.stringify(userData),
 
-      body: JSON.stringify(projectData),
+      
 
     });
     

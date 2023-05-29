@@ -88,12 +88,12 @@ const register=  (email,password,rol) => {
   
 }
 
-const updateprojectSQL=`UPDATE projects SET project_scope=$2, project_requirements=$3,project_budget=$4,completion_time=$5,milestones=$6,state=$7 WHERE projects_id=$1`;
+const updateprojectSQL=`UPDATE projects SET  project_requirements=$2,project_budget=$3,milestones=$4,state=$5 WHERE projects_id=$1`;
 
-const updateproject=  async (id,ps,pr,pb,ct,m) => {
+const updateproject=  async (id,pr,pb,ct,m) => {
   
   const state = "ON INITIATE"
-  const res = await pool.query(updateprojectSQL,[id,ps, pr, pb,ct,m,state]);
+  const res = await pool.query(updateprojectSQL,[id, pr, pb,m,state]);
   ;
   
 

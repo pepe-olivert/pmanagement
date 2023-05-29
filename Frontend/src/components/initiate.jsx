@@ -4,10 +4,10 @@ import * as api from "./api";
 
 function initiate({oninitiate,onInfo, onRecieved}){
     const [id,setid]=useState("");
-    const [ps,setps]=useState("");
+    
     const [pr,setpr]=useState("");
     const [pb,setpb]=useState(null);
-    const [ct,setct]=useState(null);
+    
     const [m,setm]=useState("");
     
     const info = ()=>{
@@ -20,7 +20,7 @@ function initiate({oninitiate,onInfo, onRecieved}){
 
     const upd = async(e)=>{
         e.preventDefault();
-        const toupdate={"id":id,"project_scope":ps,"project_requirements":pr,"project_budget":pb,"completion_time":ct,"milestones":m};
+        const toupdate={"id":id,"project_requirements":pr,"project_budget":pb,"milestones":m};
         const updated= await api.updateproject(toupdate)
 
         if (updated.success){
@@ -47,10 +47,9 @@ function initiate({oninitiate,onInfo, onRecieved}){
             <h1>WELCOME TO INITIATE</h1> 
 
         <form >
-            Project Scope   <input type="text" placeholder="Project Scope" onChange={(e) => { setps(e.target.value) }}/>
+            
             Project Requirements   <input type="text" placeholder="Project Requirements "onChange={(e) => { setpr(e.target.value) }}/>
             Project Budget   <input type="number" placeholder="Project Budget"onChange={(e) => { setpb(e.target.value) }}/>
-            Completion Time   <input type="number" placeholder="Completion Time"onChange={(e) => { setct(e.target.value) }}/>
             Milestones   <input type="text" placeholder="Milestones"onChange={(e) => { setm(e.target.value) }}/>
             
 

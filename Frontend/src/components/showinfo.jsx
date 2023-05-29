@@ -12,6 +12,10 @@ import AddTeamMembers from "./addTeamMembers.jsx";
 function showinfo ({onInfo,onRecieved})  {
     const [name,setname]=useState("");
     const [clas,setclas]=useState("");
+    const [requirement,setrequirement]=useState("");
+    const [milestone,setmilestone]=useState("");
+    const [budget,setbudget]=useState("");
+    const [scope,setscope]=useState("");
     const [tasks,settasks]=useState([]);
     const [f,setf]=useState(false);
     const [aux,setaux]=useState([]);
@@ -58,13 +62,20 @@ function showinfo ({onInfo,onRecieved})  {
       setTeamMembers(!teamMembers);
     }
     
+      useEffect(()=>{
+        t();
+
+      },[task])
     
 
       useEffect(()=>{
         setname(onRecieved[1]);
         setclas(onRecieved[2]);
         setaux(onRecieved)
-
+        setscope(onRecieved[3])
+        setrequirement(onRecieved[4])
+        setmilestone(onRecieved[6])
+        setbudget(onRecieved[5])
         setid(onRecieved[0]);
         setf(!f);
       
@@ -117,6 +128,11 @@ function showinfo ({onInfo,onRecieved})  {
                       <tr>
                         <th> Nombre </th>
                         <th> Clase </th>
+                        
+                        <th> Project Requirement </th>
+                        <th> Project Budget </th>
+                        <th> Project Milestones </th>
+                        <th> ID </th>
                       </tr>
                     </thead>
       
@@ -125,7 +141,10 @@ function showinfo ({onInfo,onRecieved})  {
                       <tr>
                         <td>{name}</td>
                         <td>{clas}</td>
-      
+                        
+                        <td>{requirement}</td>
+                        <td>{budget}</td>
+                        <td>{milestone}</td>   
                         <td>{id}</td>
                         
       
@@ -135,7 +154,7 @@ function showinfo ({onInfo,onRecieved})  {
                   </table>
       
       
-                  <table >
+                  <table ><caption >Project Scope</caption>
                               <thead>
                               <tr>
                                   <th scope="col">Task ID</th>
