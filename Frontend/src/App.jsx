@@ -6,7 +6,6 @@ import Header from "./components/header.jsx";
 import Login from "./components/login.jsx"
 
 import SetProject from "./components/setProject.jsx"
-import AddTeamMembers from "./components/addTeamMembers.jsx"
 import Showinfo from "./components/showinfo.jsx"
 
 function App({onInfo,onProject}) {
@@ -51,6 +50,7 @@ function App({onInfo,onProject}) {
 
   const searchProjectsUser=async ()=> {
       
+
       const localToken= JSON.parse(localStorage.getItem("token"))
       const decodeToken=localToken.token.accessToken
       const projects=await api.getProjects(decodeToken)
@@ -65,6 +65,7 @@ function App({onInfo,onProject}) {
 
       const userid = localStorage.getItem("userid");
       const users=await api.getRol()
+
         
         if (users.success){
           const id = userid
@@ -111,8 +112,10 @@ function App({onInfo,onProject}) {
           <body>
 
 
+
           
             <button className="btn-newproject" onClick={()=>{setProject(true);setinfo(true);}}>New Project </button> 
+
             
           <div>
                 

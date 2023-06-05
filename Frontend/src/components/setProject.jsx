@@ -11,6 +11,9 @@ function setProject ({onInfo, onProject}){
     const [ending_date, setEndingDate] = useState("");
     const [p, setp] = useState(false); 
 
+    const [error,setError] = useState('');
+
+
     const info = ()=>{
         
         onInfo(false);
@@ -21,23 +24,37 @@ function setProject ({onInfo, onProject}){
     }
 
     const addNewProject = async (e) =>  {
-        e.preventDefault();
-        const values = {
-            "p_class": p_class,
-            "p_name": p_name,
-            "starting_date": starting_date,
-            "ending_date": ending_date,
-            "users_id": localStorage.getItem('userid'),
-            "projects_id": projects_id
+        try {
+            e.preventDefault();
+            const values = {
+                "p_class": p_class,
+                "p_name": p_name,
+                "starting_date": starting_date,
+                "ending_date": ending_date,
+                "users_id": localStorage.getItem('userid'),
+                "projects_id": projects_id
+            }
+            const newProject = await api.setProject(values);
+            document.getElementById("form").reset();
+            swal({
+                text:"Se ha creado el proyecto",
+                icon:"success",
+                button: "Aceptar"
+                });
+            project();
+            info();
+        } catch (error) {
+            swal({
+                title:'Oops!',
+                text:"Something went wrong",
+                icon:"error",
+                button: "Aceptar"
+                });
         }
-        
-        const newProject = await api.setProject(values);
-        
-        document.getElementById("form").reset();
-        project();
-        info();
-        
+
     }
+    
+    
 
     
 
@@ -67,6 +84,10 @@ function setProject ({onInfo, onProject}){
                 <button onClick={info}>
                         Click to come back to see all your projects
                 </button>
+
+                <div>
+                    <p>{error}</p>
+                </div>
             </div>
         </div>
     )
