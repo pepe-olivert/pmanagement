@@ -4,10 +4,11 @@ import "./App.css";
 import Header from "./components/header.jsx";
 
 import Login from "./components/login.jsx"
+
 import SetProject from "./components/setProject.jsx"
 import Showinfo from "./components/showinfo.jsx"
 
-function App({onInfo}) {
+function App({onInfo,onProject}) {
   
   const [p,setp]=useState([]);
   const [token, setToken] = useState(null)
@@ -17,64 +18,87 @@ function App({onInfo}) {
   const [aux, setaux] = useState([]);
   const [rol,setrol]=useState([]);
 
-  const login = (token) => {
 
+  const login = (token) => {
     setToken(token);
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("userid",token.userid);
-    
   };
 
   const setmodefn = (toggle) => {
     setMode(toggle);
   };
 
+  
+  
+
   const comingbackinfo= ()=>{
+    
     setinfo(false)
   }
 
   const logout = () => {
-    
     setToken(null);
   };
 
+  const falseproject=()=>{
+    setProject(false);
+  };
+
+
+  
+
   const searchProjectsUser=async ()=> {
       
-    const localToken= JSON.parse(localStorage.getItem("token"))
-    const decodeToken=localToken.token.accessToken
-    const projects=await api.getProjects(decodeToken)
-    
-    if (projects.success){
-      const allProjects=projects.projects
-      setp(allProjects)
-    }
-    else{return {message: 'We are sorry but something went wrong...'}}
 
-    const userid = localStorage.getItem("userid");
-    const users=await api.getRol(userid)
+      const localToken= JSON.parse(localStorage.getItem("token"))
+      const decodeToken=localToken.token.accessToken
+      const projects=await api.getProjects(decodeToken)
+      
+      
+      if (projects.success){
+        const allProjects=projects.projects
+        setp(allProjects)
+      }
+
+      else{return {message: 'We are sorry but something went wrong...'}}
+
+      const userid = localStorage.getItem("userid");
+      const users=await api.getRol()
+
         
         if (users.success){
           const id = userid
           setrol(id);
-          console.log(id);
+          
         }
         else{return {message: 'We are sorry but something went wrong...'}}
-}
+
+
+      }
+        
+
+
+  
 
   const createNewProject = ()=> {
+    
     setProject(true);
   }
 
-  if (project === true){
-    return <SetProject onInfo={info}/>
-  }
+  
 
   if (token === null) {
 
     return <Login onLogin={login} onchangemode={setmodefn} />;}
 
   else{
-    if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
+    if (info===true){
+      if (project === true){
+        return <SetProject onInfo={comingbackinfo} onProject={falseproject}/>
+      }
+      else{
+      return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}}
     else{
 
     return (
@@ -87,7 +111,11 @@ function App({onInfo}) {
 
           <body>
 
-            <button className="btn-newproject" onClick={createNewProject}>New Project </button> 
+
+
+          
+            <button className="btn-newproject" onClick={()=>{setProject(true);setinfo(true);}}>New Project </button> 
+
             
           <div>
                 
@@ -97,25 +125,19 @@ function App({onInfo}) {
                     <th>Project Class</th>
                     <th>Starting Date</th>
                     <th>Ending Date</th>
-                    <th>Project Scope</th>
-                    <th>Project Requirements</th>
-                    <th>Project Budget</th>
-                    <th>Completion Time</th>
-                    <th>Milestones</th>
+                    
+                    
+            
                     <th>Project ID</th>
 
                   </tr>
                   {p.map(p=>(
                     <tr>
-                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.project_scope,p.project_requirements,p.project_budget,p.milestones]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
+                      <td> {p.starting_date}</td>
+                      <td> {p.ending_date}</td>
+                      
                       <td> {p.projects_id}</td>
                     </tr>
                   ))}
@@ -123,6 +145,7 @@ function App({onInfo}) {
           </div>
             
               
+
           </body>
 
           
@@ -134,11 +157,10 @@ function App({onInfo}) {
 
     )
 
-
+                }
     
     } 
   }
-}
+
 
 export default App;
-

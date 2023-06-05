@@ -33,22 +33,28 @@ function creatasks({ontask,onInfo, onRecieved}){
         document.getElementById("form").reset()
     }
     const updatetasks = async (e)=>{
+
         try{
             e.preventDefault();
+            const preupdated={
+              "id":id
+          }
             const created = await api.updatetask(item)
-            if (created.success){
+            const updated = await api.updateprojectstate(preupdated)
+            if (created.success && updated.success){
                 swal({
                     title: "Tarea Creada",
                     icon:"success",
                     button: "Aceptar"
                 });
-                info();
+                comeback();
             }
             else{return setError('No se ha podido subir la tarea'); }
         }catch(err){
             throw setError('No se ha podido subir la tarea');
         }
             
+
     }
     useEffect(()=>{
         setid(onRecieved[0]);
@@ -74,8 +80,14 @@ function creatasks({ontask,onInfo, onRecieved}){
             
         </form> 
 
-        <table BORRADOR DE TAREAS>
+        <h2>BORRADOR DE TAREAS</h2>
+        <table >
+                        <thead>
+
+
+        
                         
+
                         <tr>
                             <th scope="col">Project ID</th>
                             <th scope="col">Name</th>
@@ -83,6 +95,10 @@ function creatasks({ontask,onInfo, onRecieved}){
                             <th scope="col">Quantity</th>
                             
                         </tr>
+
+                        </thead>
+                        
+
                         
                         <tbody>
         
@@ -126,5 +142,6 @@ function creatasks({ontask,onInfo, onRecieved}){
     )
     
 }
+
 
 export default creatasks;

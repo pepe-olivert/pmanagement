@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./header.jsx";
 import * as api from "./api";
 
-function setProject ({onInfo, onRecieved}){
+function setProject ({onInfo, onProject}){
 
     const [projects_id, setProjectID] = useState("");
     const [p_class, setPClass] = useState("");
     const [p_name, setPName] = useState("");
     const [starting_date, setStartingDate] = useState(""); 
     const [ending_date, setEndingDate] = useState("");
+    const [p, setp] = useState(false); 
 
     const [error,setError] = useState('');
 
 
     const info = ()=>{
+        
         onInfo(false);
+    }
+
+    const project = ()=>{
+        onProject(false)
     }
 
     const addNewProject = async (e) =>  {
@@ -35,6 +41,7 @@ function setProject ({onInfo, onRecieved}){
                 icon:"success",
                 button: "Aceptar"
                 });
+            project();
             info();
         } catch (error) {
             swal({
@@ -44,8 +51,11 @@ function setProject ({onInfo, onRecieved}){
                 button: "Aceptar"
                 });
         }
+
     }
     
+    
+
     
 
     
