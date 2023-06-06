@@ -62,7 +62,9 @@ const getuserid= async(email)=>{
 }
 
 const getProjectListSQL = `
-    SELECT p.name, p.projects_id FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
+
+    SELECT * FROM projects p, users_projects u WHERE u.users_id=$1 and p.projects_id=u.projects_id
+
 `;
 const getProjectList = async (id) => {
 const { rows } = await pool.query(getProjectListSQL,[id]);
@@ -76,10 +78,58 @@ const register=  (email,password,rol) => {
   bcrypt.hash(password,saltRounds, async (err,hash) => {
     const res = await pool.query(registerSQL,[email, hash, rol]);
     
+
+    ;
+
   })
 
   const message= {message: "User registered correctly! "}
   return message;
+  
+}
+
+const updateprojectSQL=`UPDATE projects SET  project_requirements=$2,project_budget=$3,milestones=$4,state=$5 WHERE projects_id=$1`;
+
+const updateproject=  async (id,pr,pb,ct,m) => {
+  
+  const state = "ON INITIATE"
+  const res = await pool.query(updateprojectSQL,[id, pr, pb,m,state]);
+  ;
+  
+
+  const message= {message: "Your project has been initiated! "}
+  return message;
+  
+}
+
+const updateprojectstateSQL=`UPDATE projects SET state=$2 WHERE projects_id=$1`;
+
+const updateprojectstate=  async (id) => {
+  
+  
+  const state = "PLANNED ON"
+  const res = await pool.query(updateprojectstateSQL,[id,state]);
+  ;
+  
+
+  const message= {message: "Your project it's planned on! "}
+  return message;
+  
+}
+
+const showtasksSQL=`SELECT * FROM tasks WHERE project_id=$1`;
+
+const showtasks=  async (id) => {
+  
+  
+  const res= await pool.query(showtasksSQL,[id]);
+  
+  return res.rows
+
+  ;
+  
+
+  
   
 }
 
@@ -103,13 +153,16 @@ const login=  async (email,password) => {
   
 }
 
+
 const insertProject=`
   INSERT INTO "projects" (class,name,starting_date,ending_date,state) VALUES ($1,$2,$3,$4,$5) 
   RETURNING *;`;
 
 const setProject =  async (p_class,p_name,starting_date,ending_date) => {
   const state = "CREATED"
+  
   const res = await pool.query(insertProject,[p_class,p_name, starting_date, ending_date,state]);
+  
   return res.rows[0].projects_id;
   
 }
@@ -160,11 +213,13 @@ const createTask=  async (projects_id,name,unit,quantity) => {
   
   const res = await pool.query(createTaskSQL,[projects_id,name,unit,quantity]);
 
+
   const message= {message: "Task created correctly! "}
   console.log(message)
   return message;
   
 }
+
 
 const selectRolUser = `SELECT rol FROM users WHERE users_id=$1;`;
 
@@ -187,6 +242,12 @@ module.exports = {
   decodeToken,
   createToken,
   getuserid,
+
+  updateproject,
+  createTask,
+  updateprojectstate,
+  showtasks,
+
   setProject,
   setUserProject,
   getUsers,
@@ -194,4 +255,5 @@ module.exports = {
   setRolTeamMember,
   createTask,
   getRolTeamMember
+
 };

@@ -9,11 +9,20 @@ import * as api from "../components/api";
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {
     const [p,setp]=useState([]);
+    const [name,setname]=useState("");
+    const [clas,setclas]=useState("");
+    const [requirement,setrequirement]=useState("");
+    const [milestone,setmilestone]=useState("");
+    const [budget,setbudget]=useState("");
+    const [scope,setscope]=useState("");
+    const [tasks,settasks]=useState([]);
+    const [f,setf]=useState(false);
     const [aux,setaux]=useState([]);
     const [ini,setini]=useState(false)
-    const [id,setid]=useState("");
+    const [id,setid]=useState(null);
     const [task,settask]=useState(false);
     const [teamMembers, setTeamMembers] = useState(false);
+
 
     const info= () => {
         onInfo(false);
@@ -23,9 +32,30 @@ function showinfo ({onInfo,onRecieved})  {
       setini(!ini)
     }
 
+    
+
+
     const ctask=()=>{
-      settask(!task)
+      
+      settask(!task);
     }
+
+
+    const t = async ()=>{
+      
+      
+      const listed =  await api.showTasks(id)
+      
+      
+      if (listed.success){
+        
+        const tasks= listed.tasks
+        
+        settasks(tasks);
+      }
+      else{return {message:"No tasks identified"}}
+    }
+
 
     const addTeamMembers = ()=> {
       setTeamMembers(!teamMembers);
@@ -35,10 +65,20 @@ function showinfo ({onInfo,onRecieved})  {
       setToken(null);
     };
     
+      useEffect(()=>{
+        t();
+
+      },[task])
     
+
       useEffect(()=>{
         setaux(onRecieved)
-        setid(onRecieved[0])
+        setscope(onRecieved[3])
+        setrequirement(onRecieved[4])
+        setmilestone(onRecieved[6])
+        setbudget(onRecieved[5])
+        setid(onRecieved[0]);
+        setf(!f);
       
       }, [])
 
@@ -56,22 +96,33 @@ function showinfo ({onInfo,onRecieved})  {
       }
 
     
+
+     useEffect(()=>{
+        
+        if (id !== null){
+          t();
+        }
+      
+      }, [f])
+  
+
     if (ini==true){return (
-      <Initiate oninitiate={initiate} onInfo={info} onRecieved={onRecieved}/>
-    )}
+      <Initiate oninitiate={initiate} onInfo={info} onRecieved={onRecieved}/>)}
 
     else if (task===true){return (
       <Task ontask={ctask} onInfo={info} onRecieved={onRecieved}/>
-    )
+    )}
 
-    }else if(teamMembers === true){
+    else if (teamMembers === true){
       return (
         <AddTeamMembers onTeamMember={addTeamMembers} onInfo={info} onRecieved={onRecieved} />
       )
-  
-    }
+      }
+    
     else{
-    return ( 
+      
+
+            return ( 
 
         
         <div onLoad={searchProjectsUser} >
@@ -129,8 +180,7 @@ function showinfo ({onInfo,onRecieved})  {
             </div>
         </div>
 
-
-    )
+            )
     }
 }
 
