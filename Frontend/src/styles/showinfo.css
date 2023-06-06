@@ -1,0 +1,28 @@
+.table-showinfo {
+    margin: auto;
+    margin-top: 20px;
+    width: 60%;
+    font-size: 12px;
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+}
+.buttons{
+    text-align: center;
+    margin-top: 20px;
+}
+
+button{
+    margin: 10px;
+    background-color: #044868;
+    border: none;
+    color: white;
+    padding: 8px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button:hover{
+color: black;
+}

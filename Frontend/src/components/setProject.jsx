@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./header.jsx";
 import * as api from "./api";
+import "../styles/newproject.css";
 
 function setProject ({onInfo, onRecieved}){
 
@@ -54,31 +55,32 @@ function setProject ({onInfo, onRecieved}){
             <header>
                 <Header/>
             </header>
-
             <div>
-                <body>
-                    <form id="form" onSubmit={addNewProject}>
-                        <h2>Project Class</h2>
-                        <input onChange={(e) => setPClass(e.target.value)} type="text"/>
-                        <h2>Project Name</h2>
-                        <input onChange={(e) => setPName(e.target.value)} type="text"/>
-                        <h2>Starting Date</h2>
-                        <input onChange={(e) => setStartingDate(e.target.value)} type="date"/>
-                        <h2>Ending Date</h2>
-                        <input onChange={(e) => setEndingDate(e.target.value)} type="date"/>
-                        <br />
-                        <button onClick={addNewProject}>New Project</button>
-                    </form>
-                    
-                </body>
-                <button onClick={info}>
-                        Click to come back to see all your projects
+            <button onClick={info} className="btn-back">
+                    <span className="arrow"></span>
+                    Return
                 </button>
-
-                <div>
-                    <p>{error}</p>
-                </div>
             </div>
+                
+                <body>
+                    <div className="form">
+                        <form onSubmit={addNewProject}>
+                            <h2>Project Class</h2>
+                            <input onChange={(e) => setPClass(e.target.value)} type="text"/>
+                            <h2>Project Name</h2>
+                            <input onChange={(e) => setPName(e.target.value)} type="text"/>
+                            <h2>Starting Date</h2>
+                            <input onChange={(e) => setStartingDate(e.target.value)} type="date"/>
+                            <h2>Ending Date</h2>
+                            <input onChange={(e) => setEndingDate(e.target.value)} type="date"/>
+                            <br />
+                            <button className="btn-newproject2" onClick={addNewProject}>New Project</button>
+                        </form>
+                        <div>
+                            <p>{error}</p>
+                        </div>
+                    </div>
+                </body>
         </div>
     )
 }

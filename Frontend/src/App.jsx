@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as api from "./components/api";
-import "./App.css";
+import "./styles/App.css";
 import Header from "./components/header.jsx";
 
 import Login from "./components/login.jsx"
@@ -75,7 +75,7 @@ function App({onInfo}) {
 
   else{
     if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
-    else{
+    else if(rol !== 'Team Member'){
 
     return (
       
@@ -91,32 +91,20 @@ function App({onInfo}) {
             
           <div>
                 
-                <table>
+                <table className="table-ini">
                   <tr>
                     <th>Project Name</th>
                     <th>Project Class</th>
                     <th>Starting Date</th>
                     <th>Ending Date</th>
-                    <th>Project Scope</th>
-                    <th>Project Requirements</th>
-                    <th>Project Budget</th>
-                    <th>Completion Time</th>
-                    <th>Milestones</th>
-                    <th>Project ID</th>
 
                   </tr>
                   {p.map(p=>(
                     <tr>
                       <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.projects_id}</td>
+                      <td> {p.starting_date}</td>
+                      <td> {p.ending_date}</td>
                     </tr>
                   ))}
                 </table>
@@ -136,7 +124,9 @@ function App({onInfo}) {
 
 
     
-    } 
+    }else if(rol === 'Team Member'){
+      console.log('hola')
+    }
   }
 }
 

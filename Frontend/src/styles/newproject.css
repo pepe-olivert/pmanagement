@@ -1,0 +1,52 @@
+body{
+    text-align: center;
+}
+
+h2{
+    font-size: 24px;
+    color: #333333;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-newproject2{
+    margin: 10px;
+    background-color: #044868;
+    border: none;
+    color: white;
+    padding: 8px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.btn-back {
+    position: absolute;
+    margin-left: -30%;
+    margin-top: 30px;
+    padding: 8px 20px;
+    border: none;
+    background-color: #044868;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+.btn-back:hover {
+    background-color: black;
+    color: white;
+}
+  
+.arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid white;
+    margin-right: 5px;
+    vertical-align: middle;
+}

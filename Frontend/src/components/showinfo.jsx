@@ -2,11 +2,13 @@ import React, { useState, useEffect} from "react";
 import AddTeamMembers from "./addTeamMembers";
 import Task from "./createtasks";
 import Initiate from "./initiate";
+import Header from "../components/header";
+import "../styles/showinfo.css";
+import * as api from "../components/api";
 
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {
-    const [name,setname]=useState("");
-    const [clas,setclas]=useState("");
+    const [p,setp]=useState([]);
     const [aux,setaux]=useState([]);
     const [ini,setini]=useState(false)
     const [id,setid]=useState("");
@@ -28,15 +30,30 @@ function showinfo ({onInfo,onRecieved})  {
     const addTeamMembers = ()=> {
       setTeamMembers(!teamMembers);
     }
+
+    const logout = () => {
+      setToken(null);
+    };
     
     
       useEffect(()=>{
-        setname(onRecieved[1]);
-        setclas(onRecieved[2]);
         setaux(onRecieved)
         setid(onRecieved[0])
       
       }, [])
+
+      const searchProjectsUser=async ()=> {
+      
+        const localToken= JSON.parse(localStorage.getItem("token"))
+        const decodeToken=localToken.token.accessToken
+        const projects=await api.getProjects(decodeToken)
+        
+        if (projects.success){
+          const allProjects=projects.projects
+          setp(allProjects)
+        }
+        else{return {message: 'We are sorry but something went wrong...'}}
+      }
 
     
     if (ini==true){return (
@@ -57,45 +74,59 @@ function showinfo ({onInfo,onRecieved})  {
     return ( 
 
         
-        <div >
+        <div onLoad={searchProjectsUser} >
 
 
-
+          <header>
+            <Header onLogout={logout}/>
+          </header>
            
-            <table>
-              <thead>
-                <tr>
-                  <th> Nombre </th>
-                  <th> Clase </th>
-                </tr>
-              </thead>
+            <table className="table-showinfo">
+              <tr>
+                <th>Project Name</th>
+                <th>Project Class</th>
+                <th>Starting Date</th>
+                <th>Ending Date</th>
+                <th>Project Scope</th>
+                <th>Project Requirements</th>
+                <th>Project Budget</th>
+                <th>Completion Time</th>
+                <th>Milestones</th>
+                <th>Project ID</th>
 
-              
-              <tbody>
-                <tr>
-                  <td>{name}</td>
-                  <td>{clas}</td>
-                  
-                </tr>
-              </tbody>
+              </tr>
+                  {p.map(p=>(
+                    <tr>
+                      <td> {p.name}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.class}</td>
+                      <td> {p.projects_id}</td>
+                      <td> {p.projects_id}</td>
+                    </tr>
+                  ))}
             </table>
 
-            <button onClick={initiate}>
-              Click to INITIATE YOUR PROJECT
-            </button>
+            <div className="buttons">
+              <button onClick={initiate}>
+                Click to INITIATE YOUR PROJECT
+              </button>
 
-            <button onClick={ctask}>
-              Click to ADD TASKS to your project
-            </button>
+              <button onClick={ctask}>
+                Click to ADD TASKS to your project
+              </button>
 
-            <button onClick={addTeamMembers}>Add Team Members </button> 
-            
-            
-            <button onClick={info}>
-              Click to come back to see all your projects
-            </button>
-            
-            
+              <button onClick={addTeamMembers}>Add Team Members </button> 
+              
+              
+              <button onClick={info}>
+                Click to come back to see all your projects
+              </button>
+            </div>
         </div>
 
 
