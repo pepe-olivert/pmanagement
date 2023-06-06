@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import * as api from "./components/api";
 import "./styles/App.css";
 import Header from "./components/header.jsx";
-
 import Login from "./components/login.jsx"
-
 import SetProject from "./components/setProject.jsx"
 import Showinfo from "./components/showinfo.jsx"
 

@@ -72,6 +72,8 @@ function showinfo ({onInfo,onRecieved})  {
     
 
       useEffect(()=>{
+        setname(onRecieved[1]);
+        setclas(onRecieved[2]);
         setaux(onRecieved)
         setscope(onRecieved[3])
         setrequirement(onRecieved[4])
@@ -82,7 +84,15 @@ function showinfo ({onInfo,onRecieved})  {
       
       }, [])
 
-      const searchProjectsUser=async ()=> {
+      useEffect(()=>{
+        
+        if (id !== null){
+          t();
+        }
+      
+      }, [f])
+
+      /*const searchProjectsUser=async ()=> {
       
         const localToken= JSON.parse(localStorage.getItem("token"))
         const decodeToken=localToken.token.accessToken
@@ -93,18 +103,7 @@ function showinfo ({onInfo,onRecieved})  {
           setp(allProjects)
         }
         else{return {message: 'We are sorry but something went wrong...'}}
-      }
-
-    
-
-     useEffect(()=>{
-        
-        if (id !== null){
-          t();
-        }
-      
-      }, [f])
-  
+      }*/
 
     if (ini==true){return (
       <Initiate oninitiate={initiate} onInfo={info} onRecieved={onRecieved}/>)}
@@ -125,7 +124,7 @@ function showinfo ({onInfo,onRecieved})  {
             return ( 
 
         
-        <div onLoad={searchProjectsUser} >
+        <div onLoad={t} >
 
 
           <header>
@@ -136,30 +135,20 @@ function showinfo ({onInfo,onRecieved})  {
               <tr>
                 <th>Project Name</th>
                 <th>Project Class</th>
-                <th>Starting Date</th>
-                <th>Ending Date</th>
                 <th>Project Scope</th>
                 <th>Project Requirements</th>
                 <th>Project Budget</th>
-                <th>Completion Time</th>
                 <th>Milestones</th>
-                <th>Project ID</th>
 
               </tr>
-                  {p.map(p=>(
                     <tr>
-                      <td> {p.name}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.class}</td>
-                      <td> {p.projects_id}</td>
-                      <td> {p.projects_id}</td>
+                      <td> {name}</td>
+                      <td> {clas}</td>
+                      <td> {scope}</td>
+                      <td> {requirement}</td>
+                      <td> {budget}</td>
+                      <td> {milestone}</td>
                     </tr>
-                  ))}
             </table>
 
             <div className="buttons">
