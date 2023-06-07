@@ -13,7 +13,7 @@ pmi.get("/projects", async (req, res) => {
 
 pmi.get("/showtasks/:id", async (req, res) => {
   try {
-    console.log(req.params)
+    
     const id = req.params.id
     
     const tasks = await db.showtasks(id);
@@ -134,7 +134,7 @@ pmi.post("/setProject",async (req,res) => {
       const starting_date=req.body.starting_date
       const ending_date = req.body.ending_date
       const newproject = await db.setProject(p_class,p_name,starting_date,ending_date)
-      console.log(newproject)
+      
       const users_id= req.body.users_id
       const newusersprojects = await db.setUserProject(users_id,newproject)
 
@@ -159,7 +159,7 @@ pmi.post("/setTeamMember",async (req,res) => {
       const users_id=req.body.users_id
       const rol = req.body.rol
       const rolTeamMember = await db.setRolTeamMember(users_id, rol)
-      console.log(users_id)
+      
 
       const projects_id = req.body.projects_id
       const newTeamMember = await db.setTeamMember(users_id,projects_id)

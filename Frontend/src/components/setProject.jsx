@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./header.jsx";
 import * as api from "./api";
 
+
 function setProject ({onInfo, onProject}){
 
     const [projects_id, setProjectID] = useState("");
@@ -22,10 +23,22 @@ function setProject ({onInfo, onProject}){
     const project = ()=>{
         onProject(false)
     }
+    const difference = (a,b)=>{
+        const date1utc = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+        const date2utc = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+        
+        const day = 1000*60*60*24;
+        return((date2utc - date1utc))/day
+    }
 
     const addNewProject = async (e) =>  {
         try {
             e.preventDefault();
+            const x= new Date(starting_date);
+            const y= new Date(ending_date);
+            
+            const diff= difference(x,y)
+            console.log(diff)
             const values = {
                 "p_class": p_class,
                 "p_name": p_name,
@@ -34,16 +47,27 @@ function setProject ({onInfo, onProject}){
                 "users_id": localStorage.getItem('userid'),
                 "projects_id": projects_id
             }
-            const newProject = await api.setProject(values);
-            document.getElementById("form").reset();
-            swal({
-                text:"Se ha creado el proyecto",
-                icon:"success",
+
+            if (diff > 0){const newProject = await api.setProject(values);
+                                document.getElementById("form").reset();
+                                swal({
+                                    text:"Se ha creado el proyecto",
+                                    icon:"success",
+                                    button: "Aceptar"
+                                    });
+                                project();
+                                info();}
+            
+            
+            
+            else{swal({
+                title:'Oops!',
+                text:"Ending date is smaller than the starting date :C",
+                icon:"error",
                 button: "Aceptar"
-                });
-            project();
-            info();
+                });}
         } catch (error) {
+            console.log(error)
             swal({
                 title:'Oops!',
                 text:"Something went wrong",
