@@ -90,9 +90,10 @@ const register=  (email,password,rol) => {
 
 const updateprojectSQL=`UPDATE projects SET  project_requirements=$2,project_budget=$3,milestones=$4,state=$5 WHERE projects_id=$1`;
 
-const updateproject=  async (id,pr,pb,ct,m) => {
+const updateproject=  async (id,pr,pb,m) => {
   
   const state = "ON INITIATE"
+  
   const res = await pool.query(updateprojectSQL,[id, pr, pb,m,state]);
   ;
   

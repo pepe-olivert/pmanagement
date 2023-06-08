@@ -47,6 +47,7 @@ pmi.post("/updateproject",async (req,res) => {
     
     const m=req.body.milestones
     
+    
     const updated = await db.updateproject(id,pr,pb,m)
     return res.status(200).json(updated)
   }catch (e){
@@ -79,6 +80,7 @@ pmi.post("/createTask",async (req,res) => {
       const name= a[i].name
       const unit= a[i].unit
       const q=a[i].quantity
+      
       
       
       const updated = await db.createTask(p_id,name,unit,q);
