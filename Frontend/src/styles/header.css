@@ -25,7 +25,7 @@ header {
   padding: 12px 25px; /* Espacio interno */
   text-align: center; /* Centrado de texto */
   text-decoration: none; /* Sin decoración de texto */
-  font-size: 16px; /* Tamaño de letra */
+  font-size: 14px; /* Tamaño de letra */
   margin-left: auto; /* Mueve el botón a la derecha */
   cursor: pointer;
   border-radius: 8px;

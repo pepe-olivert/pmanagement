@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./header.jsx";
 import * as api from "./api";
+import "../styles/newproject.css";
 
 function setProject ({onInfo, onProject}){
 
@@ -15,9 +16,8 @@ function setProject ({onInfo, onProject}){
 
 
     const info = ()=>{
-        
         onInfo(false);
-    }
+     }
 
     const project = ()=>{
         onProject(false)
@@ -64,31 +64,33 @@ function setProject ({onInfo, onProject}){
             <header>
                 <Header/>
             </header>
-
-            <div>
+            
+                
                 <body>
-                    <form id="form" onSubmit={addNewProject}>
-                        <h2>Project Class</h2>
-                        <input onChange={(e) => setPClass(e.target.value)} type="text"/>
-                        <h2>Project Name</h2>
-                        <input onChange={(e) => setPName(e.target.value)} type="text"/>
-                        <h2>Starting Date</h2>
-                        <input onChange={(e) => setStartingDate(e.target.value)} type="date"/>
-                        <h2>Ending Date</h2>
-                        <input onChange={(e) => setEndingDate(e.target.value)} type="date"/>
-                        <br />
-                        <button onClick={addNewProject}>New Project</button>
-                    </form>
-                    
+                    <div className="form">
+                        <form onSubmit={addNewProject}>
+                            <h2>Project Class</h2>
+                            <input onChange={(e) => setPClass(e.target.value)} type="text"/>
+                            <h2>Project Name</h2>
+                            <input onChange={(e) => setPName(e.target.value)} type="text"/>
+                            <h2>Starting Date</h2>
+                            <input onChange={(e) => setStartingDate(e.target.value)} type="date"/>
+                            <h2>Ending Date</h2>
+                            <input onChange={(e) => setEndingDate(e.target.value)} type="date"/>
+                            <br />
+                            <button className="btn-newproject2" onClick={addNewProject}>New Project</button>
+                        </form>
+                        <div>
+                            <p>{error}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button onClick={info} className="btn-back">
+                            <span className="arrow"></span>
+                            Return
+                        </button>
+                    </div>
                 </body>
-                <button onClick={info}>
-                        Click to come back to see all your projects
-                </button>
-
-                <div>
-                    <p>{error}</p>
-                </div>
-            </div>
         </div>
     )
 }

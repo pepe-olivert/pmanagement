@@ -1,0 +1,20 @@
+table{
+    margin: auto;
+    margin-top: 20px;
+    width: 60%;
+    font-size: 12px;
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+}
+  th, td {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid black;
+  }
+  
+  th {
+    background-color: #044868;
+    color: white;
+    font-style: oblique;
+  }
