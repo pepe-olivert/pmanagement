@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./header.jsx";
 import * as api from "./api";
 import swal from 'sweetalert';
+import "../styles/addTeamMembers.css";
 
 function addTeamMembers ({onInfo, onRecieved}) {
 
@@ -74,10 +75,15 @@ function addTeamMembers ({onInfo, onRecieved}) {
             <header> 
                 <Header/> 
             </header>
-
+            <div>
+            <button onClick={info} className="btn-back">
+                    <span className="arrow"></span>
+                    Return
+                </button>
+            </div>
             <body>
                 <form id="form" onSubmit={addTeamMembers}>
-                    <label>Users: </label>
+                    <h2>Users</h2>
                     <div>
                         <select onChange={(e) => setUserId(e.target.value)} >
                             {users.map((option) => (
@@ -87,10 +93,13 @@ function addTeamMembers ({onInfo, onRecieved}) {
                         </select>
                     </div> 
                     <br />
-                    <label> Project's name: <p>{projects_name}</p> </label>
-                    
                     <div>
-                        <label>Rol: </label>
+                        <h2> Project's name</h2>
+                        <p>{projects_name}</p>
+                    </div>
+                    <br />
+                    <div>
+                        <h2>Rol</h2>
                         <select id="rol" onChange={(e) => setRol(e.target.value)}>
                             <option value="Program Manager">Program Manager</option>
                             <option value="Project Manager">Project Manager</option>

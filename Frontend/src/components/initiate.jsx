@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from "react";
 import * as api from "./api";
+import "../styles/initiate.css";
+import Header from "./header.jsx";
 
 
 function initiate({oninitiate,onInfo, onRecieved}){
@@ -54,6 +56,9 @@ function initiate({oninitiate,onInfo, onRecieved}){
 
     return (
         <div >
+            <header>
+                <Header/>
+            </header>
             <h1>WELCOME TO INITIATE</h1> 
 
         <form >

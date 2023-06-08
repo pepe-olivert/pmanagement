@@ -65,12 +65,7 @@ function setProject ({onInfo, onProject}){
             <header>
                 <Header/>
             </header>
-            <div>
-            <button onClick={info} className="btn-back">
-                    <span className="arrow"></span>
-                    Return
-                </button>
-            </div>
+            
                 
                 <body>
                     <div className="form">
@@ -89,6 +84,12 @@ function setProject ({onInfo, onProject}){
                         <div>
                             <p>{error}</p>
                         </div>
+                    </div>
+                    <div>
+                        <button onClick={info} className="btn-back">
+                            <span className="arrow"></span>
+                            Return
+                        </button>
                     </div>
                 </body>
         </div>

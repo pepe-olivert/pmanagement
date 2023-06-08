@@ -139,17 +139,41 @@ function showinfo ({onInfo,onRecieved})  {
                 <th>Project Requirements</th>
                 <th>Project Budget</th>
                 <th>Milestones</th>
-
               </tr>
-                    <tr>
-                      <td> {name}</td>
-                      <td> {clas}</td>
-                      <td> {scope}</td>
-                      <td> {requirement}</td>
-                      <td> {budget}</td>
-                      <td> {milestone}</td>
-                    </tr>
+              <tr>
+                <td> {name}</td>
+                <td> {clas}</td>
+                <td> {scope}</td>
+                <td> {requirement}</td>
+                <td> {budget}</td>
+                <td> {milestone}</td>
+              </tr>
             </table>
+
+            <table >
+              <caption >Project Scope</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Task ID</th>
+                    <th scope="col">Project ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {tasks.map(tasks => (
+                <tr >
+                  <td >{tasks.tasks_id}</td>
+                    <td >{tasks.project_id}</td>
+                    <td >{tasks.name}</td>
+                    <td >{tasks.unit}</td>
+                    <td >{tasks.quantity}</td>
+                </tr>
+                ))}
+                </tbody>
+              </table>
 
             <div className="buttons">
               <button onClick={initiate}>

@@ -14,7 +14,7 @@ function App({onInfo,onProject}) {
   const [info,setinfo]= useState(false)
   const [mode, setMode] = useState("login");
   const [aux, setaux] = useState([]);
-  const [rol,setrol]=useState([]);
+  const [rol,setrol]=useState("");
 
 
   const login = (token) => {
@@ -95,7 +95,7 @@ function App({onInfo,onProject}) {
     else{
       if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
       else if(rol !== 'Team Member'){
-  
+        console.log(rol)
       return (
       
 
