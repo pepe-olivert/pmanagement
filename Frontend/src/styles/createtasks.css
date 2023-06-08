@@ -10,7 +10,7 @@ table{
   th, td {
     text-align: center;
     padding: 8px;
-    border-bottom: none;
+    border-bottom: 1px solid black;
   }
   
   th {

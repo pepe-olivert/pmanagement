@@ -16,9 +16,8 @@ function setProject ({onInfo, onProject}){
 
 
     const info = ()=>{
-        
         onInfo(false);
-    }
+     }
 
     const project = ()=>{
         onProject(false)

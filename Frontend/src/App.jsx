@@ -68,6 +68,7 @@ function App({onInfo,onProject}) {
         if (users.success){
           const id = userid
           setrol(id);
+          console.log(rol);
           
         }
         else{return {message: 'We are sorry but something went wrong...'}}
@@ -94,7 +95,7 @@ function App({onInfo,onProject}) {
 
     else{
       if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
-      else if(rol !== 'Team Member'){
+      else if(rol !== 2){
         console.log(rol)
       return (
       
@@ -145,7 +146,7 @@ function App({onInfo,onProject}) {
 
       )
 
-    }else if(rol === 'Team Member'){
+    }else if(rol === 3){
       console.log('hola')
     }
     

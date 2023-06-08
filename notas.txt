@@ -1,3 +1,23 @@
 
 
-Control de fechas. Ending-starting>0
+Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
+Project manager puede modificar estados y tareas.
+
+Hacer creación de usuario en la pantalla principal --> Añadir perfiles de usuario y roles a un team member nuevo.
+
+Cuando entras en creación tarea --> PrefilES y rendimiento de cada uno de los perfiles
+Cuando entras en la tarea --> Desglose de la cantidad y gantt
+
+FUTURE: 
+- Vista de proyectos modificar el scroll y añadir búsqueda por clase o starting date
+- Tabla logs con histórico de acciones en bd por usuario
+- Modificar campos de Initiate project 
+
+
+TO DO:
+- Componente showinfo task (DAVID)
+- Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
+- Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
+- Asignación perfiles a tareas (PEPE)
+- Gantt de tareas + milestones (DAVID)
+- Vista team member  (DAVID)

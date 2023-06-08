@@ -196,7 +196,8 @@ pmi.post("/createTask",async (req,res) => {
 pmi.get("/getRol", async (req, res) => {
   try {
 
-    const users_id=req.body.userid
+    const users_id=req.body.userid;
+    console.log(users_id);
 
     const users = await db.getRolTeamMember(users_id);
     res.status(200).json(users);
