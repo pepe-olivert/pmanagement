@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import * as api from "./components/api";
 import "./styles/App.css";
 import Header from "./components/header.jsx";
+
+import { format } from "date-fns";
+
 import Login from "./components/login.jsx"
 import SetProject from "./components/setProject.jsx"
 import Showinfo from "./components/showinfo.jsx"
@@ -126,8 +129,13 @@ function App({onInfo,onProject}) {
                     <tr>
                       <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.project_scope,p.project_requirements,p.project_budget,p.milestones]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
-                      <td> {p.starting_date}</td>
-                      <td> {p.ending_date}</td>
+
+                      <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>
+                      
+                      <td> {format(new Date(p.ending_date), "MMMM do, yyyy ")}</td>
+                      
+                      <td> {p.projects_id}</td>
+
                     </tr>
                   ))}
                 </table>

@@ -13,7 +13,7 @@ pmi.get("/projects", async (req, res) => {
 
 pmi.get("/showtasks/:id", async (req, res) => {
   try {
-    console.log(req.params)
+    
     const id = req.params.id
     
     const tasks = await db.showtasks(id);
@@ -47,6 +47,7 @@ pmi.post("/updateproject",async (req,res) => {
     
     const m=req.body.milestones
     
+    
     const updated = await db.updateproject(id,pr,pb,m)
     return res.status(200).json(updated)
   }catch (e){
@@ -79,6 +80,7 @@ pmi.post("/createTask",async (req,res) => {
       const name= a[i].name
       const unit= a[i].unit
       const q=a[i].quantity
+      
       
       
       const updated = await db.createTask(p_id,name,unit,q);
@@ -134,7 +136,7 @@ pmi.post("/setProject",async (req,res) => {
       const starting_date=req.body.starting_date
       const ending_date = req.body.ending_date
       const newproject = await db.setProject(p_class,p_name,starting_date,ending_date)
-      console.log(newproject)
+      
       const users_id= req.body.users_id
       const newusersprojects = await db.setUserProject(users_id,newproject)
 
@@ -159,7 +161,7 @@ pmi.post("/setTeamMember",async (req,res) => {
       const users_id=req.body.users_id
       const rol = req.body.rol
       const rolTeamMember = await db.setRolTeamMember(users_id, rol)
-      console.log(users_id)
+      
 
       const projects_id = req.body.projects_id
       const newTeamMember = await db.setTeamMember(users_id,projects_id)

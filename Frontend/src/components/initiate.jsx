@@ -26,6 +26,7 @@ function initiate({oninitiate,onInfo, onRecieved}){
 
         try {
             e.preventDefault();
+           
             const toupdate={"id":id,"project_requirements":pr,"project_budget":pb,"milestones":m};
             const updated= await api.updateproject(toupdate)
 
