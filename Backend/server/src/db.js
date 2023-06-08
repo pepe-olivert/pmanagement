@@ -226,9 +226,9 @@ const selectRolUser = `SELECT rol FROM users WHERE users_id=$1;`;
 
 const getRolTeamMember =  async (id) => {
   
-  const { rows }  = await pool.query(selectRolUser, [id]);
+  const rows  = await pool.query(selectRolUser, [id]);
   //const message= {message: "The username is: " + email}
-  return rows;
+  console.log(rows);
   
 }
 

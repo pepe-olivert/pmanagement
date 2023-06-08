@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from "react";
 import * as api from "./api";
+import "../styles/createtasks.css";
+import Header from "./header.jsx";
 
 
 function creatasks({ontask,onInfo, onRecieved}){
@@ -65,6 +67,9 @@ function creatasks({ontask,onInfo, onRecieved}){
 
     return (
         <div >
+            <header>
+                <Header/>
+            </header>
             <h1>WELCOME TO CREATE TASKS</h1> 
 
         <form onSubmit={addtask} id='form'>

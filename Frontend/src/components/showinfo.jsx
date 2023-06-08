@@ -1,17 +1,14 @@
 import React, { useState, useEffect} from "react";
-
-
-import Initiate from "./initiate.jsx"
-import Task from "./createtasks.jsx"
-import * as api from "./api.js";
-
-import AddTeamMembers from "./addTeamMembers.jsx";
-
-
-
+import AddTeamMembers from "./addTeamMembers";
+import Task from "./createtasks";
+import Initiate from "./initiate";
+import Header from "../components/header";
+import "../styles/showinfo.css";
+import * as api from "../components/api";
 
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {
+    const [p,setp]=useState([]);
     const [name,setname]=useState("");
     const [clas,setclas]=useState("");
     const [requirement,setrequirement]=useState("");
@@ -63,6 +60,10 @@ function showinfo ({onInfo,onRecieved})  {
     const addTeamMembers = ()=> {
       setTeamMembers(!teamMembers);
     }
+
+    const logout = () => {
+      setToken(null);
+    };
     
       useEffect(()=>{
         t();
@@ -83,16 +84,26 @@ function showinfo ({onInfo,onRecieved})  {
       
       }, [])
 
-     useEffect(()=>{
+      useEffect(()=>{
         
         if (id !== null){
           t();
         }
       
       }, [f])
-  
 
+      /*const searchProjectsUser=async ()=> {
       
+        const localToken= JSON.parse(localStorage.getItem("token"))
+        const decodeToken=localToken.token.accessToken
+        const projects=await api.getProjects(decodeToken)
+        
+        if (projects.success){
+          const allProjects=projects.projects
+          setp(allProjects)
+        }
+        else{return {message: 'We are sorry but something went wrong...'}}
+      }*/
 
     if (ini==true){return (
       <Initiate oninitiate={initiate} onInfo={info} onRecieved={onRecieved}/>)}
@@ -113,123 +124,77 @@ function showinfo ({onInfo,onRecieved})  {
             return ( 
 
         
+        <div onLoad={t} >
 
 
-        
-              <div onLoad={t}> 
-      
-      
-                
-                  
-                
-      
-      
-                 
-                  <table>
-                    <thead>
-                      <tr>
-                        <th> Nombre </th>
-                        <th> Clase </th>
-                        
-                        <th> Project Requirement </th>
-                        <th> Project Budget </th>
-                        <th> Project Milestones </th>
-                        <th> ID </th>
-                      </tr>
-                    </thead>
-      
-                    
-                    <tbody>
-                      <tr>
-                        <td>{name}</td>
-                        <td>{clas}</td>
-                        
-                        <td>{requirement}</td>
-                        <td>{budget}</td>
-                        <td>{milestone}</td>   
-                        <td>{id}</td>
-                        
-      
-                        
-                      </tr>
-                    </tbody>
-                  </table>
-      
-      
-                  <table ><caption >Project Scope</caption>
-                              <thead>
-                              <tr>
-                                  <th scope="col">Task ID</th>
-                                  <th scope="col">Project ID</th>
-                                  <th scope="col">Name</th>
-                                  <th scope="col">Unit</th>
-                                  <th scope="col">Quantity</th>
-                                  
-                              </tr>
-                              </thead>
-                              
-                              
-                              <tbody>
-              
-                          
-                              {tasks.map(tasks => (
-      
-                              
-                  
-                              <tr >
-                                <td >{tasks.tasks_id}</td>
-                                  <td >{tasks.project_id}</td>
-                                  <td >{tasks.name}</td>
-                                  <td >{tasks.unit}</td>
-                                  <td >{tasks.quantity}</td>
-                                  
-                                  
-                              </tr>
-      
-      
-                  
-                              ))}
-      
-                      
-                  
-                              </tbody>
-                  
+          <header>
+            <Header onLogout={logout}/>
+          </header>
+           
+            <table className="table-showinfo">
+              <tr>
+                <th>Project Name</th>
+                <th>Project Class</th>
+                <th>Project Scope</th>
+                <th>Project Requirements</th>
+                <th>Project Budget</th>
+                <th>Milestones</th>
+              </tr>
+              <tr>
+                <td> {name}</td>
+                <td> {clas}</td>
+                <td> {scope}</td>
+                <td> {requirement}</td>
+                <td> {budget}</td>
+                <td> {milestone}</td>
+              </tr>
+            </table>
+
+            <table >
+              <caption >Project Scope</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Task ID</th>
+                    <th scope="col">Project ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {tasks.map(tasks => (
+                <tr >
+                  <td >{tasks.tasks_id}</td>
+                    <td >{tasks.project_id}</td>
+                    <td >{tasks.name}</td>
+                    <td >{tasks.unit}</td>
+                    <td >{tasks.quantity}</td>
+                </tr>
+                ))}
+                </tbody>
               </table>
-      
-      
-                  <button onClick={initiate}>
-                    Click to INITIATE YOUR PROJECT
-                  </button>
-      
-                  <button onClick={ctask}>
-                    Click to ADD TASKS to your project
-                  </button>
-      
-      
-                  <button onClick={addTeamMembers}>Add Team Members </button> 
-      
-                  
-                  
-                  <button onClick={info}>
-                    Click to come back to see all your projects
-                  </button>
-                  
-      
-                
-                
-              </div>
-      
-            
-      
-          )
-          }
 
-          
-        }
-      
-    
-      
+            <div className="buttons">
+              <button onClick={initiate}>
+                Click to INITIATE YOUR PROJECT
+              </button>
 
+              <button onClick={ctask}>
+                Click to ADD TASKS to your project
+              </button>
 
+              <button onClick={addTeamMembers}>Add Team Members </button> 
+              
+              
+              <button onClick={info}>
+                Click to come back to see all your projects
+              </button>
+            </div>
+        </div>
+
+            )
+    }
+}
 
 export default showinfo;

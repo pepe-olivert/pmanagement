@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import * as api from "./components/api";
-import "./App.css";
+import "./styles/App.css";
 import Header from "./components/header.jsx";
-import { format } from "date-fns";
-import Login from "./components/login.jsx"
 
+import { format } from "date-fns";
+
+import Login from "./components/login.jsx"
 import SetProject from "./components/setProject.jsx"
 import Showinfo from "./components/showinfo.jsx"
 
@@ -16,7 +17,7 @@ function App({onInfo,onProject}) {
   const [info,setinfo]= useState(false)
   const [mode, setMode] = useState("login");
   const [aux, setaux] = useState([]);
-  const [rol,setrol]=useState([]);
+  const [rol,setrol]=useState("");
 
 
   const login = (token) => {
@@ -70,6 +71,7 @@ function App({onInfo,onProject}) {
         if (users.success){
           const id = userid
           setrol(id);
+          console.log(rol);
           
         }
         else{return {message: 'We are sorry but something went wrong...'}}
@@ -87,21 +89,18 @@ function App({onInfo,onProject}) {
   }
 
   
-
+  if(project === true){
+    return <SetProject onInfo={info}/>
+  }
   if (token === null) {
 
     return <Login onLogin={login} onchangemode={setmodefn} />;}
 
-  else{
-    if (info===true){
-      if (project === true){
-        return <SetProject onInfo={comingbackinfo} onProject={falseproject}/>
-      }
-      else{
-      return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}}
     else{
-
-    return (
+      if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
+      else if(rol !== 2){
+        console.log(rol)
+      return (
       
 
       <div onLoad={searchProjectsUser}>
@@ -119,27 +118,24 @@ function App({onInfo,onProject}) {
             
           <div>
                 
-                <table>
+                <table className="table-ini">
                   <tr>
                     <th>Project Name</th>
                     <th>Project Class</th>
                     <th>Starting Date</th>
                     <th>Ending Date</th>
-                    
-                    
-            
-                    <th>Project ID</th>
-
                   </tr>
                   {p.map(p=>(
                     <tr>
                       <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.project_scope,p.project_requirements,p.project_budget,p.milestones]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
+
                       <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>
                       
                       <td> {format(new Date(p.ending_date), "MMMM do, yyyy ")}</td>
                       
                       <td> {p.projects_id}</td>
+
                     </tr>
                   ))}
                 </table>
@@ -156,11 +152,13 @@ function App({onInfo,onProject}) {
       </div>
 
 
-    )
+      )
 
-                }
+    }else if(rol === 3){
+      console.log('hola')
+    }
     
-    } 
+    }
   }
 
 

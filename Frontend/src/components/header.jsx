@@ -2,11 +2,11 @@ import React from "react";
 import "../styles/header.css";
 
 function Header({onLogout}) {
+
   const logout= () => {
-    
-    
     onLogout(false);
   };
+  
   return (
     <div>
         <div className="logo">
