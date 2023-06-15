@@ -255,7 +255,45 @@ export const getrol = async (userData) => {
   }
 };
 
+export const gettasksid = async (userData) => {
+  try {
 
+    const response = await fetch(`${BASE_URL}/gettasksid/${userData}`, {
+      method: "GET",
+     
+    });
+
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, tasksid: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message }; 
+  }
+};
+
+export const gettasksbyid = async (userData) => {
+  try {
+
+    const response = await fetch(`${BASE_URL}/gettasksbyid/${userData}`, {
+      method: "GET",
+     
+    });
+
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, tasksbyid: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message }; 
+  }
+};
 
 
 

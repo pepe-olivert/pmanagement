@@ -194,7 +194,7 @@ const insertTeamMember = `INSERT INTO "users_projects" (users_id,projects_id) VA
 const setTeamMember = async (users_id,projects_id) => {
 
   const res = await pool.query(insertTeamMember,[users_id,projects_id]);
-  const message= {message: "Team Member inserted correctly! "}
+  const message= {message: "Team Member created correctly! "}
   return message;
 
 }
@@ -222,21 +222,34 @@ const createTask=  async (projects_id,name,unit,quantity) => {
 }
 
 
-const selectRolUser=`SELECT rol FROM users WHERE users_id=$1`;
+const selectRolUser=`SELECT rol FROM users WHERE users_id=$1;`;
 
 const getRolTeamMember=  async (id) => {
   
   
   const res= await pool.query(selectRolUser,[id]);
-
   return res.rows;
-  
-
-  
-  
 }
 
+const selectTasksIdPorUser =`SELECT tasks_id FROM users_tasks WHERE users_id=$1;`;
 
+const getTaskId=  async (id) => {
+  
+  
+  const res= await pool.query(selectTasksIdPorUser,[id]);
+  console.log(res.rows);
+  return res.rows;
+}
+
+const selectTasksPorId = `SELECT * FROM tasks WHERE tasks_id=$1;`;
+
+const getTasks = async (id) => {
+  
+  
+  const res= await pool.query(selectTasksPorId,[id]);
+  console.log(res.rows);
+  return res.rows;
+}
 
 
 
@@ -259,6 +272,9 @@ module.exports = {
   setTeamMember,
   setRolTeamMember,
   createTask,
-  getRolTeamMember
+  getRolTeamMember,
+
+  getTaskId,
+  getTasks
 
 };

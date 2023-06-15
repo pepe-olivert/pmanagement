@@ -206,6 +206,29 @@ pmi.get("/getrol/:id", async (req, res) => {
   }
 });
 
+pmi.get("/gettasksid/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    
+    const taskid = await db.getTaskId(id);
+
+    res.status(200).json(taskid);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
+pmi.get("/gettasksbyid/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    
+    const tasks = await db.getTasks(id);
+
+    res.status(200).json(tasks);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
 
 
 
