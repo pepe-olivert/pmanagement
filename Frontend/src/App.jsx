@@ -65,29 +65,16 @@ function App({onInfo,onProject}) {
       else{return {message: 'We are sorry but something went wrong...'}}
 
       const userid = localStorage.getItem("userid");
-      const users=await api.getRol()
+      const userid_number = parseInt(userid, 10);
+      const users=await api.getrol(userid_number)
 
-        
-        if (users.success){
-          const id = userid
-          setrol(id);
-          console.log(rol);
-          
-        }
-        else{return {message: 'We are sorry but something went wrong...'}}
-
-
+      if(users.success){
+        const rol_user = users.rol;
+        const arr = Object.values(rol_user[0])
+        setrol(arr[0]);
       }
-        
-
-
-  
-
-  const createNewProject = ()=> {
-    
-    setProject(true);
-  }
-
+    }
+      
   
   if(project === true){
     return <SetProject onInfo={info}/>
@@ -98,8 +85,8 @@ function App({onInfo,onProject}) {
 
     else{
       if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
-      else if(rol !== 2){
-        console.log(rol)
+      else if(rol !== 'Team Member'){
+        console.log();
       return (
       
 
@@ -133,9 +120,6 @@ function App({onInfo,onProject}) {
                       <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>
                       
                       <td> {format(new Date(p.ending_date), "MMMM do, yyyy ")}</td>
-                      
-                      <td> {p.projects_id}</td>
-
                     </tr>
                   ))}
                 </table>
@@ -154,8 +138,19 @@ function App({onInfo,onProject}) {
 
       )
 
-    }else if(rol === 3){
-      console.log('hola')
+    }else if(rol === 'Team Member'){
+      return(
+        <div>
+          <header>
+            <Header></Header>
+          </header>
+
+          <body>
+            
+          </body>
+
+        </div>
+      )
     }
     
     }

@@ -222,13 +222,17 @@ const createTask=  async (projects_id,name,unit,quantity) => {
 }
 
 
-const selectRolUser = `SELECT rol FROM users WHERE users_id=$1;`;
+const selectRolUser=`SELECT rol FROM users WHERE users_id=$1`;
 
-const getRolTeamMember =  async (id) => {
+const getRolTeamMember=  async (id) => {
   
-  const rows  = await pool.query(selectRolUser, [id]);
-  //const message= {message: "The username is: " + email}
-  console.log(rows);
+  
+  const res= await pool.query(selectRolUser,[id]);
+
+  return res.rows;
+  
+
+  
   
 }
 
