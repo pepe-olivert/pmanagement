@@ -17,6 +17,7 @@ FUTURE:
 TO DO:
 - Componente showinfo task (DAVID)
 - Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
+(HE CAMBIADO LA BD Y SE PUEDEN AÑADIR VARIOS MILESTONES. fALTA LO DE LAS FECHAS)
 - Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
 - Asignación perfiles a tareas (PEPE)
 - Gantt de tareas + milestones (DAVID)

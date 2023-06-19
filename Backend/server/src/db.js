@@ -88,13 +88,13 @@ const register=  (email,password,rol) => {
   
 }
 
-const updateprojectSQL=`UPDATE projects SET  project_requirements=$2,project_budget=$3,milestones=$4,state=$5 WHERE projects_id=$1`;
+const updateprojectSQL=`UPDATE projects SET  project_requirements=$2,project_budget=$3,state=$4 WHERE projects_id=$1`;
 
-const updateproject=  async (id,pr,pb,m) => {
+const updateproject=  async (id,pr,pb) => {
   
   const state = "ON INITIATE"
   
-  const res = await pool.query(updateprojectSQL,[id, pr, pb,m,state]);
+  const res = await pool.query(updateprojectSQL,[id, pr, pb,state]);
   ;
   
 
@@ -127,12 +127,18 @@ const showtasks=  async (id) => {
   
   return res.rows
 
-  ;
-  
+  ;}
 
+const showmSQL=`SELECT * FROM mstones WHERE project_id=$1`;
+
+const showm=  async (id) => {
   
   
-}
+  const res= await pool.query(showmSQL,[id]);
+  
+  return res.rows
+
+  ;}
 
 const loginSQL=`SELECT * FROM users WHERE email=$1`;
 
@@ -216,7 +222,20 @@ const createTask=  async (projects_id,name,unit,quantity) => {
 
 
   const message= {message: "Task created correctly! "}
-  console.log(message)
+  
+  return message;
+  
+}
+
+const createMSQL=`INSERT INTO "mstones" (project_id,nombre) VALUES ($1,$2)`;
+
+const createM=  async (projects_id,name) => {
+  
+  const res = await pool.query(createMSQL,[projects_id,name]);
+
+
+  const message= {message: "Milestone created correctly! "}
+  
   return message;
   
 }
@@ -228,7 +247,7 @@ const getRolTeamMember =  async (id) => {
   
   const rows  = await pool.query(selectRolUser, [id]);
   //const message= {message: "The username is: " + email}
-  console.log(rows);
+  
   
 }
 
@@ -243,12 +262,12 @@ module.exports = {
   decodeToken,
   createToken,
   getuserid,
-
+  showm,
   updateproject,
   createTask,
   updateprojectstate,
   showtasks,
-
+  createM,
   setProject,
   setUserProject,
   getUsers,

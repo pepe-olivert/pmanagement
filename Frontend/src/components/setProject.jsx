@@ -49,12 +49,13 @@ function setProject ({onInfo, onProject}){
             }
 
             if (diff > 0){const newProject = await api.setProject(values);
-                                document.getElementById("form").reset();
+                                
                                 swal({
                                     text:"Se ha creado el proyecto",
                                     icon:"success",
                                     button: "Aceptar"
                                     });
+                                document.getElementById("form").reset();
                                 project();
                                 info();}
             
@@ -91,8 +92,8 @@ function setProject ({onInfo, onProject}){
             
                 
                 <body>
-                    <div className="form">
-                        <form onSubmit={addNewProject}>
+                    <div >
+                        <form onSubmit={addNewProject} id="form">
                             <h2>Project Class</h2>
                             <input onChange={(e) => setPClass(e.target.value)} type="text"/>
                             <h2>Project Name</h2>

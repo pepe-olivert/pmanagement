@@ -90,7 +90,7 @@ function App({onInfo,onProject}) {
 
   
   if(project === true){
-    return <SetProject onInfo={info}/>
+    return <SetProject onInfo={comingbackinfo} onProject={falseproject}/>
   }
   if (token === null) {
 

@@ -12,7 +12,8 @@ function initiate({oninitiate,onInfo, onRecieved}){
     const [pb,setpb]=useState(null);
     const [error, setError] = ("");
     const [m,setm]=useState("");
-
+    const [milestones,setmilestones]=useState([]);
+    const [aux,setaux]=useState([]);
     
     const info = ()=>{
         onInfo(false);
@@ -22,15 +23,36 @@ function initiate({oninitiate,onInfo, onRecieved}){
         oninitiate(false)
     }
 
-    const upd = async(e)=>{
+    const addM = async(e)=>{
 
+        e.preventDefault();
+        const data={"name":m}
+       
+        setmilestones((milestones => [...milestones, data]))
+        document.getElementById("form").reset()
+    }
+
+    const upd = async(e)=>{
+        
         try {
             e.preventDefault();
            
-            const toupdate={"id":id,"project_requirements":pr,"project_budget":pb,"milestones":m};
+            milestones.forEach(async function(nombre,index){
+                const toupdate2={"id":id,"nombre":nombre.name}
+                const updated2= await api.updatem(toupdate2)
+                
+                
+            })
+            
+            
+           
+            const toupdate={"id":id,"project_requirements":pr,"project_budget":pb};
+            
             const updated= await api.updateproject(toupdate)
 
-            if (updated.success){
+            
+
+            if (updated.success ){
                 swal({
                     text:"Se ha iniciado el proyecto",
                     icon:"success",
@@ -68,14 +90,61 @@ function initiate({oninitiate,onInfo, onRecieved}){
             Project Requirements   <input type="text" placeholder="Project Requirements "onChange={(e) => { setpr(e.target.value) }}/>
             Project Budget   <input type="number" placeholder="Project Budget"onChange={(e) => { setpb(e.target.value) }}/>
 
+        </form> 
+
+        <form id="form">
+
             Milestones   <input type="text" placeholder="Milestones"onChange={(e) => { setm(e.target.value) }}/>
             
+            <button onClick={addM}>ADD MILESTONE</button>
 
-            <button onClick={upd}>
-              Click to initiate your project
-            </button>
+        </form>
+
+        <h2>BORRADOR DE MILESTONES</h2>
+        <table >
+                        <thead>
+
+
+        
+                        
+
+                        <tr>
+                            <th scope="col">Milestone</th>
+                            
+                            
+                        </tr>
+
+                        </thead>
+                        
+
+                        
+                        <tbody>
+        
+                    
+                        {milestones.map(milestones => (
+
+                        
             
-        </form> 
+                        <tr >
+                            <td >{milestones.name}</td>
+                            
+                            
+                            
+                        </tr>
+
+
+            
+                        ))}
+
+                
+            
+                        </tbody>
+            
+        </table>
+
+        <button onClick={upd}>
+              Click to initiate your project
+        </button>
 
         <button onClick={info}>
               Click to come back to see all your projects

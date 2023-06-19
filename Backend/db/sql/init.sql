@@ -28,9 +28,14 @@ CREATE TABLE projects (
     project_scope VARCHAR(1000),
     project_requirements VARCHAR(1000),
     project_budget INTEGER,
-    completion_time INTEGER,
-    milestones VARCHAR(1000),
     state VARCHAR(20)
+);
+
+CREATE TABLE mstones (
+    m_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    project_id INTEGER REFERENCES projects(projects_id),
+    nombre VARCHAR(1000)
+    
 );
 
 CREATE TABLE profiles (

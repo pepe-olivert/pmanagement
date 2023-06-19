@@ -23,6 +23,18 @@ pmi.get("/showtasks/:id", async (req, res) => {
   }
 });
 
+pmi.get("/showm/:id", async (req, res) => {
+  try {
+    
+    const id = req.params.id
+    
+    const tasks = await db.showm(id);
+    res.status(200).json(tasks);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
 pmi.post("/register",async (req,res) => {
   try{
     
@@ -45,10 +57,10 @@ pmi.post("/updateproject",async (req,res) => {
     const pr=req.body.project_requirements
     const pb= req.body.project_budget
     
-    const m=req.body.milestones
     
     
-    const updated = await db.updateproject(id,pr,pb,m)
+    
+    const updated = await db.updateproject(id,pr,pb)
     return res.status(200).json(updated)
   }catch (e){
     console.log(e)
@@ -199,12 +211,28 @@ pmi.get("/getRol", async (req, res) => {
   try {
 
     const users_id=req.body.userid;
-    console.log(users_id);
+    
 
     const users = await db.getRolTeamMember(users_id);
     res.status(200).json(users);
   } catch (e) {
     res.status(500).json({ error: e.toString() });
+  }
+});
+
+pmi.post("/updateM", async (req,res)=>{
+
+  try{
+    
+    const p_id=req.body.id
+    const name=req.body.nombre
+    
+    const update = await db.createM(p_id,name)
+    return res.status(200).json(update)
+
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
   }
 });
 

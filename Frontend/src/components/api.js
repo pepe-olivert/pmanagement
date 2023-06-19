@@ -103,6 +103,30 @@ export const updatetask = async (userData) => {
   }
 };
 
+export const updatem = async (userData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/updateM`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, token: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
 export const updateprojectstate = async (userData) => {
   try {
     
@@ -161,6 +185,30 @@ export const showTasks = async (userData) => {
     
     
     const response = await fetch(`${BASE_URL}/showtasks/${userData}`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, tasks: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message }; 
+  }
+};
+
+export const showM = async (userData) => {
+  try {
+
+    
+    
+    const response = await fetch(`${BASE_URL}/showm/${userData}`, {
       method: "GET",
      
     });
