@@ -227,11 +227,11 @@ const createTask=  async (projects_id,name,unit,quantity) => {
   
 }
 
-const createMSQL=`INSERT INTO "mstones" (project_id,nombre) VALUES ($1,$2)`;
+const createMSQL=`INSERT INTO "mstones" (project_id,nombre,sdate) VALUES ($1,$2,$3)`;
 
-const createM=  async (projects_id,name) => {
+const createM=  async (projects_id,name,date) => {
   
-  const res = await pool.query(createMSQL,[projects_id,name]);
+  const res = await pool.query(createMSQL,[projects_id,name,date]);
 
 
   const message= {message: "Milestone created correctly! "}

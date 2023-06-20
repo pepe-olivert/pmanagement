@@ -58,6 +58,7 @@ function App({onInfo,onProject}) {
       
       
       if (projects.success){
+        
         const allProjects=projects.projects
         setp(allProjects)
       }
@@ -127,7 +128,7 @@ function App({onInfo,onProject}) {
                   </tr>
                   {p.map(p=>(
                     <tr>
-                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.project_scope,p.project_requirements,p.project_budget,p.milestones]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.scope,p.project_requirements,p.project_budget,p.starting_date,p.ending_date]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
 
                       <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>

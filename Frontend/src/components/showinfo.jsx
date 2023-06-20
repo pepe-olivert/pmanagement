@@ -5,6 +5,7 @@ import Initiate from "./initiate";
 import Header from "../components/header";
 import "../styles/showinfo.css";
 import * as api from "../components/api";
+import { format } from "date-fns";
 
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {
@@ -13,8 +14,9 @@ function showinfo ({onInfo,onRecieved})  {
     const [clas,setclas]=useState("");
     const [requirement,setrequirement]=useState("");
     const [milestones,setmilestones]=useState([]);
+    const [ed,seted]=useState("");
     const [budget,setbudget]=useState("");
-    const [scope,setscope]=useState("");
+    const [sd,setsd]=useState("");
     const [tasks,settasks]=useState([]);
     const [f,setf]=useState(false);
     const [aux,setaux]=useState([]);
@@ -71,32 +73,22 @@ function showinfo ({onInfo,onRecieved})  {
     };
 
     
-      /*useEffect(()=>{
-        t();
-
-      },[task])
-    */
+     
 
       useEffect(()=>{
         setname(onRecieved[1]);
         setclas(onRecieved[2]);
-        setaux(onRecieved)
-        setscope(onRecieved[3])
-        setrequirement(onRecieved[4])
-        
-        setbudget(onRecieved[5])
+        setaux(onRecieved);
+        setsd(onRecieved[6]);
+        setrequirement(onRecieved[4]);
+        seted(onRecieved[7]);
+        setbudget(onRecieved[5]);
         setid(onRecieved[0]);
         setf(!f);
       
       }, [])
 
-      /*useEffect(()=>{
-        
-        if (id != null){
-          t();
-        }
       
-      }, [f])*/
 
       
     if (ini==true){return (
@@ -129,7 +121,7 @@ function showinfo ({onInfo,onRecieved})  {
               <tr>
                 <th>Project Name</th>
                 <th>Project Class</th>
-                <th>Project Scope</th>
+               
                 <th>Project Requirements</th>
                 <th>Project Budget</th>
                 
@@ -137,7 +129,7 @@ function showinfo ({onInfo,onRecieved})  {
               <tr>
                 <td> {name}</td>
                 <td> {clas}</td>
-                <td> {scope}</td>
+               
                 <td> {requirement}</td>
                 <td> {budget}</td>
                 
@@ -151,6 +143,7 @@ function showinfo ({onInfo,onRecieved})  {
                     <th scope="col">Milestone ID</th>
                     <th scope="col">Project ID</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Date</th>
                     
                 </tr>
                 </thead>
@@ -161,6 +154,7 @@ function showinfo ({onInfo,onRecieved})  {
                   <td >{milestones.m_id}</td>
                     <td >{milestones.project_id}</td>
                     <td >{milestones.nombre}</td>
+                    <td >{format(new Date(milestones.sdate), "MMMM do, yyyy ")}</td>
                     
                 </tr>
                 ))}

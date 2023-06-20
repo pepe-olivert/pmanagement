@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS users_profiles;
 DROP TABLE IF EXISTS users_projects;
 DROP TABLE IF EXISTS profiles_tasks;
 DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS mstones;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS projects;
 DROP TABLE IF EXISTS profiles;
@@ -34,7 +35,8 @@ CREATE TABLE projects (
 CREATE TABLE mstones (
     m_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     project_id INTEGER REFERENCES projects(projects_id),
-    nombre VARCHAR(1000)
+    nombre VARCHAR(1000),
+    sdate DATE
     
 );
 

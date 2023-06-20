@@ -226,8 +226,9 @@ pmi.post("/updateM", async (req,res)=>{
     
     const p_id=req.body.id
     const name=req.body.nombre
+    const sd = req.body.date
     
-    const update = await db.createM(p_id,name)
+    const update = await db.createM(p_id,name,sd)
     return res.status(200).json(update)
 
   }catch (e){

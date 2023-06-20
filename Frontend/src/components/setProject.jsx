@@ -38,7 +38,7 @@ function setProject ({onInfo, onProject}){
             const y= new Date(ending_date);
             
             const diff= difference(x,y)
-            console.log(diff)
+            
             const values = {
                 "p_class": p_class,
                 "p_name": p_name,
