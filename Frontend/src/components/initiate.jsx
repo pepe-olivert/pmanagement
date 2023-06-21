@@ -53,7 +53,12 @@ function initiate({oninitiate,onInfo, onRecieved}){
             document.getElementById("form").reset()}
 
         else{
-            console.log('Error')
+            swal({
+                title:'Oops!',
+                text:"The date of this milestone is not in between the project duration.",
+                icon:"error",
+                button: "Aceptar"
+                });
             document.getElementById("form").reset()
         }
     }

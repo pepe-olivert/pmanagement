@@ -19,7 +19,7 @@ TO DO:
 - Componente showinfo task (DAVID)
 
 - Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
-- Asignación perfiles a tareas (PEPE)
+
 - Gantt de tareas + milestones (DAVID)
 - Vista team member  (DAVID)
 
@@ -27,3 +27,4 @@ TO DO:
 DONE:
 
 - Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
+- Asignación perfiles a tareas (PEPE)
