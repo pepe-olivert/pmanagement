@@ -10,7 +10,7 @@ import SetProject from "./components/setProject.jsx"
 import Showinfo from "./components/showinfo.jsx"
 
 function App({onInfo,onProject}) {
-  
+
   const [p,setp]=useState([]);
   const [token, setToken] = useState(null)
   const [project, setProject] = useState(false);
@@ -18,7 +18,7 @@ function App({onInfo,onProject}) {
   const [mode, setMode] = useState("login");
   const [aux, setaux] = useState([]);
   const [rol,setrol]=useState("");
-
+  const [t,sett]=useState([]);
 
   const login = (token) => {
     setToken(token);
@@ -65,30 +65,33 @@ function App({onInfo,onProject}) {
 
       else{return {message: 'We are sorry but something went wrong...'}}
 
+      /*----------------------VIEW TEAM MEMBER-------------------------*/
       const userid = localStorage.getItem("userid");
-      const users=await api.getRol()
+      const userid_number = parseInt(userid, 10);
+      const users=await api.getrol(userid_number)
 
-        
-        if (users.success){
-          const id = userid
-          setrol(id);
-          console.log(rol);
-          
-        }
-        else{return {message: 'We are sorry but something went wrong...'}}
-
-
+      if(users.success){
+        const rol_user = users.rol;
+        const rol_arr = Object.values(rol_user[0])
+        setrol(rol_arr[0]);
       }
-        
+      const listed =  await api.gettasksid(userid_number);
 
+      if (listed.success){
+        const taskid= listed.tasksid;
+        const taskid_arr = Object.values(taskid[0])
+        console.log(taskid_arr[0])
 
-  
+        const gettasksbyid =  await api.gettasksbyid(taskid_arr[0]);
+        if(gettasksbyid.success){
+          const tasks = gettasksbyid.tasksbyid;
+          sett(tasks);
+        }
+      }
+      else{return {message:"No tasks identified"}}
 
-  const createNewProject = ()=> {
-    
-    setProject(true);
-  }
-
+      /*------------------------------------------------------------------*/
+    }    
   
   if(project === true){
     return <SetProject onInfo={comingbackinfo} onProject={falseproject}/>
@@ -99,8 +102,7 @@ function App({onInfo,onProject}) {
 
     else{
       if (info===true){return <Showinfo onInfo={comingbackinfo} onRecieved={aux}/>}
-      else if(rol !== 2){
-        console.log(rol)
+      else if(rol !== 'Team Member'){
       return (
       
 
@@ -134,9 +136,6 @@ function App({onInfo,onProject}) {
                       <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>
                       
                       <td> {format(new Date(p.ending_date), "MMMM do, yyyy ")}</td>
-                      
-                      <td> {p.projects_id}</td>
-
                     </tr>
                   ))}
                 </table>
@@ -155,8 +154,41 @@ function App({onInfo,onProject}) {
 
       )
 
-    }else if(rol === 3){
-      console.log('hola')
+    }else if(rol === 'Team Member'){
+      return(
+        <div onLoad={searchProjectsUser}>
+          <header>
+            <Header></Header>
+          </header>
+
+          <body>
+            <table >
+                <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Project ID</th>
+                    <th>Name</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {t.map(tasks => (
+                <tr >
+                    <td >{tasks.tasks_id}</td>
+                    <td >{tasks.project_id}</td>
+                    <td >{tasks.name}</td>
+                    <td >{tasks.unit}</td>
+                    <td >{tasks.quantity}</td>
+                </tr>
+                ))}
+                </tbody>
+              </table>
+          </body>
+
+        </div>
+      )
     }
     
     }

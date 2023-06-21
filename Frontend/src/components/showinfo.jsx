@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import AddTeamMembers from "./addTeamMembers";
 import Task from "./createtasks";
 import Initiate from "./initiate";
+import Showtask from "./showtask";
 import Header from "../components/header";
 import "../styles/showinfo.css";
 import * as api from "../components/api";
@@ -24,6 +25,7 @@ function showinfo ({onInfo,onRecieved})  {
     const [id,setid]=useState(null);
     const [task,settask]=useState(false);
     const [teamMembers, setTeamMembers] = useState(false);
+    const [showtask, showTask] = useState(false);
 
 
     const info= () => {
@@ -104,9 +106,11 @@ function showinfo ({onInfo,onRecieved})  {
       )
       }
     
-    else{
-      
-
+    else if(showtask === true){
+      return (
+        <Showtask onShowTask={showTask} onInfo={info} onRecieved={aux} />
+      )
+    }else{
             return ( 
 
         
@@ -176,7 +180,11 @@ function showinfo ({onInfo,onRecieved})  {
                 <tbody>
                 {tasks.map(tasks => (
                 <tr >
-                  <td >{tasks.tasks_id}</td>
+                    <td>
+                      <button className="btn-pname" onClick={()=>{const datos = 
+                          [tasks.tasks_id, tasks.project_id, tasks.name, tasks.unit, tasks.quantity, tasks.profile, tasks.starting_date, tasks.ending_date, tasks.performance, tasks.tools];
+                          setaux(datos);showTask(true);}}> {tasks.tasks_id}</button>
+                    </td>
                     <td >{tasks.project_id}</td>
                     <td >{tasks.name}</td>
                     <td >{tasks.unit}</td>
