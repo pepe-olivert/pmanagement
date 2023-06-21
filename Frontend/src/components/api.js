@@ -231,9 +231,12 @@ export const getUsers = async () => {
 };
 
 
-export const getRol = async () => {
+export const getrol = async (userData) => {
   try {
-    const response = await fetch(`${BASE_URL}/getRol`, {
+
+    
+    
+    const response = await fetch(`${BASE_URL}/getrol/${userData}`, {
       method: "GET",
      
     });
@@ -243,15 +246,53 @@ export const getRol = async () => {
     const json = await response.json();
   
     if (response.status === 200) {
-      return { success: true, users: json };
+      return { success: true, rol: json };
     } else {
       return { success: false, error: json.error };
     }
   } catch (e) {
-    return { success: false, error: e.message };
+    return { success: false, error: e.message }; 
   }
+};
 
+export const gettasksid = async (userData) => {
+  try {
+
+    const response = await fetch(`${BASE_URL}/gettasksid/${userData}`, {
+      method: "GET",
+     
+    });
+
+    const json = await response.json();
   
+    if (response.status === 200) {
+      return { success: true, tasksid: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message }; 
+  }
+};
+
+export const gettasksbyid = async (userData) => {
+  try {
+
+    const response = await fetch(`${BASE_URL}/gettasksbyid/${userData}`, {
+      method: "GET",
+     
+    });
+
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return { success: true, tasksbyid: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message }; 
+  }
 };
 
 

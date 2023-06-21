@@ -195,19 +195,40 @@ pmi.post("/createTask",async (req,res) => {
   }
 })
 
-pmi.get("/getRol", async (req, res) => {
+pmi.get("/getrol/:id", async (req, res) => {
   try {
-
-    const users_id=req.body.userid;
-    console.log(users_id);
-
-    const users = await db.getRolTeamMember(users_id);
-    res.status(200).json(users);
+    const id = req.params.id
+    
+    const rol = await db.getRolTeamMember(id);
+    res.status(200).json(rol);
   } catch (e) {
     res.status(500).json({ error: e.toString() });
   }
 });
 
+pmi.get("/gettasksid/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    
+    const taskid = await db.getTaskId(id);
+
+    res.status(200).json(taskid);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
+pmi.get("/gettasksbyid/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    
+    const tasks = await db.getTasksById(id);
+
+    res.status(200).json(tasks);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
 
 
 

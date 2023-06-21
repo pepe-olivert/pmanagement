@@ -15,7 +15,7 @@ FUTURE:
 
 
 TO DO:
-- Componente showinfo task (DAVID)
+- Componente showinfo task (DAVID) --> desglose del campo de quantity en un valor que el usuario marque (1000q ¿cuanto lo quieres dividir? --> 2 === 500 y 500)
 - Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
 - Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
 - Asignación perfiles a tareas (PEPE)
