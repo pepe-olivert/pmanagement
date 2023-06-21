@@ -222,7 +222,7 @@ pmi.get("/gettasksbyid/:id", async (req, res) => {
   try {
     const id = req.params.id;
     
-    const tasks = await db.getTasks(id);
+    const tasks = await db.getTasksById(id);
 
     res.status(200).json(tasks);
   } catch (e) {

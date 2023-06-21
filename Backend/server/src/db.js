@@ -243,13 +243,14 @@ const getTaskId=  async (id) => {
 
 const selectTasksPorId = `SELECT * FROM tasks WHERE tasks_id=$1;`;
 
-const getTasks = async (id) => {
+const getTasksById = async (id) => {
   
   
   const res= await pool.query(selectTasksPorId,[id]);
   console.log(res.rows);
   return res.rows;
 }
+
 
 
 
@@ -275,6 +276,6 @@ module.exports = {
   getRolTeamMember,
 
   getTaskId,
-  getTasks
+  getTasksById
 
 };
