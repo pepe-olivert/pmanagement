@@ -69,10 +69,12 @@ function App({onInfo,onProject}) {
       const userid = localStorage.getItem("userid");
       const userid_number = parseInt(userid, 10);
       const users=await api.getrol(userid_number)
+      
 
       if(users.success){
         const rol_user = users.rol;
         const rol_arr = Object.values(rol_user[0])
+        
         setrol(rol_arr[0]);
       }
       const listed =  await api.gettasksid(userid_number);
@@ -158,7 +160,9 @@ function App({onInfo,onProject}) {
       return(
         <div onLoad={searchProjectsUser}>
           <header>
-            <Header></Header>
+         
+            <Header onLogout={logout}/>
+          
           </header>
 
           <body>
