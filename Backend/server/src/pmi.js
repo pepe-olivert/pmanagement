@@ -23,6 +23,18 @@ pmi.get("/showtasks/:id", async (req, res) => {
   }
 });
 
+pmi.get("/showm/:id", async (req, res) => {
+  try {
+    
+    const id = req.params.id
+    
+    const tasks = await db.showm(id);
+    res.status(200).json(tasks);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
 pmi.post("/register",async (req,res) => {
   try{
     
@@ -45,10 +57,24 @@ pmi.post("/updateproject",async (req,res) => {
     const pr=req.body.project_requirements
     const pb= req.body.project_budget
     
-    const m=req.body.milestones
     
     
-    const updated = await db.updateproject(id,pr,pb,m)
+    
+    const updated = await db.updateproject(id,pr,pb)
+    return res.status(200).json(updated)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.post("/updateP",async (req,res) => {
+  try{
+    const tid= req.body.tid
+    
+    const pid=req.body.pid
+    
+    const updated = await db.updateprofile(pid,tid)
     return res.status(200).json(updated)
   }catch (e){
     console.log(e)
@@ -70,12 +96,15 @@ pmi.post("/updateprojectstate",async (req,res) => {
   }
 })
 
+
 pmi.post("/createTask",async (req,res) => {
+  
   try{
     const a=req.body
     
     const returned=[]
     for (i in a){
+      
       const p_id=a[i].projects_id
       const name= a[i].name
       const unit= a[i].unit
@@ -173,27 +202,7 @@ pmi.post("/setTeamMember",async (req,res) => {
   }
 })
 
-pmi.post("/createTask",async (req,res) => {
-  try{
-    const a=req.body
-    
-    const returned=[]
-    for (i in a){
-      const p_id=a[i].projects_id
-      const name= a[i].name
-      const unit= a[i].unit
-      const q=a[i].quantity
-      
-      
-      const updated = await db.createTask(p_id,name,unit,q);
-      returned.push(updated)
-    }
-    return res.status(200).json(returned)
-  }catch (e){
-    console.log(e)
-    return res.status(500).json({ error: e.toString() });
-  }
-})
+
 
 pmi.get("/getrol/:id", async (req, res) => {
   try {
@@ -206,17 +215,38 @@ pmi.get("/getrol/:id", async (req, res) => {
   }
 });
 
+
 pmi.get("/gettasksid/:id", async (req, res) => {
   try {
     const id = req.params.id;
     
     const taskid = await db.getTaskId(id);
 
+
     res.status(200).json(taskid);
   } catch (e) {
     res.status(500).json({ error: e.toString() });
   }
 });
+
+
+pmi.post("/updateM", async (req,res)=>{
+
+  try{
+    
+    const p_id=req.body.id
+    const name=req.body.nombre
+    const sd = req.body.date
+    
+    const update = await db.createM(p_id,name,sd)
+    return res.status(200).json(update)
+
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+});
+
 
 pmi.get("/gettasksbyid/:id", async (req, res) => {
   try {
@@ -229,6 +259,7 @@ pmi.get("/gettasksbyid/:id", async (req, res) => {
     res.status(500).json({ error: e.toString() });
   }
 });
+
 
 
 

@@ -6,6 +6,7 @@ import Showtask from "./showtask";
 import Header from "../components/header";
 import "../styles/showinfo.css";
 import * as api from "../components/api";
+import { format } from "date-fns";
 
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {
@@ -13,9 +14,10 @@ function showinfo ({onInfo,onRecieved})  {
     const [name,setname]=useState("");
     const [clas,setclas]=useState("");
     const [requirement,setrequirement]=useState("");
-    const [milestone,setmilestone]=useState("");
+    const [milestones,setmilestones]=useState([]);
+    const [ed,seted]=useState("");
     const [budget,setbudget]=useState("");
-    const [scope,setscope]=useState("");
+    const [sd,setsd]=useState("");
     const [tasks,settasks]=useState([]);
     const [f,setf]=useState(false);
     const [aux,setaux]=useState([]);
@@ -46,14 +48,19 @@ function showinfo ({onInfo,onRecieved})  {
     const t = async ()=>{
       
       
+      
       const listed =  await api.showTasks(id)
+
+      const ms = await api.showM(id)
       
       
-      if (listed.success){
+      if (listed.success && ms.success){
         
         const tasks= listed.tasks
+        const m = ms.tasks
         
         settasks(tasks);
+        setmilestones(m);
       }
       else{return {message:"No tasks identified"}}
     }
@@ -66,47 +73,26 @@ function showinfo ({onInfo,onRecieved})  {
     const logout = () => {
       setToken(null);
     };
-    
-      useEffect(()=>{
-        t();
 
-      },[task])
     
+     
 
       useEffect(()=>{
         setname(onRecieved[1]);
         setclas(onRecieved[2]);
-        setaux(onRecieved)
-        setscope(onRecieved[3])
-        setrequirement(onRecieved[4])
-        setmilestone(onRecieved[6])
-        setbudget(onRecieved[5])
+        setaux(onRecieved);
+        setsd(onRecieved[6]);
+        setrequirement(onRecieved[4]);
+        seted(onRecieved[7]);
+        setbudget(onRecieved[5]);
         setid(onRecieved[0]);
         setf(!f);
       
       }, [])
 
-      useEffect(()=>{
-        
-        if (id !== null){
-          t();
-        }
       
-      }, [f])
 
-      /*const searchProjectsUser=async ()=> {
       
-        const localToken= JSON.parse(localStorage.getItem("token"))
-        const decodeToken=localToken.token.accessToken
-        const projects=await api.getProjects(decodeToken)
-        
-        if (projects.success){
-          const allProjects=projects.projects
-          setp(allProjects)
-        }
-        else{return {message: 'We are sorry but something went wrong...'}}
-      }*/
-
     if (ini==true){return (
       <Initiate oninitiate={initiate} onInfo={info} onRecieved={onRecieved}/>)}
 
@@ -139,20 +125,45 @@ function showinfo ({onInfo,onRecieved})  {
               <tr>
                 <th>Project Name</th>
                 <th>Project Class</th>
-                <th>Project Scope</th>
+               
                 <th>Project Requirements</th>
                 <th>Project Budget</th>
-                <th>Milestones</th>
+                
               </tr>
               <tr>
                 <td> {name}</td>
                 <td> {clas}</td>
-                <td> {scope}</td>
+               
                 <td> {requirement}</td>
                 <td> {budget}</td>
-                <td> {milestone}</td>
+                
               </tr>
             </table>
+
+            <table >
+              <caption >Milestones</caption>
+                <thead>
+                <tr>
+                    <th scope="col">Milestone ID</th>
+                    <th scope="col">Project ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date</th>
+                    
+                </tr>
+                </thead>
+
+                <tbody>
+                {milestones.map(milestones => (
+                <tr >
+                  <td >{milestones.m_id}</td>
+                    <td >{milestones.project_id}</td>
+                    <td >{milestones.nombre}</td>
+                    <td >{format(new Date(milestones.sdate), "MMMM do, yyyy ")}</td>
+                    
+                </tr>
+                ))}
+                </tbody>
+              </table>
 
             <table >
               <caption >Project Scope</caption>
