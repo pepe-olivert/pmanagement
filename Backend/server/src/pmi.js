@@ -68,6 +68,20 @@ pmi.post("/updateproject",async (req,res) => {
   }
 })
 
+pmi.post("/updateP",async (req,res) => {
+  try{
+    const tid= req.body.tid
+    
+    const pid=req.body.pid
+    
+    const updated = await db.updateprofile(pid,tid)
+    return res.status(200).json(updated)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 pmi.post("/updateprojectstate",async (req,res) => {
   try{
     const id= req.body.id
@@ -82,12 +96,15 @@ pmi.post("/updateprojectstate",async (req,res) => {
   }
 })
 
+
 pmi.post("/createTask",async (req,res) => {
+  
   try{
     const a=req.body
     
     const returned=[]
     for (i in a){
+      
       const p_id=a[i].projects_id
       const name= a[i].name
       const unit= a[i].unit
@@ -185,27 +202,7 @@ pmi.post("/setTeamMember",async (req,res) => {
   }
 })
 
-pmi.post("/createTask",async (req,res) => {
-  try{
-    const a=req.body
-    
-    const returned=[]
-    for (i in a){
-      const p_id=a[i].projects_id
-      const name= a[i].name
-      const unit= a[i].unit
-      const q=a[i].quantity
-      
-      
-      const updated = await db.createTask(p_id,name,unit,q);
-      returned.push(updated)
-    }
-    return res.status(200).json(returned)
-  }catch (e){
-    console.log(e)
-    return res.status(500).json({ error: e.toString() });
-  }
-})
+
 
 pmi.get("/getRol", async (req, res) => {
   try {

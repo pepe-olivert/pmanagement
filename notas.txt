@@ -1,4 +1,5 @@
-
+docker cp sql/init.sql postgres_container:/data/postgres/init.sql
+./db_exec.sh data/postgres/init.sql
 
 Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
 Project manager puede modificar estados y tareas.

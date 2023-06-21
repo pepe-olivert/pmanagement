@@ -42,7 +42,7 @@ CREATE TABLE mstones (
 
 CREATE TABLE profiles (
     profiles_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    description TEXT NOT NULL,
+    description TEXT ,
     name VARCHAR(20) NOT NULL
 
 );
@@ -63,7 +63,6 @@ CREATE TABLE tasks (
     name VARCHAR(50),
     unit TEXT NOT NULL,
     quantity INTEGER NOT NULL,
-    profile VARCHAR(20),
     starting_date DATE,
     ending_date DATE,
     performance INTEGER,

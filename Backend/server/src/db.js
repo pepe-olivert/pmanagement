@@ -214,7 +214,7 @@ const setRolTeamMember = async (users_id,rol) => {
 
 }
 
-const createTaskSQL=`INSERT INTO "tasks" (project_id,name,unit,quantity) VALUES ($1,$2,$3,$4)`;
+const createTaskSQL=`INSERT INTO "tasks" (project_id,name,unit,quantity) VALUES ($1,$2,$3,$4) RETURNING *;`;
 
 const createTask=  async (projects_id,name,unit,quantity) => {
   
@@ -223,7 +223,7 @@ const createTask=  async (projects_id,name,unit,quantity) => {
 
   const message= {message: "Task created correctly! "}
   
-  return message;
+  return res;
   
 }
 
@@ -235,6 +235,19 @@ const createM=  async (projects_id,name,date) => {
 
 
   const message= {message: "Milestone created correctly! "}
+  
+  return message;
+  
+}
+
+const updateprofileSQL=`INSERT INTO "profiles_tasks" (profiles_id,tasks_id) VALUES ($1,$2)`;
+
+const updateprofile=  async (pid,tid) => {
+  
+  const res = await pool.query(updateprofileSQL,[pid,tid]);
+
+
+  const message= {message: "Profile added to the task! "}
   
   return message;
   
@@ -274,6 +287,7 @@ module.exports = {
   setTeamMember,
   setRolTeamMember,
   createTask,
-  getRolTeamMember
+  getRolTeamMember,
+  updateprofile
 
 };
