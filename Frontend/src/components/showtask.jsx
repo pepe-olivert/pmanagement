@@ -11,9 +11,15 @@ function Showtask({onInfo,onRecieved}) {
     useEffect(()=>{
         setq(onRecieved[4]);
       }, [])
-    //Da error
-    /*const op = q / d;
-    setsol(op);*/
+
+    const op = async()=>{
+        if(d>q){
+            window.alert('El desglose no puede ser mayor que la cantidad')
+        }else{
+            const division = q/d;
+            setsol(division);
+        }
+    }
 
     return(
         <div>
@@ -22,17 +28,13 @@ function Showtask({onInfo,onRecieved}) {
             </header>
 
             <body>
-                <form>
-                    <h2>Quantity: {q}</h2>
+                <h2>Quantity: {q}</h2>
 
-                    <p>¿En cuánto quieres desglosar la cantidad?</p>
+                <p>¿En cuánto quieres desglosar la cantidad?</p>
 
-                    <input onChange={(e) => { setd(e.target.value) }} type="number" />
-                    <button type="submit">Confirmar</button>
-
-                    <p>Resultado: {sol}</p>
-                </form>
-                
+                <input onChange={(e) => { setd(e.target.value) }} type="number"/>
+                <button onClick={op}>Confirmar</button>
+                <p>Resultado: {sol}</p>
             </body>
         </div>
         
