@@ -73,8 +73,9 @@ pmi.post("/updateP",async (req,res) => {
     const tid= req.body.tid
     
     const pid=req.body.pid
+    const rend= req.body.rend
     
-    const updated = await db.updateprofile(pid,tid)
+    const updated = await db.updateprofile(pid,tid,rend)
     return res.status(200).json(updated)
   }catch (e){
     console.log(e)
@@ -109,10 +110,12 @@ pmi.post("/createTask",async (req,res) => {
       const name= a[i].name
       const unit= a[i].unit
       const q=a[i].quantity
+      const sd = a[i].sd
+      const ed = a[i].ed
       
       
       
-      const updated = await db.createTask(p_id,name,unit,q);
+      const updated = await db.createTask(p_id,name,unit,q,sd,ed);
       returned.push(updated)
     }
     return res.status(200).json(returned)

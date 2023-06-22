@@ -1,5 +1,9 @@
+COMANDO ACTUALIZAR BD
+
 docker cp sql/init.sql postgres_container:/data/postgres/init.sql
 ./db_exec.sh data/postgres/init.sql
+
+IDEAS:
 
 Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
 Project manager puede modificar estados y tareas.
@@ -16,15 +20,14 @@ FUTURE:
 
 
 TO DO:
-
 - Componente showinfo task (DAVID)
-
-
+- Hacer la componente execute. Una vez que entres en una tarea te la divida por semanas o por meses, dado un ending y starting date. Después de eso va a poder asignar conceptos como unidades planeadas por semana o unidades
+ejecutadas por semana. Además tienes que poder elegir los perfiles que te hagan falta según el rendimiento de ese perfil para esa tarea. 
+- Visión team member: Poder iniciar, para, reanudar y terminar una tarea. Tener una tabla de logs que te vaya diciendo lo que pasa para cada usuario con tarea. Tener en cuenta la cantidad de horas total que el usuario x ha 
+destinado a la tarea y.
+- Add team member al proyecto y que se vea en la vista de ese team member las tareas 
 - Componente showinfo task (DAVID) --> desglose del campo de quantity en un valor que el usuario marque (1000q ¿cuanto lo quieres dividir? --> 2 === 500 y 500)
-- Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
-
 - Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
-
 - Gantt de tareas + milestones (DAVID)
 - Vista team member  (DAVID)
 
@@ -33,3 +36,5 @@ DONE:
 
 - Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
 - Asignación perfiles a tareas (PEPE)
+- Vista team member básica (DAVID)
+- Fechas a las tareas controlando que estén dentro de la duración del proyecto. (PEPE)

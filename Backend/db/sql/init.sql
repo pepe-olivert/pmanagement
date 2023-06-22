@@ -47,6 +47,8 @@ CREATE TABLE profiles (
 
 );
 
+
+
 CREATE TABLE users_profiles (
     users_id INTEGER,
     profiles_id INTEGER
@@ -71,7 +73,8 @@ CREATE TABLE tasks (
 
 CREATE TABLE profiles_tasks (
     profiles_id INTEGER,
-    tasks_id INTEGER
+    tasks_id INTEGER,
+    rends INTEGER
 );
 
 ALTER TABLE ONLY users_projects
@@ -94,6 +97,7 @@ ALTER TABLE ONLY users_tasks
 
 ALTER TABLE ONLY profiles_tasks
     ADD CONSTRAINT profiles_id_fkey FOREIGN KEY (profiles_id) REFERENCES profiles(profiles_id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
 
 ALTER TABLE ONLY profiles_tasks
     ADD CONSTRAINT tasks_id_fkey FOREIGN KEY (tasks_id) REFERENCES tasks(tasks_id) ON UPDATE CASCADE ON DELETE RESTRICT;

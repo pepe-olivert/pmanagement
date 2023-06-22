@@ -174,6 +174,9 @@ function showinfo ({onInfo,onRecieved})  {
                     <th scope="col">Name</th>
                     <th scope="col">Unit</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Starting Date</th>
+                    <th scope="col">Ending Date</th>
+
                 </tr>
                 </thead>
 
@@ -189,6 +192,8 @@ function showinfo ({onInfo,onRecieved})  {
                     <td >{tasks.name}</td>
                     <td >{tasks.unit}</td>
                     <td >{tasks.quantity}</td>
+                    <td >{format(new Date(tasks.starting_date), "MMMM do, yyyy ")}</td>
+                    <td >{format(new Date(tasks.ending_date), "MMMM do, yyyy ")}</td>
                 </tr>
                 ))}
                 </tbody>

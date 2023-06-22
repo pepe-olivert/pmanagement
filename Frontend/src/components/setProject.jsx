@@ -48,7 +48,7 @@ function setProject ({onInfo, onProject}){
                 "projects_id": projects_id
             }
 
-            if (diff > 0){const newProject = await api.setProject(values);
+            if (diff >= 0){const newProject = await api.setProject(values);
                                 
                                 swal({
                                     text:"Se ha creado el proyecto",

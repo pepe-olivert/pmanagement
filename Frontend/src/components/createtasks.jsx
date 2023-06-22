@@ -9,11 +9,19 @@ function creatasks({ontask,onInfo, onRecieved}){
     const [unit,setunit]=useState("");
     const [q,setq]=useState(null);
     const [name,setname]=useState("");
+    const [sdt,setsdt]=useState("");
+    const [edt,setedt]=useState("");
     const [item,setitem]= useState([]);
     const [perf,setperf]=useState([]);
     const [ic,setic]= useState(false);
     const [iu,setiu]= useState(false);
     const [cd,setcd]= useState(false);
+    const [sdp,setsdp]=useState("");
+    const [edp,setedp]=useState("");
+    const [icp,seticp]=useState("");
+    const [iup,setiup]=useState("");
+    const [cdp,setcdp]=useState("");
+
 
     const [error,setError] = useState('');
     
@@ -36,9 +44,32 @@ function creatasks({ontask,onInfo, onRecieved}){
         setcd(!cd)
     }
 
+    const difference = (a,b)=>{
+        const date1utc = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+        const date2utc = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+        
+        const day = 1000*60*60*24;
+        return((date2utc - date1utc))/day
+    }
+
     const addtask = async (e)=>{
         e.preventDefault();
         
+        const x= new Date(sdp);
+        const y= new Date(edp);
+        const z = new Date(sdt)
+        const w = new Date(edt)
+
+        
+
+        const diff= difference(x,z)
+        const diff2= difference(y,z)
+        const diff3= difference(x,w)
+        const diff4= difference(y,w)
+        const diff5 = difference(z,w)
+
+        
+        if (diff >= 0 && diff2<=0 && diff3>=0 && diff4 <= 0 && diff5 >=0){
 
         const perfiles1 = {
             1: iu,
@@ -46,13 +77,18 @@ function creatasks({ontask,onInfo, onRecieved}){
             3: cd
         }
 
-        const selected = []
+        const performance = {
+            1: iup,
+            2: icp,
+            3: cdp
+        }
+
         const selected2 = []
 
         
 
         for (let clave in perfiles1){
-            if (perfiles1[clave]=== true){selected2.push(clave)}
+            if (perfiles1[clave]=== true){selected2.push({"perfil":clave,"rend":performance[clave]})}
         }
 
         
@@ -60,7 +96,9 @@ function creatasks({ontask,onInfo, onRecieved}){
             "projects_id":id,
             "name":name,
             "unit":unit,
-            "quantity":q
+            "quantity":q,
+            "sd":sdt,
+            "ed":edt
 
         }
         
@@ -68,15 +106,31 @@ function creatasks({ontask,onInfo, onRecieved}){
         setitem((item => [...item, datum]));
         setperf((perf=> [...perf,selected2]))
         document.getElementById("form").reset()
+
+        }
+
+        else{
+            swal({
+                title:'Oops!',
+                text:"The date of this task is not in between the project duration.",
+                icon:"error",
+                button: "Aceptar"
+                });
+                document.getElementById("form").reset()
+        }
         
         
     }
+
+    
 
     
     const updatetasks = async (e)=>{
         
         try{
             e.preventDefault();
+
+            
             const preupdated={
               "id":id
           }
@@ -88,8 +142,10 @@ function creatasks({ontask,onInfo, onRecieved}){
                 const task_id=values[val].rows[0].tasks_id
                 const those = perf[val]
                 those.forEach(async function(valor,index){
-                    const toupdate={"tid":task_id,"pid":valor}
+                    console.log(valor)
+                    const toupdate={"tid":task_id,"pid":valor.perfil,"rend":valor.rend}
                     const updated= await api.updateP(toupdate)
+                    
                     
                     
                 })
@@ -100,9 +156,12 @@ function creatasks({ontask,onInfo, onRecieved}){
                     icon:"success",
                     button: "Aceptar"
                 });
-                comeback();
-            }
-            else{return setError('No se ha podido subir la tarea'); }
+                comeback();}
+
+                else{return setError('No se ha podido subir la tarea'); }
+            
+            
+            
         }catch(err){
             throw setError('No se ha podido subir la tarea');
         }
@@ -111,6 +170,8 @@ function creatasks({ontask,onInfo, onRecieved}){
     }
     useEffect(()=>{
         setid(onRecieved[0]);
+        setsdp(onRecieved[6])
+        setedp(onRecieved[7])
       }, [])
     
    
@@ -128,13 +189,32 @@ function creatasks({ontask,onInfo, onRecieved}){
             Name   <input type="text" placeholder="Name" onChange={(e) => { setname(e.target.value) }}/>
             Unit   <input type="text" placeholder="Unit "onChange={(e) => { setunit(e.target.value) }}/>
             Quantity   <input type="number" placeholder="Quantity"onChange={(e) => { setq(e.target.value) }}/>
+            Starting Date <input type="date" placeholder="Starting date"onChange={(e) => { setsdt(e.target.value) }}/>
+            Ending Date<input type="date" placeholder="Ending Date"onChange={(e) => { setedt(e.target.value) }}/>
+            
+            <h2>Profile assignment</h2>
             </div>
 
-            Profile assignment 
+           <section>
+
+            <input type="checkbox" value="ic" checked={ic} onChange={handleIC}/>Ingeniero de caminos
+            <input type="number" placeholder="Performance" onChange={(e) => { seticp(e.target.value) }}/>
+            </section>
+
+            <section>
+
+            <input type="checkbox" value="iu" checked={iu} onChange={handleIU}/>Ingeniero industrial
+            <input type="number" placeholder="Performance" onChange={(e) => { setiup(e.target.value) }}/>
+            </section>
+
+            <section>
+
+            <input type="checkbox" value="cd" checked={cd} onChange={handleCD}/>Científico de datos
+            <input type="number" placeholder="Performance" onChange={(e) => { setcdp(e.target.value) }}/>
+            </section>
             
-                <input type="checkbox" value="ic" checked={ic} onChange={handleIC}/>Ingeniero de caminos
-                <input type="checkbox" value="iu" checked={iu} onChange={handleIU}/>Ingeniero industrial
-                <input type="checkbox" value="cd" checked={cd} onChange={handleCD}/>Científico de datos
+                
+                
                 
             
             
@@ -158,6 +238,7 @@ function creatasks({ontask,onInfo, onRecieved}){
                             <th scope="col">Name</th>
                             <th scope="col">Unit</th>
                             <th scope="col">Quantity</th>
+                            
                             
                         </tr>
 
