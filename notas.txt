@@ -1,4 +1,5 @@
-
+docker cp sql/init.sql postgres_container:/data/postgres/init.sql
+./db_exec.sh data/postgres/init.sql
 
 Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
 Project manager puede modificar estados y tareas.
@@ -15,9 +16,20 @@ FUTURE:
 
 
 TO DO:
+
+- Componente showinfo task (DAVID)
+
+
 - Componente showinfo task (DAVID) --> desglose del campo de quantity en un valor que el usuario marque (1000q ¿cuanto lo quieres dividir? --> 2 === 500 y 500)
 - Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
+
 - Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
-- Asignación perfiles a tareas (PEPE)
+
 - Gantt de tareas + milestones (DAVID)
 - Vista team member  (DAVID)
+
+
+DONE:
+
+- Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
+- Asignación perfiles a tareas (PEPE)
