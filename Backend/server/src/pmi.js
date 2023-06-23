@@ -160,6 +160,31 @@ pmi.get("/getProjects/:token",async (req,res) => {
   }
 })
 
+pmi.get("/infotask/:tid",async (req,res) => {
+  try{
+    const tid= req.params.tid
+    
+    const pid = await db.getprofiles(tid)
+    const perfiles = []
+    const rends = []
+    
+    for (p in pid){
+      const perf = await db.getProfName(pid[p].profiles_id)
+      perfiles.push(perf)
+      const rend = await db.getRend(tid,pid[p].profiles_id)
+      rends.push(rend)
+     
+    }
+
+    const final= {"pid":pid,"pname":perfiles,"rends":rends}
+    
+    return res.status(200).json(final)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 pmi.post("/setProject",async (req,res) => {
   try{   
      

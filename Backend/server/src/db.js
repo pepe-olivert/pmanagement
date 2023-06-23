@@ -190,7 +190,7 @@ const selectUsers = `SELECT users_id, rol, email FROM users;`;
 const getUsers =  async () => {
   
   const { rows }  = await pool.query(selectUsers);
-  //const message= {message: "The username is: " + email}
+  
   return rows;
   
 }
@@ -270,7 +270,7 @@ const getTaskId=  async (id) => {
   
   
   const res= await pool.query(selectTasksIdPorUser,[id]);
-  console.log(res.rows);
+ 
   return res.rows;
 }
 
@@ -280,7 +280,37 @@ const getTasksById = async (id) => {
   
   
   const res= await pool.query(selectTasksPorId,[id]);
-  console.log(res.rows);
+  
+  return res.rows;
+}
+
+const getprofilesSQL = `SELECT profiles_id FROM profiles_tasks WHERE tasks_id=$1;`;
+
+const getprofiles=  async (tid) => {
+  
+  
+  const res= await pool.query(getprofilesSQL,[tid]);
+ 
+  return res.rows;
+}
+
+const getProfNameSQL = `SELECT name FROM profiles WHERE profiles_id=$1;`;
+
+const getProfName=  async (tid) => {
+  
+  
+  const res= await pool.query(getProfNameSQL,[tid]);
+ 
+  return res.rows;
+}
+
+const getRendSQL = `SELECT rends FROM profiles_tasks WHERE tasks_id=$1 and profiles_id=$2;`;
+
+const getRend=  async (tid,pid) => {
+  
+  
+  const res= await pool.query(getRendSQL,[tid,pid]);
+ 
   return res.rows;
 }
 
@@ -307,10 +337,10 @@ module.exports = {
   setRolTeamMember,
   createTask,
   getRolTeamMember,
-
+  getprofiles,
   updateprofile,
-
-
+  getProfName,
+  getRend,
   getTaskId,
   getTasksById
 

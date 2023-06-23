@@ -30,6 +30,7 @@ destinado a la tarea y.
 - Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
 - Gantt de tareas + milestones (DAVID)
 - Vista team member  (DAVID)
+- Arreglar setoken
 
 
 DONE:

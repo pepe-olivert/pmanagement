@@ -206,6 +206,31 @@ export const getProjects = async (userData) => {
   }
 };
 
+export const infotask = async (userData) => {
+  try {
+
+   
+    
+    const response = await fetch(`${BASE_URL}/infotask/${userData}`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+   
+  
+    if (response.status === 200) {
+      return { success: true, item: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
 
 export const showTasks = async (userData) => {
   try {

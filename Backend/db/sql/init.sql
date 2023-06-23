@@ -67,8 +67,7 @@ CREATE TABLE tasks (
     quantity INTEGER NOT NULL,
     starting_date DATE,
     ending_date DATE,
-    performance INTEGER,
-    tools VARCHAR(20)
+    
 );
 
 CREATE TABLE profiles_tasks (
