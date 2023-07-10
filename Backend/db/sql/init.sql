@@ -48,7 +48,6 @@ CREATE TABLE profiles (
 );
 
 
-
 CREATE TABLE users_profiles (
     users_id INTEGER,
     profiles_id INTEGER

@@ -253,6 +253,19 @@ const updateprofile=  async (pid,tid,rend) => {
   
 }
 
+const addtmbSQL=`INSERT INTO "users_projects" (users_id,projects_id) VALUES ($1,$2)`;
+
+const addtmb=  async (v,p) => {
+  
+  const res = await pool.query(addtmbSQL,[v,p]);
+
+
+  const message= {message: "Team member added to the project!"}
+  
+  return message;
+  
+}
+
 
 const selectRolUser=`SELECT rol FROM users WHERE users_id=$1;`;
 
@@ -314,7 +327,15 @@ const getRend=  async (tid,pid) => {
   return res.rows;
 }
 
+const showtmSQL = `SELECT * FROM users WHERE rol='Team Member';`;
 
+const showtm=  async () => {
+  
+  
+  const res= await pool.query(showtmSQL);
+ 
+  return res.rows;
+}
 
 
 module.exports = {
@@ -342,7 +363,9 @@ module.exports = {
   getProfName,
   getRend,
   getTaskId,
-  getTasksById
+  getTasksById,
+  showtm,
+  addtmb
 
 
 };

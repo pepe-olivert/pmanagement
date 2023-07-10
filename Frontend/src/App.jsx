@@ -20,10 +20,17 @@ function App({onInfo,onProject}) {
   const [rol,setrol]=useState("");
   const [t,sett]=useState([]);
 
-  const login = (token) => {
+  const login = async (token) => {
     setToken(token);
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("userid",token.userid);
+    const userid = localStorage.getItem("userid");
+    const userid_number = parseInt(userid, 10);
+    const users=await api.getrol(userid_number)
+    const rol_user = users.rol;
+    const rol_arr = Object.values(rol_user[0])
+    setrol(rol_arr[0]);
+    
   };
 
   const setmodefn = (toggle) => {
@@ -51,7 +58,7 @@ function App({onInfo,onProject}) {
 
   const searchProjectsUser=async ()=> {
       
-
+      
       const localToken= JSON.parse(localStorage.getItem("token"))
       const decodeToken=localToken.token.accessToken
       const projects=await api.getProjects(decodeToken)
@@ -63,9 +70,13 @@ function App({onInfo,onProject}) {
         setp(allProjects)
       }
 
-      else{return {message: 'We are sorry but something went wrong...'}}
+      else{return {message: 'We are sorry but something went wrong...'}}}  
+
 
       /*----------------------VIEW TEAM MEMBER-------------------------*/
+    /*const searchTasksUser = async () => {
+
+      
       const userid = localStorage.getItem("userid");
       const userid_number = parseInt(userid, 10);
       const users=await api.getrol(userid_number)
@@ -90,10 +101,10 @@ function App({onInfo,onProject}) {
           sett(tasks);
         }
       }
-      else{return {message:"No tasks identified"}}
+      else{return {message:"No tasks identified"}}}*/
 
-      /*------------------------------------------------------------------*/
-    }    
+      /*------------------------------------------------------------------*/ 
+      
   
   if(project === true){
     return <SetProject onInfo={comingbackinfo} onProject={falseproject}/>
@@ -156,7 +167,10 @@ function App({onInfo,onProject}) {
 
       )
 
-    }else if(rol === 'Team Member'){
+    }
+
+    else if(rol === 'Team Member'){
+    
       return(
         <div onLoad={searchProjectsUser}>
           <header>
@@ -166,29 +180,27 @@ function App({onInfo,onProject}) {
           </header>
 
           <body>
-            <table >
-                <thead>
-                <tr>
-                    <th>Task ID</th>
-                    <th>Project ID</th>
-                    <th>Name</th>
-                    <th>Unit</th>
-                    <th>Quantity</th>
-                </tr>
-                </thead>
+          <div>
+                
+                <table className="table-ini">
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Project Class</th>
+                    <th>Starting Date</th>
+                    <th>Ending Date</th>
+                  </tr>
+                  {p.map(p=>(
+                    <tr>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.scope,p.project_requirements,p.project_budget,p.starting_date,p.ending_date]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td> {p.class}</td>
 
-                <tbody>
-                {t.map(tasks => (
-                <tr >
-                    <td >{tasks.tasks_id}</td>
-                    <td >{tasks.project_id}</td>
-                    <td >{tasks.name}</td>
-                    <td >{tasks.unit}</td>
-                    <td >{tasks.quantity}</td>
-                </tr>
-                ))}
-                </tbody>
-              </table>
+                      <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>
+                      
+                      <td> {format(new Date(p.ending_date), "MMMM do, yyyy ")}</td>
+                    </tr>
+                  ))}
+                </table>
+          </div>
           </body>
 
         </div>

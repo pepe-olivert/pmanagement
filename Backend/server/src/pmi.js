@@ -213,6 +213,15 @@ pmi.get("/getUsers", async (req, res) => {
   }
 });
 
+pmi.get("/showtm", async (req, res) => {
+  try {
+    const users = await db.showtm();
+    res.status(200).json(users);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
 pmi.post("/setTeamMember",async (req,res) => {
   try{    
       const users_id=req.body.users_id
@@ -224,6 +233,22 @@ pmi.post("/setTeamMember",async (req,res) => {
       const newTeamMember = await db.setTeamMember(users_id,projects_id)
 
       return res.status(200).json(rolTeamMember, newTeamMember)
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
+pmi.post("/addtmb",async (req,res) => {
+  try{    
+      
+      const values = req.body.array
+      const pid = req.body.pid
+      for (v in values){
+        const response = await db.addtmb(values[v],pid)
+      }
+
+      return res.status(200).json("Team members added correctly")
   }catch (e){
     console.log(e)
     return res.status(500).json({ error: e.toString() });

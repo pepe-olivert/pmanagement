@@ -182,6 +182,33 @@ export const updateprojectstate = async (userData) => {
   }
 };
 
+export const addTmb = async (userData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/addtmb`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+
+      
+
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, added: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
 export const getProjects = async (userData) => {
   try {
 
@@ -198,6 +225,30 @@ export const getProjects = async (userData) => {
   
     if (response.status === 200) {
       return { success: true, projects: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const showTeamMembers = async () => {
+  try {
+
+   
+    
+    const response = await fetch(`${BASE_URL}/showtm/`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return {members: json };
     } else {
       return { success: false, error: json.error };
     }

@@ -7,11 +7,103 @@ import "../styles/addTeamMembers.css";
 function addTeamMembers ({onInfo, onRecieved}) {
 
     const [users,setUsers]=useState([]);
-    const [projects, setProjects] = useState([]);
-    const [rol, setRol] = useState("");
-    const [users_id, setUserId] = useState(0);
     const [projects_id,setProjectId]=useState(0);
     const [projects_name, setProjectsName] = useState("");
+
+    useEffect(()=>{
+        setProjectId(onRecieved[0]);
+        setProjectsName(onRecieved[1]);
+      }, [])
+
+    const info = ()=>{
+       onInfo(false);
+    }
+
+    const searchteambs =async ()=>{
+        const members = await api.showTeamMembers()
+        setUsers(members.members)
+        
+    }
+
+    const addTeamMembers = async (e)=>{
+        e.preventDefault()
+        const values = Array
+                .from(document.querySelectorAll('input[type="checkbox"]'))
+                .filter((checkbox) => checkbox.checked)
+                .map((checkbox) => checkbox.value);
+        const request = {"array":values,"pid":projects_id}
+        const added = await api.addTmb(request)
+        
+        info();
+        
+    }
+
+    
+
+    return(
+        <div onLoad={searchteambs}>
+            <header> 
+                <Header/> 
+            </header>
+            <div >
+            <button onClick={info} className="btn-back">
+                    <span className="arrow"></span>
+                    Return
+                </button>
+            </div>
+            <body>
+
+            <div>
+                        <h2> Project's name</h2>
+                        <p>{projects_name}</p>
+            </div>
+
+                <form id="form" onSubmit={addTeamMembers}>
+                    <h2>Users</h2>
+                <table >
+              
+                <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">User_id</th>
+                    <th scope="col"></th>
+                    
+                </tr>
+                </thead>
+
+                <tbody>
+                {users.map(users => (
+                <tr >
+                    <td >{users.users_id}</td>
+                    <td >{users.email}</td>
+                    <input type="checkbox" value={users.users_id}/>
+                    
+                    
+                </tr>
+                ))}
+                </tbody>
+              </table>
+                    <br />
+                    
+                    <br />
+                    
+                    <br />
+
+                <button>Click</button>
+                    
+                   
+                </form>
+            </body>
+        </div>
+    )
+
+
+
+}
+
+export default addTeamMembers;
+/*
+    
 
     const [error,setError] = useState('');
 
@@ -40,14 +132,7 @@ function addTeamMembers ({onInfo, onRecieved}) {
         }
     }
 
-    useEffect(()=>{
-        setProjectId(onRecieved[0]);
-        setProjectsName(onRecieved[1]);
-      }, [])
-
-    const info = ()=>{
-       onInfo(false);
-    }
+    
 
     const addTeamMembers = async (e) =>  {
         try {
@@ -70,51 +155,8 @@ function addTeamMembers ({onInfo, onRecieved}) {
         
     }
 
-    return(
-        <div onLoad={methodOnLoad}>
-            <header> 
-                <Header/> 
-            </header>
-            <div>
-            <button onClick={info} className="btn-back">
-                    <span className="arrow"></span>
-                    Return
-                </button>
-            </div>
-            <body>
-                <form id="form" onSubmit={addTeamMembers}>
-                    <h2>Users</h2>
-                    <div>
-                        <select onChange={(e) => setUserId(e.target.value)} >
-                            {users.map((option) => (
-                                <option value={option.users_id}>{option.email}</option>
-                            ))}
-                            
-                        </select>
-                    </div> 
-                    <br />
-                    <div>
-                        <h2> Project's name</h2>
-                        <p>{projects_name}</p>
-                    </div>
-                    <br />
-                    <div>
-                        <h2>Rol</h2>
-                        <select id="rol" onChange={(e) => setRol(e.target.value)}>
-                            <option value="Program Manager">Program Manager</option>
-                            <option value="Project Manager">Project Manager</option>
-                            <option value="Team Member">Team Member</option>
-                        </select>
-                    </div>
-                    <br />
-                    <button onClick={addTeamMembers}>Add Team Member</button>
-                    <div>
-                        <p>{error}</p>
-                    </div>
-                </form>
-            </body>
-        </div>
-    )
+    
 }
 
-export default addTeamMembers;
+*/
+

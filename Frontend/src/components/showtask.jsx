@@ -109,7 +109,7 @@ function Showtask({onInfo,onRecieved}) {
 
 
             <button onClick={info}>
-                Click to come back to see all your projects
+                Back
             </button>
            
 
