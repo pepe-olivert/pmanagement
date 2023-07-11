@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import * as api from "./components/api";
 import "./styles/App.css";
 import Header from "./components/header.jsx";
-
 import { format } from "date-fns";
-
 import Login from "./components/login.jsx"
 import SetProject from "./components/setProject.jsx"
 import Showinfo from "./components/showinfo.jsx"
+import CreateUser from "./components/createUser.jsx"
 
 function App({onInfo,onProject}) {
 
@@ -19,6 +18,7 @@ function App({onInfo,onProject}) {
   const [userid, setuserid] = useState("");
   const [aux, setaux] = useState([]);
   const [rol,setrol]=useState("");
+  const [user,setuser]=useState(false)
   const [t,sett]=useState([]);
 
   const login = async (token) => {
@@ -51,8 +51,14 @@ function App({onInfo,onProject}) {
     setToken(null);
   };
 
+  
+
   const falseproject=()=>{
     setProject(false);
+  };
+
+  const nocreate=()=>{
+    setuser(false);
   };
 
 
@@ -75,38 +81,10 @@ function App({onInfo,onProject}) {
       else{return {message: 'We are sorry but something went wrong...'}}}  
 
 
-      /*----------------------VIEW TEAM MEMBER-------------------------*/
-    /*const searchTasksUser = async () => {
-
-      
-      const userid = localStorage.getItem("userid");
-      const userid_number = parseInt(userid, 10);
-      const users=await api.getrol(userid_number)
-      
-
-      if(users.success){
-        const rol_user = users.rol;
-        const rol_arr = Object.values(rol_user[0])
-        
-        setrol(rol_arr[0]);
-      }
-      const listed =  await api.gettasksid(userid_number);
-
-      if (listed.success){
-        const taskid= listed.tasksid;
-        const taskid_arr = Object.values(taskid[0])
-        console.log(taskid_arr[0])
-
-        const gettasksbyid =  await api.gettasksbyid(taskid_arr[0]);
-        if(gettasksbyid.success){
-          const tasks = gettasksbyid.tasksbyid;
-          sett(tasks);
-        }
-      }
-      else{return {message:"No tasks identified"}}}*/
-
-      /*------------------------------------------------------------------*/ 
-      
+     
+  if (user === true){
+    return <CreateUser onInfo={comingbackinfo} onProject={nocreate}/>
+  }
   
   if(project === true){
     return <SetProject onInfo={comingbackinfo} onProject={falseproject}/>
@@ -123,10 +101,13 @@ function App({onInfo,onProject}) {
 
       <div onLoad={searchProjectsUser}>
           <header>
-            <Header onLogout={logout}/>
+            <Header onLogout={logout} />
+            
           </header>
 
           <body>
+
+          <button className="btn-newproject" onClick={()=>{setuser(!user);}}>Create a new user </button> 
 
 
 
@@ -214,3 +195,35 @@ function App({onInfo,onProject}) {
 
 
 export default App;
+
+ /*----------------------VIEW TEAM MEMBER-------------------------*/
+    /*const searchTasksUser = async () => {
+
+      
+      const userid = localStorage.getItem("userid");
+      const userid_number = parseInt(userid, 10);
+      const users=await api.getrol(userid_number)
+      
+
+      if(users.success){
+        const rol_user = users.rol;
+        const rol_arr = Object.values(rol_user[0])
+        
+        setrol(rol_arr[0]);
+      }
+      const listed =  await api.gettasksid(userid_number);
+
+      if (listed.success){
+        const taskid= listed.tasksid;
+        const taskid_arr = Object.values(taskid[0])
+        console.log(taskid_arr[0])
+
+        const gettasksbyid =  await api.gettasksbyid(taskid_arr[0]);
+        if(gettasksbyid.success){
+          const tasks = gettasksbyid.tasksbyid;
+          sett(tasks);
+        }
+      }
+      else{return {message:"No tasks identified"}}}*/
+
+      /*------------------------------------------------------------------*/ 

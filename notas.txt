@@ -5,31 +5,24 @@ docker cp sql/init.sql postgres_container:/data/postgres/init.sql
 
 IDEAS:
 
-Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
 Project manager puede modificar estados y tareas.
-
-Hacer creación de usuario en la pantalla principal --> Añadir perfiles de usuario y roles a un team member nuevo.
-
-Cuando entras en creación tarea --> PrefilES y rendimiento de cada uno de los perfiles
 Cuando entras en la tarea --> Desglose de la cantidad y gantt
 
 FUTURE: 
 - Vista de proyectos modificar el scroll y añadir búsqueda por clase o starting date
 - Tabla logs con histórico de acciones en bd por usuario
-- Modificar campos de Initiate project 
 
 
 TO DO:
+Hacer creación de usuario en la pantalla principal --> Añadir perfiles de usuario y roles a un team member nuevo.*
+- Visión team member: Poder iniciar, parar, reanudar y terminar una tarea. Tener una tabla de logs que te vaya diciendo lo que pasa para cada usuario con tarea. Tener en cuenta la cantidad de horas total que el usuario x ha 
+destinado a la tarea y.*
+
 
 - Hacer la componente execute. Una vez que entres en una tarea te la divida por semanas o por meses, dado un ending y starting date. Después de eso va a poder asignar conceptos como unidades planeadas por semana o unidades
 ejecutadas por semana. Además tienes que poder elegir los perfiles que te hagan falta según el rendimiento de ese perfil para esa tarea. 
-- Visión team member: Poder iniciar, parar, reanudar y terminar una tarea. Tener una tabla de logs que te vaya diciendo lo que pasa para cada usuario con tarea. Tener en cuenta la cantidad de horas total que el usuario x ha 
-destinado a la tarea y.*
-- Add team member al proyecto y que se vea en la vista de ese team member las tareas*
 - Componente showinfo task (DAVID) --> desglose del campo de quantity en un valor que el usuario marque (1000q ¿cuanto lo quieres dividir? --> 2 === 500 y 500)
-- Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
 - Gantt de tareas + milestones (DAVID)
-- Vista team member  (DAVID)
 - Arreglar setoken
 
 
@@ -40,3 +33,8 @@ DONE:
 - Vista team member básica (DAVID)
 - Fechas a las tareas controlando que estén dentro de la duración del proyecto. (PEPE)
 - Componente showinfo task (DAVID)
+- Add team member al proyecto y que se vea en la vista de ese team member las tareas*
+- Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
+- Vista team member  (DAVID)
+- Modificar campos de Initiate project 
+Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.

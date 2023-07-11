@@ -74,6 +74,8 @@ return rows;
 const registerSQL=`INSERT INTO "users" (email,password,rol) VALUES ($1,$2,$3)`;
 
 const register=  (email,password,rol) => {
+
+  
   
   bcrypt.hash(password,saltRounds, async (err,hash) => {
     const res = await pool.query(registerSQL,[email, hash, rol]);

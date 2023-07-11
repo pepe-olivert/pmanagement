@@ -37,7 +37,7 @@ pmi.get("/showm/:id", async (req, res) => {
 
 pmi.post("/register",async (req,res) => {
   try{
-    
+    console.log(req.body)
     const email= req.body.email
     const p=req.body.password
     const r = req.body.rol
