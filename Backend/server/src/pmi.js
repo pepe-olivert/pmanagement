@@ -330,22 +330,28 @@ pmi.get("/gettasksbyid/:id", async (req, res) => {
   }
 });
 
-pmi.get("/showtmbtasks/:id", async (req, res) => {
+pmi.get("/showtmbtasks/:id/:pid", async (req, res) => {
   try {
     const userid = req.params.id;
-    
+    const pid = req.params.pid
     
     const ids = await db.tasksid(userid);
+
+    
+    
 
     const tasks = []
 
     for (let i in ids){
 
       const task = ids[i].tasks_id
-      const info = await db.infotask(task)
-      tasks.push(info)
+      const info = await db.infotask(task,pid)
+      if (info.length>0){tasks.push(info)}
+      
 
     }
+
+    
 
     
 

@@ -57,7 +57,7 @@ function setProject ({onInfo, onProject}){
                                     button: "Aceptar"
                                     });
                                 document.getElementById("form").reset();
-                                project();
+                                
                                 info();}
             
             

@@ -260,12 +260,12 @@ export const getProjects = async (userData) => {
   }
 };
 
-export const showtmbtasks = async (userData) => {
+export const showtmbtasks = async (userData,pid) => {
   try {
 
    
     
-    const response = await fetch(`${BASE_URL}/showtmbtasks/${userData}`, {
+    const response = await fetch(`${BASE_URL}/showtmbtasks/${userData}/${pid}`, {
       method: "GET",
      
     });

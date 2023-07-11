@@ -10,7 +10,6 @@ import { format } from "date-fns";
 
 //Onrecieved posee el nombre del proyecto
 function showinfo ({onInfo,onRecieved})  {
-    const [p,setp]=useState([]);
     const [name,setname]=useState("");
     const [clas,setclas]=useState("");
     const [requirement,setrequirement]=useState("");
@@ -76,7 +75,8 @@ function showinfo ({onInfo,onRecieved})  {
       
 
       const ms = await api.showM(id)
-      const taskids = await api.showtmbtasks(userid)
+      
+      const taskids = await api.showtmbtasks(userid,id)
 
      
       
@@ -91,7 +91,7 @@ function showinfo ({onInfo,onRecieved})  {
         for (let t in tasks){
           tasks2.push(tasks[t][0])
         }
-        console.log(tasks2)
+        
         settasks(tasks2)
         setmilestones(m);
       }
@@ -320,6 +320,9 @@ else {
                           <th scope="col">Name</th>
                           <th scope="col">Unit</th>
                           <th scope="col">Quantity</th>
+                          <th scope="col">Starting Date</th>
+                          <th scope="col">Ending Date</th>
+
                           
 
                       </tr>
@@ -335,6 +338,8 @@ else {
                           <td >{tasks.name}</td>
                           <td >{tasks.unit}</td>
                           <td >{tasks.quantity}</td>
+                          <td >{format(new Date(tasks.starting_date), "MMMM do, yyyy ")}</td>
+                          <td >{format(new Date(tasks.ending_date), "MMMM do, yyyy ")}</td>
                           
                       </tr>
                       ))}

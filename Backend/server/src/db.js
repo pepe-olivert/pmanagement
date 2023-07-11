@@ -359,12 +359,12 @@ const showtm=  async () => {
   return res.rows;
 }
 
-const infotaskSQL = `SELECT * FROM tasks WHERE tasks_id=$1;`;
+const infotaskSQL = `SELECT * FROM tasks WHERE tasks_id=$1 AND project_id=$2;`;
 
-const infotask=  async (id) => {
+const infotask=  async (id,pid) => {
   
   
-  const res= await pool.query(infotaskSQL,[id]);
+  const res= await pool.query(infotaskSQL,[id,pid]);
  
   return res.rows;
 }
