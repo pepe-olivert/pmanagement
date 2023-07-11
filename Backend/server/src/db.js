@@ -266,6 +266,19 @@ const addtmb=  async (v,p) => {
   
 }
 
+const addtmbtaskSQL=`INSERT INTO "users_tasks" (users_id,tasks_id) VALUES ($1,$2)`;
+
+const addtmbtask=  async (v,p) => {
+  
+  const res = await pool.query(addtmbtaskSQL,[v,p]);
+
+
+  const message= {message: "Team member added to the task!"}
+  
+  return message;
+  
+}
+
 
 const selectRolUser=`SELECT rol FROM users WHERE users_id=$1;`;
 
@@ -287,6 +300,15 @@ const getTaskId=  async (id) => {
   return res.rows;
 }
 
+const tasksidSQL= `SELECT tasks_id FROM users_tasks WHERE users_id=$1;`;
+
+const tasksid= async (id) => {
+  
+  
+  const res= await pool.query(tasksidSQL,[id]);
+  
+  return res.rows;
+}
 const selectTasksPorId = `SELECT * FROM tasks WHERE tasks_id=$1;`;
 
 const getTasksById = async (id) => {
@@ -337,6 +359,16 @@ const showtm=  async () => {
   return res.rows;
 }
 
+const infotaskSQL = `SELECT * FROM tasks WHERE tasks_id=$1;`;
+
+const infotask=  async (id) => {
+  
+  
+  const res= await pool.query(infotaskSQL,[id]);
+ 
+  return res.rows;
+}
+
 
 module.exports = {
   getProjectList,
@@ -365,7 +397,11 @@ module.exports = {
   getTaskId,
   getTasksById,
   showtm,
-  addtmb
+  addtmb,
+  addtmbtask,
+  tasksid,
+  infotask
+  
 
 
 };

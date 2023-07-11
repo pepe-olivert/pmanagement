@@ -6,6 +6,7 @@ import Header from "./header.jsx";
 
 function creatasks({ontask,onInfo, onRecieved}){
     const [id,setid]=useState("");
+    const [users,setUsers]=useState([]);
     const [unit,setunit]=useState("");
     const [q,setq]=useState(null);
     const [name,setname]=useState("");
@@ -13,6 +14,7 @@ function creatasks({ontask,onInfo, onRecieved}){
     const [edt,setedt]=useState("");
     const [item,setitem]= useState([]);
     const [perf,setperf]=useState([]);
+    const [tmb,settmb]=useState([]);
     const [ic,setic]= useState(false);
     const [iu,setiu]= useState(false);
     const [cd,setcd]= useState(false);
@@ -44,6 +46,12 @@ function creatasks({ontask,onInfo, onRecieved}){
         setcd(!cd)
     }
 
+    const searchteambs =async ()=>{
+        const members = await api.showTeamMembers()
+        setUsers(members.members)
+        
+    }
+
     const difference = (a,b)=>{
         const date1utc = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
         const date2utc = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
@@ -51,6 +59,8 @@ function creatasks({ontask,onInfo, onRecieved}){
         const day = 1000*60*60*24;
         return((date2utc - date1utc))/day
     }
+
+    
 
     const addtask = async (e)=>{
         e.preventDefault();
@@ -98,11 +108,22 @@ function creatasks({ontask,onInfo, onRecieved}){
             "unit":unit,
             "quantity":q,
             "sd":sdt,
-            "ed":edt
+            "ed":edt,
 
         }
+
+        const v = Array
+                .from(document.querySelectorAll('input[type="checkbox"][id="user_id"]'))
+                .filter((checkbox) => checkbox.checked)
+                .map((checkbox) => checkbox.value);
+
+            
+
+            
+        const request = {"array":v}
         
         
+        settmb((tmb => [...tmb, request]));
         setitem((item => [...item, datum]));
         setperf((perf=> [...perf,selected2]))
         document.getElementById("form").reset()
@@ -117,6 +138,10 @@ function creatasks({ontask,onInfo, onRecieved}){
                 button: "Aceptar"
                 });
                 document.getElementById("form").reset()
+                const checked = document.getElementByTagName("check")
+                checked.prop("checked", false);; 
+
+                
         }
         
         
@@ -137,19 +162,40 @@ function creatasks({ontask,onInfo, onRecieved}){
 
             const created = await api.updatetask(item)
             const updated = await api.updateprojectstate(preupdated)
+
             const values = created.token
+            
+           
             for (let val in values){
                 const task_id=values[val].rows[0].tasks_id
                 const those = perf[val]
+                const memb = tmb[val].array
+                
+                
                 those.forEach(async function(valor,index){
-                    console.log(valor)
+                    
                     const toupdate={"tid":task_id,"pid":valor.perfil,"rend":valor.rend}
                     const updated= await api.updateP(toupdate)
                     
                     
                     
+                    
                 })
+
+                memb.forEach(async function(valor,index){
+                    const toupdate2={"tid":task_id,"mid":memb[index]}
+                    
+                    const updated2= await api.addTmbtask(toupdate2)
+                })
+
+            
+            
             }
+            
+
+            
+
+            
             if (created.success && updated.success){
                 swal({
                     title: "Tarea Creada",
@@ -178,7 +224,7 @@ function creatasks({ontask,onInfo, onRecieved}){
     
 
     return (
-        <div >
+        <div onLoad={searchteambs}>
             <header>
                 <Header/>
             </header>
@@ -197,22 +243,57 @@ function creatasks({ontask,onInfo, onRecieved}){
 
            <section>
 
-            <input type="checkbox" value="ic" checked={ic} onChange={handleIC}/>Ingeniero de caminos
+            <input type="checkbox" name = "check" value="ic" checked={ic} onChange={handleIC}/>Ingeniero de caminos
             <input type="number" placeholder="Performance" onChange={(e) => { seticp(e.target.value) }}/>
             </section>
 
             <section>
 
-            <input type="checkbox" value="iu" checked={iu} onChange={handleIU}/>Ingeniero industrial
+            <input type="checkbox"name = "check"value="iu" checked={iu} onChange={handleIU}/>Ingeniero industrial
             <input type="number" placeholder="Performance" onChange={(e) => { setiup(e.target.value) }}/>
             </section>
 
             <section>
 
-            <input type="checkbox" value="cd" checked={cd} onChange={handleCD}/>Científico de datos
+            <input type="checkbox"name = "check" value="cd" checked={cd} onChange={handleCD}/>Científico de datos
             <input type="number" placeholder="Performance" onChange={(e) => { setcdp(e.target.value) }}/>
             </section>
+
             
+                    <h2>Users</h2>
+                <table >
+              
+                <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">User_id</th>
+                    <th scope="col"></th>
+                    
+                </tr>
+                </thead>
+
+                <tbody>
+                {users.map(users => (
+                <tr >
+                    <td >{users.users_id}</td>
+                    <td >{users.email}</td>
+                    <input type="checkbox" name = "check" id="user_id" value={users.users_id}/>
+                    
+                    
+                </tr>
+                ))}
+                </tbody>
+              </table>
+                    <br />
+                    
+                    <br />
+                    
+                    <br />
+
+                
+                    
+                   
+               
                 
                 
                 

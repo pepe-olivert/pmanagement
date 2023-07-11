@@ -17,12 +17,13 @@ function setProject ({onInfo, onProject}){
 
 
     const info = ()=>{
-        onInfo(false);
-     }
+        onInfo(true);
+        onProject(false);
+     };
 
-    const project = ()=>{
-        onProject(false)
-    }
+    
+
+
     const difference = (a,b)=>{
         const date1utc = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
         const date2utc = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());

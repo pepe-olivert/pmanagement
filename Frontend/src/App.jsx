@@ -16,6 +16,7 @@ function App({onInfo,onProject}) {
   const [project, setProject] = useState(false);
   const [info,setinfo]= useState(false)
   const [mode, setMode] = useState("login");
+  const [userid, setuserid] = useState("");
   const [aux, setaux] = useState([]);
   const [rol,setrol]=useState("");
   const [t,sett]=useState([]);
@@ -25,6 +26,7 @@ function App({onInfo,onProject}) {
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("userid",token.userid);
     const userid = localStorage.getItem("userid");
+    setuserid(userid);
     const userid_number = parseInt(userid, 10);
     const users=await api.getrol(userid_number)
     const rol_user = users.rol;
@@ -42,7 +44,7 @@ function App({onInfo,onProject}) {
 
   const comingbackinfo= ()=>{
     
-    setinfo(false)
+    setinfo(!info)
   }
 
   const logout = () => {
@@ -143,7 +145,7 @@ function App({onInfo,onProject}) {
                   </tr>
                   {p.map(p=>(
                     <tr>
-                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.scope,p.project_requirements,p.project_budget,p.starting_date,p.ending_date]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.scope,p.project_requirements,p.project_budget,p.starting_date,p.ending_date,rol,userid]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
 
                       <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>
@@ -191,7 +193,7 @@ function App({onInfo,onProject}) {
                   </tr>
                   {p.map(p=>(
                     <tr>
-                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.scope,p.project_requirements,p.project_budget,p.starting_date,p.ending_date]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
+                      <td><button className="btn-pname" onClick={()=>{const datum = [p.projects_id,p.name,p.class,p.scope,p.project_requirements,p.project_budget,p.starting_date,p.ending_date,rol,userid]; setaux(datum);setinfo(true)}}> {p.name}</button></td>
                       <td> {p.class}</td>
 
                       <td> {format(new Date(p.starting_date), "MMMM do, yyyy ")}</td>

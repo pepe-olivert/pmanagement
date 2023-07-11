@@ -255,6 +255,23 @@ pmi.post("/addtmb",async (req,res) => {
   }
 })
 
+pmi.post("/addtmbtask",async (req,res) => {
+  try{    
+      
+      const values = req.body.mid
+      const pid = req.body.tid
+      
+      
+      const response = await db.addtmbtask(values,pid)
+    
+
+      return res.status(200).json("Team members added correctly")
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 
 
 pmi.get("/getrol/:id", async (req, res) => {
@@ -306,6 +323,33 @@ pmi.get("/gettasksbyid/:id", async (req, res) => {
     const id = req.params.id;
     
     const tasks = await db.getTasksById(id);
+
+    res.status(200).json(tasks);
+  } catch (e) {
+    res.status(500).json({ error: e.toString() });
+  }
+});
+
+pmi.get("/showtmbtasks/:id", async (req, res) => {
+  try {
+    const userid = req.params.id;
+    
+    
+    const ids = await db.tasksid(userid);
+
+    const tasks = []
+
+    for (let i in ids){
+
+      const task = ids[i].tasks_id
+      const info = await db.infotask(task)
+      tasks.push(info)
+
+    }
+
+    
+
+    
 
     res.status(200).json(tasks);
   } catch (e) {
