@@ -4,7 +4,7 @@ import * as api from "./api";
 import swal from 'sweetalert';
 import "../styles/addTeamMembers.css";
 
-function addTeamMembers ({onInfo, onRecieved}) {
+function deleteTeamMembers ({onInfo, onRecieved}) {
 
     const [users,setUsers]=useState([]);
     const [projects_id,setProjectId]=useState(0);
@@ -20,7 +20,7 @@ function addTeamMembers ({onInfo, onRecieved}) {
     }
 
     const searchteambs =async ()=>{
-        const members = await api.showTeamMembers3(projects_id)
+        const members = await api.showTeamMembers2(projects_id)
         setUsers(members.members)
         
     }
@@ -32,7 +32,8 @@ function addTeamMembers ({onInfo, onRecieved}) {
                 .filter((checkbox) => checkbox.checked)
                 .map((checkbox) => checkbox.value);
         const request = {"array":values,"pid":projects_id}
-        const added = await api.addTmb(request)
+        
+        const added = await api.deleteTmb(request)
         
         info();
         
@@ -64,9 +65,8 @@ function addTeamMembers ({onInfo, onRecieved}) {
               
                 <thead>
                 <tr>
-                    <th scope="col">User_id</th>
                     <th scope="col">Email</th>
-                    
+                    <th scope="col">User_id</th>
                     <th scope="col"></th>
                     
                 </tr>
@@ -102,7 +102,7 @@ function addTeamMembers ({onInfo, onRecieved}) {
 
 }
 
-export default addTeamMembers;
+export default deleteTeamMembers;
 /*
     
 

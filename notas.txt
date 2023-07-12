@@ -13,10 +13,15 @@ FUTURE:
 - Tabla logs con histórico de acciones en bd por usuario
 
 
+
 TO DO:
 
 - Visión team member: Poder iniciar, parar, reanudar y terminar una tarea. Tener una tabla de logs que te vaya diciendo lo que pasa para cada usuario con tarea. Tener en cuenta la cantidad de horas total que el usuario x ha 
 destinado a la tarea y.*
+- Quitar personas de una tarea*
+- Cuando quitas a una persona del proyecto se tienen que borrar todas las filas de las tareas de ese proyecto de esa persona.
+
+
 
 
 
@@ -41,3 +46,5 @@ DONE:
 - Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
 - Hacer creación de usuario en la pantalla principal --> Añadir perfiles de usuario y roles a un team member nuevo.*
 - Create tasks filtrar por team members que estan añadidos en el proyecto previamente.*
+- Quitar personas de un proyecto*
+- En addteammembers filtrar los usuarios que no están en el proyecto*

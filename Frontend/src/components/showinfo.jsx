@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import AddTeamMembers from "./addTeamMembers";
+import DeleteTeamMember from "./delete";
 import Task from "./createtasks";
 import Initiate from "./initiate";
 import Showtask from "./showtask";
@@ -25,6 +26,7 @@ function showinfo ({onInfo,onRecieved})  {
     const [id,setid]=useState(null);
     const [task,settask]=useState(false);
     const [teamMembers, setTeamMembers] = useState(false);
+    const [dtm, setdtm] = useState(false);
     const [showtask, showTask] = useState(false);
     const [userid, setuserid]= useState("");
 
@@ -103,6 +105,10 @@ function showinfo ({onInfo,onRecieved})  {
       setTeamMembers(!teamMembers);
     }
 
+    const deleteTeamMembers = ()=> {
+      setdtm(!teamMembers);
+    }
+
     const logout = () => {
       setToken(null);
     };
@@ -135,6 +141,12 @@ function showinfo ({onInfo,onRecieved})  {
           else if (teamMembers === true){
             return (
               <AddTeamMembers onTeamMember={addTeamMembers} onInfo={info} onRecieved={onRecieved} />
+            )
+            }
+
+          else if (dtm=== true){
+            return (
+              <DeleteTeamMember onTeamMember={deleteTeamMembers} onInfo={info} onRecieved={onRecieved} />
             )
             }
           
@@ -241,6 +253,8 @@ function showinfo ({onInfo,onRecieved})  {
                     </button>
 
                     <button onClick={addTeamMembers}>Add Team Members </button> 
+
+                    <button onClick={deleteTeamMembers}>Delete Team Members </button> 
                     
                     
                     <button onClick={info}>

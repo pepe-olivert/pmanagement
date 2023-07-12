@@ -6,7 +6,7 @@ function Showtask({onInfo,onRecieved}) {
 
     
     const [tid, settid] = useState("");
-    
+    const [users,setUsers]=useState([]);
     const [taskinfo,settaskinfo]=useState([]);
     
 
@@ -23,6 +23,8 @@ function Showtask({onInfo,onRecieved}) {
     const logout = () => {
         setToken(null);
       };
+
+     
 
       
 
@@ -41,6 +43,9 @@ function Showtask({onInfo,onRecieved}) {
 
 
         })
+
+        const members = await api.taskTmb(tid)
+        setUsers(members.members)
 
       }
 
@@ -88,6 +93,55 @@ function Showtask({onInfo,onRecieved}) {
                             <td >{taskinfo.pid}</td>
                             <td >{taskinfo.pname}</td>
                             <td >{taskinfo.rends}</td>
+                            
+                            
+                            
+                        </tr>
+
+
+            
+                        ))}
+
+                
+            
+                        </tbody>
+            
+        </table>
+
+        <h2>USERS</h2>
+
+        <table >
+                        <thead>
+
+
+        
+                        
+
+                        <tr>
+                            
+                            <th scope="col">Email</th>
+                            <th scope="col">User_id</th>
+                            
+                            
+                            
+                        </tr>
+
+                        </thead>
+                        
+
+                        
+                        <tbody>
+        
+                    
+                        {users.map(users => (
+
+                        
+            
+                        <tr >
+                            
+                            <td >{users.email}</td>
+                            <td >{users.users_id}</td>
+                            
                             
                             
                             

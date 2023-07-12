@@ -233,6 +233,34 @@ export const addTmb = async (userData) => {
   }
 };
 
+export const deleteTmb = async (userData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/deletetmb`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+
+      
+
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, added: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+
 export const addTmbtask = async (userData) => {
   try {
     
@@ -308,12 +336,84 @@ export const showtmbtasks = async (userData,pid) => {
   }
 };
 
-export const showTeamMembers = async (data) => {
+export const showTeamMembers = async () => {
   try {
 
    
     
-    const response = await fetch(`${BASE_URL}/showtm/${data}`, {
+    const response = await fetch(`${BASE_URL}/showtm`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return {members: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const showTeamMembers2 = async (data) => {
+  try {
+
+   
+    
+    const response = await fetch(`${BASE_URL}/showselected/${data}`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return {members: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const showTeamMembers3 = async (data) => {
+  try {
+
+   
+    
+    const response = await fetch(`${BASE_URL}/shownonselected/${data}`, {
+      method: "GET",
+     
+    });
+
+    
+    
+    const json = await response.json();
+  
+    if (response.status === 200) {
+      return {members: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const taskTmb = async (data) => {
+  try {
+
+   
+    
+    const response = await fetch(`${BASE_URL}/taskuser/${data}`, {
       method: "GET",
      
     });
