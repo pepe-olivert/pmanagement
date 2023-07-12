@@ -47,7 +47,8 @@ function creatasks({ontask,onInfo, onRecieved}){
     }
 
     const searchteambs =async ()=>{
-        const members = await api.showTeamMembers()
+        const members = await api.showTeamMembers(id)
+        
         setUsers(members.members)
         
     }

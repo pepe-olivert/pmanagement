@@ -213,10 +213,22 @@ pmi.get("/getUsers", async (req, res) => {
   }
 });
 
-pmi.get("/showtm", async (req, res) => {
+pmi.get("/showtm/:id", async (req, res) => {
   try {
+    const id = req.params.id
+    const selected = []
+
     const users = await db.showtm();
-    res.status(200).json(users);
+    for (let u in users){
+      const user_id=users[u].users_id
+      const s = await db.check(user_id,id)
+      if (s.length > 0 ){selected.push(users[u])}
+
+      
+    }
+    console.log(selected)
+
+    res.status(200).json(selected);
   } catch (e) {
     res.status(500).json({ error: e.toString() });
   }

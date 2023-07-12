@@ -308,12 +308,12 @@ export const showtmbtasks = async (userData,pid) => {
   }
 };
 
-export const showTeamMembers = async () => {
+export const showTeamMembers = async (data) => {
   try {
 
    
     
-    const response = await fetch(`${BASE_URL}/showtm/`, {
+    const response = await fetch(`${BASE_URL}/showtm/${data}`, {
       method: "GET",
      
     });

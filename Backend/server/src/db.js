@@ -371,6 +371,16 @@ const infotask=  async (id,pid) => {
   return res.rows;
 }
 
+const checkSQL = `SELECT * FROM users_projects WHERE users_id=$1 AND projects_id=$2;`;
+
+const check=  async (uid,pid) => {
+  
+  
+  const res= await pool.query(checkSQL,[uid,pid]);
+ 
+  return res.rows;
+}
+
 
 module.exports = {
   getProjectList,
@@ -402,7 +412,8 @@ module.exports = {
   addtmb,
   addtmbtask,
   tasksid,
-  infotask
+  infotask,
+  check
   
 
 

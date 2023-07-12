@@ -14,9 +14,10 @@ FUTURE:
 
 
 TO DO:
-Hacer creación de usuario en la pantalla principal --> Añadir perfiles de usuario y roles a un team member nuevo.*
+
 - Visión team member: Poder iniciar, parar, reanudar y terminar una tarea. Tener una tabla de logs que te vaya diciendo lo que pasa para cada usuario con tarea. Tener en cuenta la cantidad de horas total que el usuario x ha 
 destinado a la tarea y.*
+
 
 
 - Hacer la componente execute. Una vez que entres en una tarea te la divida por semanas o por meses, dado un ending y starting date. Después de eso va a poder asignar conceptos como unidades planeadas por semana o unidades
@@ -37,4 +38,6 @@ DONE:
 - Asignación de rendimientos de tareas Ej: 1000 persona/semana (PEPE)
 - Vista team member  (DAVID)
 - Modificar campos de Initiate project 
-Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
+- Control de fechas --> tareas; Approach: Hacer un showtask.jsx y ver como va la tarea. Las tareas que quantity > 0 aparecen listados n veces con un estado.
+- Hacer creación de usuario en la pantalla principal --> Añadir perfiles de usuario y roles a un team member nuevo.*
+- Create tasks filtrar por team members que estan añadidos en el proyecto previamente.*
