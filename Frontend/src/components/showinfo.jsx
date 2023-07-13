@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from "react";
 import AddTeamMembers from "./addTeamMembers";
+import Gantt from "./gantt";
 import Task from "./createtasks";
 import Initiate from "./initiate";
 import Showtask from "./showtask";
 import Header from "../components/header";
-import "../styles/showinfo.css";
 import * as api from "../components/api";
 import { format } from "date-fns";
 
@@ -21,12 +21,13 @@ function showinfo ({onInfo,onRecieved})  {
     const [tasks,settasks]=useState([]);
     const [f,setf]=useState(false);
     const [aux,setaux]=useState([]);
+    const [gantt,setGantt]=useState([]);
     const [ini,setini]=useState(false)
     const [id,setid]=useState(null);
     const [task,settask]=useState(false);
     const [teamMembers, setTeamMembers] = useState(false);
     const [showtask, showTask] = useState(false);
-
+    const [showgantt, showGantt] = useState(false);
 
     const info= () => {
         onInfo(false);
@@ -35,9 +36,6 @@ function showinfo ({onInfo,onRecieved})  {
     const initiate=()=>{
       setini(!ini)
     }
-
-    
-
 
     const ctask=()=>{
       
@@ -74,9 +72,6 @@ function showinfo ({onInfo,onRecieved})  {
       setToken(null);
     };
 
-    
-     
-
       useEffect(()=>{
         setname(onRecieved[1]);
         setclas(onRecieved[2]);
@@ -103,6 +98,11 @@ function showinfo ({onInfo,onRecieved})  {
     else if (teamMembers === true){
       return (
         <AddTeamMembers onTeamMember={addTeamMembers} onInfo={info} onRecieved={onRecieved} />
+      )
+      }
+    else if (showgantt === true){
+      return (
+        <Gantt onGantt={showGantt} onInfo={info} onRecieved={gantt} />
       )
       }
     
@@ -196,18 +196,26 @@ function showinfo ({onInfo,onRecieved})  {
 
             <div className="buttons">
               <button onClick={initiate}>
-                Click to INITIATE YOUR PROJECT
+                Initiate Your Project
               </button>
 
               <button onClick={ctask}>
-                Click to ADD TASKS to your project
+                Add Tasks To Your Project
               </button>
 
-              <button onClick={addTeamMembers}>Add Team Members </button> 
-              
-              
+              {tasks.map(tasks => (
+                <button onClick={()=>{const datos = 
+                      [tasks.tasks_id];setGantt(datos);showGantt(true);}}>
+                Gantt
+              </button>
+              ))}
+
+              <button onClick={addTeamMembers}>
+                Add Team Members 
+              </button> 
+
               <button onClick={info}>
-                Click to come back to see all your projects
+                Come back to see all your projects
               </button>
             </div>
         </div>
