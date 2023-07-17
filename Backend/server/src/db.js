@@ -281,6 +281,46 @@ const deletetmb=  async (v,p) => {
   
 }
 
+
+const deletetmbtaskSQL=`DELETE FROM "users_tasks" WHERE users_id=$1 AND tasks_id=$2;`;
+
+const deletetmbtask=  async (v,p) => {
+  
+  const res = await pool.query(deletetmbtaskSQL,[v,p]);
+
+
+  const message= {message: "Team member deleted from the tasks!"}
+  
+  return message;
+  
+}
+
+const selecttmbtaskSQL=`SELECT * FROM "tasks" WHERE project_id=$1;`;
+
+const selecttmbtask=  async (p) => {
+  
+  const res = await pool.query(selecttmbtaskSQL,[p]);
+
+
+  const message= {message: "Team member deleted from the task!"}
+  
+  return res.rows;
+  
+}
+
+const id_taskSQL=`SELECT * FROM "users_tasks" WHERE tasks_id=$1;`;
+
+const id_task=  async (p) => {
+  
+  const res = await pool.query(id_taskSQL,[p]);
+
+
+  const message= {message: "Team member deleted from the task!"}
+  
+  return res.rows;
+  
+}
+
 const addtmbtaskSQL=`INSERT INTO "users_tasks" (users_id,tasks_id) VALUES ($1,$2)`;
 
 const addtmbtask=  async (v,p) => {
@@ -439,7 +479,10 @@ module.exports = {
   infotask,
   check,
   deletetmb,
-  check2
+  check2,
+  deletetmbtask,
+  id_task,
+  selecttmbtask
   
 
 

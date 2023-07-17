@@ -18,13 +18,8 @@ TO DO:
 
 - Visión team member: Poder iniciar, parar, reanudar y terminar una tarea. Tener una tabla de logs que te vaya diciendo lo que pasa para cada usuario con tarea. Tener en cuenta la cantidad de horas total que el usuario x ha 
 destinado a la tarea y.*
-- Quitar personas de una tarea*
-- Cuando quitas a una persona del proyecto se tienen que borrar todas las filas de las tareas de ese proyecto de esa persona.
 
-
-
-
-
+- Añadir personas de una tarea*
 - Hacer la componente execute. Una vez que entres en una tarea te la divida por semanas o por meses, dado un ending y starting date. Después de eso va a poder asignar conceptos como unidades planeadas por semana o unidades
 ejecutadas por semana. Además tienes que poder elegir los perfiles que te hagan falta según el rendimiento de ese perfil para esa tarea. 
 - Componente showinfo task (DAVID) --> desglose del campo de quantity en un valor que el usuario marque (1000q ¿cuanto lo quieres dividir? --> 2 === 500 y 500)
@@ -33,7 +28,7 @@ ejecutadas por semana. Además tienes que poder elegir los perfiles que te hagan
 
 
 DONE:
-
+- Cuando quitas a una persona del proyecto se tienen que borrar todas las filas de las tareas de ese proyecto de esa persona.*
 - Milestones como tareas en un map formato : TÍTULO --> FECHA (entre starting_date ending_date comprobar) Hay que cambiar la bd (PEPE)
 - Asignación perfiles a tareas (PEPE)
 - Vista team member básica (DAVID)
@@ -48,3 +43,4 @@ DONE:
 - Create tasks filtrar por team members que estan añadidos en el proyecto previamente.*
 - Quitar personas de un proyecto*
 - En addteammembers filtrar los usuarios que no están en el proyecto*
+- Quitar personas de una tarea*

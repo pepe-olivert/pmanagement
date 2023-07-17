@@ -34,6 +34,8 @@ function deleteTeamMembers ({onInfo, onRecieved}) {
         const request = {"array":values,"pid":projects_id}
         
         const added = await api.deleteTmb(request)
+        const tasks_deleted = await api.deletetmbtask(request)
+        
         
         info();
         

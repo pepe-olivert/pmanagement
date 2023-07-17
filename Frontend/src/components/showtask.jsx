@@ -49,6 +49,26 @@ function Showtask({onInfo,onRecieved}) {
 
       }
 
+      const deletetmb = async (e)=> {
+        
+
+        e.preventDefault()
+        const values = Array
+                .from(document.querySelectorAll('input[type="checkbox"]'))
+                .filter((checkbox) => checkbox.checked)
+                .map((checkbox) => checkbox.value);
+
+        values.forEach(async function(v,index){
+    
+            const r = [v,tid]
+            const request = await api.removefromtask(r)
+
+
+        })
+        info();
+
+      }
+
 
     
     
@@ -109,7 +129,7 @@ function Showtask({onInfo,onRecieved}) {
         </table>
 
         <h2>USERS</h2>
-
+       
         <table >
                         <thead>
 
@@ -121,7 +141,7 @@ function Showtask({onInfo,onRecieved}) {
                             
                             <th scope="col">Email</th>
                             <th scope="col">User_id</th>
-                            
+                            <th scope="col"></th>
                             
                             
                         </tr>
@@ -141,15 +161,20 @@ function Showtask({onInfo,onRecieved}) {
                             
                             <td >{users.email}</td>
                             <td >{users.users_id}</td>
+                            <td ><input type="checkbox" value={users.users_id}/></td>
                             
                             
                             
                             
                         </tr>
 
+                    
+
 
             
                         ))}
+
+                    <button onClick={deletetmb}>Borrar teaam members de la tarea</button>
 
                 
             

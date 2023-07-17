@@ -339,6 +339,34 @@ pmi.post("/deletetmb",async (req,res) => {
   }
 })
 
+pmi.post("/deletetmbtask",async (req,res) => {
+  try{    
+      
+      const values = req.body.array
+      const pid = req.body.pid
+      
+      for (v in values){
+        const response = await db.selecttmbtask(pid)
+        const tasks = response
+        for (t in tasks){
+          
+          const id_task = await db.id_task(tasks[t].tasks_id)
+          const elem = id_task[0]
+          
+          if (String(elem.users_id) === String(values[v])){
+            
+            const deleted = await db.deletetmbtask(values[v],elem.tasks_id)
+          }
+        }
+      }
+
+      return res.status(200).json("Team members deleted from the tasks of the project correctly!")
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 
 pmi.post("/addtmbtask",async (req,res) => {
   try{    
@@ -356,6 +384,27 @@ pmi.post("/addtmbtask",async (req,res) => {
     return res.status(500).json({ error: e.toString() });
   }
 })
+
+pmi.post("/removetmb",async (req,res) => {
+  try{    
+      
+      const tid = req.body[1]
+      const uid = req.body[0]
+      const deleted = await db.deletetmbtask(uid,tid)
+      
+
+      
+      
+      
+    
+
+      return res.status(200).json("Team members added correctly")
+  }catch (e){
+    console.log(e)
+    return res.status(500).json({ error: e.toString() });
+  }
+})
+
 
 
 

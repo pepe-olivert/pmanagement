@@ -260,6 +260,60 @@ export const deleteTmb = async (userData) => {
   }
 };
 
+export const removefromtask = async (userData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/removetmb`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+
+      
+
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, added: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
+export const deletetmbtask = async (userData) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/deletetmbtask`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      
+      body: JSON.stringify(userData),
+
+      
+
+    });
+    
+    const json = await response.json();
+    
+    if (response.status === 200) {
+      return { success: true, added: json };
+    } else {
+      return { success: false, error: json.error };
+    }
+  } catch (e) {
+    return { success: false, error: e.message };
+  }
+};
+
 
 export const addTmbtask = async (userData) => {
   try {
